@@ -1,0 +1,10 @@
+<phpunit bootstrap="src/bootstrap.php"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         colors="true"
+         stopOnFailure="false">
+    <php>
+        <ini name="memory_limit" value="2047M" />
+    </php>
+</phpunit>

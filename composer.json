@@ -1,0 +1,46 @@
+{
+    "name": "captain-courier/cidr",
+    "type": "library",
+    "description": "Courier Integration Done Right!",
+    "keywords": ["courier", "integration", "shipping", "tracking", "parcels"],
+    "homepage": "http://captaincourier.org",
+    "license": "AGPL-3.0",
+    "authors": [
+        {
+            "name": "Joseph",
+            "email": "joseph@captaincourier.org",
+            "role": "Developer"
+        },
+        {
+            "name": "Peter",
+            "email": "peter@captaincourier.org",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "process-timeout": 5000
+    },
+    "require-dev": {
+        "symfony/yaml": "*",
+        "symfony/config": "*",
+        "symfony/validator": "*",
+        "bond/dependency-injection": "*",
+        "symfony/dependency-injection": "*",
+        "symfony/proxy-manager-bridge": "*",
+        "symfony/yaml": "*",
+        "symfony/config": "*"
+    },
+    "minimum-stability": "dev",
+    "config": {
+        "process-timeout": 5000
+    }
+}

@@ -1,0 +1,230 @@
+# validates a CidrRequest for CreateConsignment request
+Cidr\CidrRequest:
+    getters:
+        requestContext:
+            - Valid: ~
+        task:
+            - Choice:
+                choices: [CreateConsignment]
+                message: choose a valid task.
+        courierCredentials:
+            - Collection:
+                fields:
+                    username:
+                        - Type:
+                            type: string
+                        - Length:
+                            min: 1
+                            max: 80
+                    apiKey:
+                        - Type: string
+                        - Length:
+                            min: 15
+                            max: 19
+
+
+Cidr\CidrRequestContextCreateConsignment:
+    getters:
+        collectionAddress:
+          - NotNull: ~
+          - Valid: ~
+        collectionContact:
+          - NotNull: ~
+          - Valid: ~
+        collectionTime:
+          - NotNull: ~
+          - DateTime: ~
+        deliveryAddress:
+          - NotNull: ~
+          - Valid: ~
+        deliveryTime:
+          - NotNull: ~
+          - DateTime: ~
+        parcels:
+          - Valid:
+              traverse: true
+          - Count:
+              max: 999
+        contractNumber:
+          - NotNull: ~
+          - Type:
+              type: string
+          - Length:
+              min: 6
+              max: 10
+        serviceCode:
+          - NotBlank: ~
+          - Length:
+              min: 2
+              max: 4
+
+Cidr\Model\Address:
+  properties:
+    id:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+          max: 10
+    lines:
+      - Count:
+          min: 1
+          max: 3
+      - All:
+          - NotBlank: ~
+          - Type:
+              type:  string
+          - Length:
+              max: 24
+    town:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          max: 24
+      - Regex:
+          pattern: "/^\w*$/"
+    county:
+      - NotBlank: ~
+      - Type:
+          type: string
+    countryCode:
+      - Type:
+          type: string
+      - Length:
+          min: 2
+          max: 2
+    postcode:
+      - Type:
+          type: string
+      - Length:
+          max: 16
+
+
+Cidr\Model\Consignment:
+  properties:
+    id:
+      - Type:
+          type: integer
+          message: The value {{ value }} is not a valid {{ type }}.
+      - Range:
+          min: 0
+          max: 10
+    collectionAddress:
+      - NotNull: ~
+      - Valid: ~
+    collectionContact:
+      - NotNull: ~
+      - Valid: ~
+    collectionTime:
+      - NotNull: ~
+      - DateTime: ~
+    deliveryAddress:
+      - NotNull: ~
+      - Valid: ~
+    deliveryContact:
+      - notNull: ~
+      - Valid: ~
+    deliveryTime:
+      - NotNull: ~
+      - DateTime: ~
+    contractNumber:
+      - NotNull: ~
+      - Type:
+          type: string
+      - Length:
+          min: 6
+          max: 10
+    serviceCode:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          min: 2
+          max: 4
+    parcels:
+      - Valid:
+          traverse: true
+      - Count:
+          max: 999
+    #custom
+
+    # maps to P4D's InsuranceID
+    insuranceId:
+      - Type:
+          type: string
+      - Length:
+          min: 3
+          max: 10
+
+Cidr\Model\Contact:
+  properties:
+    businessName:
+      - Length:
+          min: 1
+          max: 25
+      - NotBlank: ~
+      - Type:
+          type: string
+    name:
+      - Length:
+          max: 25
+      - NotBlank: ~
+      - Type:
+          type: string
+    email:
+      - Email: ~
+      - Length:
+          max: 50
+    telephone:
+      - Type:
+          type: string
+      - Length:
+          max: 15
+      - Regex:
+          pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
+
+
+Cidr\Model\Parcel:
+  Properties:
+    id:
+      - Type:
+          type: integer
+          messsage: The value {{ value }} is not a valid {{ type }}.
+      - Range:
+          min: 0
+          max: 10
+    width:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    height:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    length:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    weight:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    value:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    description:
+      - Type:
+          type: string
+      - NotNull: ~

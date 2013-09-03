@@ -1,0 +1,275 @@
+# validates a CidrRequest for CreateConsignment request
+Cidr\CidrRequest:
+    getters:
+        requestContext:
+            - Valid: ~
+        task:
+            - Choice:
+                choices: [ CreateConsignment ]
+                message: choose a valid task.
+        courierCredentials:
+            - Collection:
+                fields:
+                    username:
+                        - Type:
+                            type: string
+                        - Length:
+                            min: 1
+                            max: 80
+                    password:
+                        - Type:
+                            type: string
+                        - Length:
+                            min: 1
+                            max: 80
+                    departmentId:
+                        - Collection\Optional:
+                           - Type:
+                                type: integer
+                           - Length:
+                                max: 4
+
+
+Cidr\CidrRequestContextCreateConsignment:
+    getters:
+        collectionAddress:
+          - NotNull: ~
+          - Valid: ~
+        collectionContact:
+          - NotNull: ~
+          - Valid: ~
+        collectionTime:
+          - NotNull: ~
+          - DateTime: ~
+        deliveryAddress:
+          - NotNull: ~
+          - Valid: ~
+        deliveryTime:
+          - NotNull: ~
+          - DateTime: ~
+        parcels:
+          - Valid:
+              traverse: true
+          - Count:
+              max: 999
+        contractNumber:
+          - NotNull: ~
+          - Type:
+              type: string
+          - Length:
+              min: 6
+              max: 10
+        serviceCode:
+          - NotBlank: ~
+          - Length:
+              min: 2
+              max: 4
+
+
+Cidr\Model\Address:
+  properties:
+    id:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+          max: 10
+    lines:
+      - Count:
+          min: 1
+          max: 3
+      - All:
+          - NotBlank: ~
+          - Type:
+              type:  string
+          - Length:
+              max: 24
+    town:
+      - NotBlank: ~
+      - Type:
+          type: string
+      - Length:
+          max: 24
+      - Regex:
+          pattern: "/^\w*$/"
+    # optional
+    county:
+      - NotBlank: ~
+      - Type:
+          type: string
+    countryCode:
+      - Type:
+          type: string
+      - Length:
+          min: 2
+          max: 2
+    postcode:
+      - Type:
+          type: string
+      - Length:
+          max: 16
+
+
+Cidr\Model\Consignment:
+  properties:
+    id:
+      - Type:
+          type: integer
+          message: The value {{ value }} is not a valid {{ type }}.
+      - Range:
+          min: 0
+          max: 10
+    collectionAddress:
+      - NotNull: ~
+      - Valid: ~
+    collectionContact:
+      - NotNull: ~
+      - Valid: ~
+    collectionTime:
+      - NotNull: ~
+      - DateTime: ~
+    deliveryAddress:
+      - NotNull: ~
+      - Valid: ~
+    deliveryContact:
+      - notNull: ~
+      - Valid: ~
+    deliveryTime:
+      - NotNull: ~
+      - DateTime: ~
+    contractNumber:
+      - NotNull: ~
+      - Type:
+          type: string
+      - Length:
+          min: 6
+          max: 10
+    serviceCode:
+      - NotBlank: ~
+      - Type:
+            type: string
+      - Length:
+          min: 2
+          max: 4
+    parcels:
+      - Valid:
+          traverse: true
+      - Count:
+          max: 999
+    # custom
+    # optional
+    saturdayDeliveryRequired:
+      - Type:
+          type: boolean
+    # custom
+    # optional
+    enhancedCompensation:
+      - Type:
+          type: integer
+      - Range:
+          min: 1
+          max: 5
+    returnEmailMessage:
+      - Type:
+          type: string
+    # parcel force calls this Returns.EmailLabel
+    returnLabelRequired:
+      - Type:
+          type: boolean
+    referenceNumbers:
+      - Type:
+          type: array
+      - Length:
+          max: 5
+    specialInstructions:
+      - Type:
+          type: array
+      - Length:
+          max: 4
+
+\Cidr\Model\Contact:
+  properties:
+    businessName:
+      - Length:
+          min: 1
+          max: 25
+      - NotBlank: ~
+      - Type:
+          type: string
+    name:
+      - Length:
+          max: 25
+      - NotBlank: ~
+      - Type:
+          type: string
+    email:
+      - Email: ~
+      - Length:
+          max: 50
+    # optional
+    telephone:
+      - Type:
+          type: string
+          message: telephone must be of type string
+      - Length:
+          max: 15
+          min: 1
+          message: telephone be between 1 and 15 characters long
+      - Regex:
+          pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
+          message: telephone must meet the official UK regex
+      - Regex:
+          pattern: "/^[ 0-9]+$/"
+          message: telephone number can only contain digits and spaces no '+'
+    # custom
+    # optional
+    notificationType:
+      - Choice:
+          choices: [ "EMAIL", "SMSDAYOFDESPATCH", "EMAIL and SMSDAYOFDESPATCH"]
+
+Cidr\Model\Parcel:
+  Properties:
+    id:
+      - Type:
+          type: integer
+          messsage: The value {{ value }} is not a valid {{ type }}.
+      - Range:
+          min: 0
+          max: 10
+    width:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    height:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    length:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    # optional
+    weight:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    # optional
+    value:
+      - Type:
+          type: integer
+      - Range:
+          min: 0
+      - NotNull: ~
+    # optional
+    description:
+      - Type:
+          type: string
+      - NotNull: ~

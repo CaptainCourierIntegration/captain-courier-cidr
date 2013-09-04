@@ -5,7 +5,7 @@ env:
     global:
         secure: SLn6AS30sDdwxA1sUlRP9yHcWEN30uFkjwLsHHKh0d7HN0GdDn8SZZ//H6/JgRZS6K+oBG6GgZwjNvcoFmZZ0xZQWr3AMCqMeWN3kucsWyRflZiXDecEIOy+aSed6fRJCVJXcFSjnaK0NwZRCZm16+9nrTckgsMAQLO6EPMzses=
 before_script:
-    echo "secure is ${secure}"
-    composer install
+    - echo "secure is ${secure}"
+    - composer install
 script: phpunit --configuration=phpunit.xml src/
 

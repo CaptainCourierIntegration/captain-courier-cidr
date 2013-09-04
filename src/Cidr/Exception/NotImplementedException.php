@@ -11,7 +11,7 @@
 
 namespace Cidr\Exception;
 
-class NotImplementedException extends BadMethodCallException
+class NotImplementedException extends IllegalStateException
 {
 
     public function __construct()

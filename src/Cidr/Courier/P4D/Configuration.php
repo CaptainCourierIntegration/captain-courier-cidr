@@ -32,7 +32,16 @@ class Configuration
 
         $configurator->add (
             "p4dCreateConsignment",
-            "Cidr\\Courier\\P4D\\CreateConsignment",
+            CreateConsignment::class,
+            [
+                "%p4dApiUrl%",
+                "%p4dName%"
+            ]
+        )->addTag(Tag::CIDR_CAPABILITY);
+
+        $configurator->add (
+            "p4dPrintLabel",
+            PrintLabel::class,
             [
                 "%p4dApiUrl%",
                 "%p4dName%"

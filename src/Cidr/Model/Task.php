@@ -20,7 +20,10 @@ class Task
     const CREATE_CONSIGNMENT = "CreateConsignment";
     const PRINT_LABEL = "PrintLabel";
 
-    static $Tasks = array(self::CREATE_CONSIGNMENT);
+    static $Tasks = array(
+        self::CREATE_CONSIGNMENT,
+        self::PRINT_LABEL
+    );
 }
 
 

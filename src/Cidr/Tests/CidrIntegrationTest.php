@@ -15,6 +15,7 @@ use Bond\Di\Factory;
 use Cidr\Cidr;
 use Cidr\CidrCapability;
 use Cidr\CidrRequestContextCreateConsignment;
+use Cidr\CidrRequestContextPrintLabel;
 use Cidr\CidrResponseContextCreateConsignment;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -48,7 +49,7 @@ class CidrIntegrationTest extends DiTestCase
         $configurator->add("cidr", Cidr::class);
     }
 
-    public function provider()
+    public function createConsignmentCapabilityProvider()
     {
         $container = $this->setup();
         $cidr = $container->get("cidr");
@@ -67,7 +68,28 @@ class CidrIntegrationTest extends DiTestCase
         return $testCases;
     }
 
-    /** @dataProvider provider */
+    public function printLabelCapabilityProvider()
+    {
+        $container = $this->setup();
+        $cidr = $container->get("cidr");
+
+        foreach ($cidr->getSupportedCouriers() as $courier) {
+            $cap = $cidr->getCapability(
+                $courier,
+                Task::PRINT_LABEL
+            );
+            $credentialsManager = $container->get("courierCredentialsManager");
+            $credentialsManager->init();
+            $testCases[] = [
+                $cap,
+                $credentialsManager->getCredentials($cap->getCourier())
+            ];
+        }
+
+        return $testCases;
+    }
+
+    /** @dataProvider createConsignmentCapabilityProvider */
     public function testCreateConsignmentRequestOnApiHasSucceeded(
         CidrCapability $cidrCapability,
         CidrRequestFactory $cidrRequestFactory
@@ -82,6 +104,22 @@ class CidrIntegrationTest extends DiTestCase
             CidrResponseContextCreateConsignment::class, 
             $cidrResponse->getResponseContext()
         );
+    }
+
+    /** @dataProvider printLabelCapabilityProvider */
+    public function testPrintLabelRequestOnApiHasSucceeded(
+        CidrCapability $cap,
+        $credentials
+    )
+    {
+        if($cap->getCourier() === "ParcelForce") {
+            $consignmentNumber = "MK0738330";
+            $context = new CidrRequestContextPrintLabel($consignmentNumber);
+            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+            $response = $cap->submitCidrRequest($request);
+            print_r($response->getResponseContext());
+        }
+
     }
 
     

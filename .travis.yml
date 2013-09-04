@@ -2,10 +2,12 @@ language: php
 php:
 - "5.5"
 
+env:
+    global:
+        - secure: "brjrwpoWYeASygHFeTQ82gtZkFbDEW6OtI0vAKyKwXtZ32u9r5Mkl6Z0u6opI7qunFyVpmyxB2T/52Oa1k0xFyK5KVUzFGCZKxaPY/qScZk7Y+rmTFrz3DBWccsV0+ztd33JWOiaIv0pZkXayjm4CFvE4J7F6E4TG8Ujf66SoYo="
+
 before_script:
-    - credentials:
-        secure: SLn6AS30sDdwxA1sUlRP9yHcWEN30uFkjwLsHHKh0d7HN0GdDn8SZZ//H6/JgRZS6K+oBG6GgZwjNvcoFmZZ0xZQWr3AMCqMeWN3kucsWyRflZiXDecEIOy+aSed6fRJCVJXcFSjnaK0NwZRCZm16+9nrTckgsMAQLO6EPMzses=
-    - echo "secure is ${secure}"
+    - echo "secure is ${credentials}"
     - composer install
 script: phpunit --configuration=phpunit.xml src/
 

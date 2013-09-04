@@ -1,3 +1,4 @@
 vendor/
 composer.lock
 res/credentials.yml
+.idea/

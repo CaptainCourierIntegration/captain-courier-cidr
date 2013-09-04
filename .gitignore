@@ -2,3 +2,7 @@ vendor/
 composer.lock
 res/credentials.yml
 .idea/
+docs/
+pitch/
+script/
+*.DS_STore

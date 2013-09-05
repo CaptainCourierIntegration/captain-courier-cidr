@@ -13,7 +13,11 @@ Cidr will be able to:
 
 Current features:
  - create shipments with couriers ParcelForce and P4D
- 
+
+install
+=======
+Cidr source can be downloaded from github, or can be added as a dependency through Composer.
+
 setup
 =====
 create a file res/credentials.yml in the project directory.

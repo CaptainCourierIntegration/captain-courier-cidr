@@ -6,7 +6,7 @@ use Cidr\Milk;
 use Cidr\Model\Consignment;
 use Cidr\Tests\Provider\Tests\ContactProviderTest;
 
-class ConsignmentProvider
+class ConsignmentProvider implements DataProvider
 { use Milk;
 
 

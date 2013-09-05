@@ -36,8 +36,8 @@ use Bond\Di\DiTestCase;
 /**
  * @service stdClass
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Tests\ConsignmentGeneratorConfiguration
  * @resource Cidr\Tests\CidrRequestFactoryConfiguration
+ * @resource Cidr\Tests\Provider\ProviderConfiguration
  * @resource __CLASS__
  */
 class CidrIntegrationTest extends DiTestCase
@@ -58,6 +58,14 @@ class CidrIntegrationTest extends DiTestCase
                 $courier,
                 Task::CREATE_CONSIGNMENT
             );
+
+            try {
+                $cidrRequestFactory = $container->get("cidrRequestFactory");
+            } catch (\Exception $ex) {
+                print_r($ex);
+                die('no\n');
+            }
+
             $testCases[] = [
                     $cap,
                     $container->get("cidrRequestFactory")
@@ -77,6 +85,10 @@ class CidrIntegrationTest extends DiTestCase
 
         $cidrResponse = $cidrCapability->submitCidrRequest($request);
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
+
+        if (!$cidrResponse->getResponseContext() instanceof CidrResponseContextCreateConsignment) {
+            print_r($cidrResponse->getResponseContext());
+        }
 
         $this->assertInstanceOf(
             CidrResponseContextCreateConsignment::class, 

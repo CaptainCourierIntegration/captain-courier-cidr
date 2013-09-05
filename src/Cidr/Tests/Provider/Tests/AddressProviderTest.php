@@ -52,7 +52,7 @@ class AddressProviderTest extends \PHPUnit_Framework_Testcase
         ))[0];
 
         $this->assertEquals($rawAddress["id"], $address->getId());
-        $this->assertEquals($rawAddress["line1"], $address->getLines()[0]);
+        $this->assertEquals($rawAddress["number"] . " " . $rawAddress["line1"], $address->getLines()[0]);
         $this->assertEquals(intval($rawAddress["lines"]), count($address->getLines()));
         $this->assertEquals($rawAddress["town"], $address->getTown());
         $this->assertEquals($rawAddress["county"], $address->getCounty());

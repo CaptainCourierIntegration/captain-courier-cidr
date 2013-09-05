@@ -32,3 +32,10 @@ function endsWith($haystack, $needle)
 {
     return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
+
+function assertArgument($argument, $premise, $message="")
+{
+    if(!$premise) {
+        throw new \Cidr\Exception\InvalidArgumentException($argument, $message);
+    }
+}

@@ -11,7 +11,7 @@ namespace Cidr\Tests\Provider;
 
 use Cidr\Model\Address;
 
-class AddressProvider
+class AddressProvider implements DataProvider
 {
 
     /** returns Address array */
@@ -21,6 +21,8 @@ class AddressProvider
         $addresses = [];
 
         foreach ($addressArray as $data) {
+            $data["line1"] = $data["number"] . " " . $data["line1"];
+            unset($data["number"]);
             $lines = [];
             for ($i = 1; $i <= intval($data["lines"]); $i++) {
                 $lines[] = $data["line{$i}"];

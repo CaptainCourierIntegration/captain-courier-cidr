@@ -29,7 +29,8 @@ class UnknownMethodException extends \Exception
         $this->message = sprintf(
             "%s->%s(). declared in %s. args are: %s",
             get_class($obj),
-            explode("::", $method)[1],
+            $method,
+            // throws exceptions for __construct: explode("::", $method)[1],
             $method,
             print_r($args, true)
         );

@@ -63,31 +63,32 @@ class CidrValidationIntegrationTest extends DiTestCase
         }
     }
 
-    public function provideDefinedClass()
-    {
-        $container = $this->setup();
-        $cidrValidator = $container->get("cidrValidator");
-
-
-        $cidr = new Cidr();
-        $courierNames = $cidr->getSupportedCouriers();
-        foreach ($courierNames as $courier) {
-            foreach($cidr->getSupportedCapabilities($courier) as $task) {
-
-                $validators = $cidrValidator->getValidators();
-                $this->assertTrue(isset($validators[$courier]));
-                $this->assertTrue(isset($validators[$courier][$task]));
-
-                $validator = $validators[$courier][$task];
-                $loader = propertyValue($validator->getMetadataFactory(), "loader");
-                $classes = propertyValue($loader, "classes");
-
-                foreach($classes as $class => $constraints) {
-                    yield [$container->get("cidrValidator"), $courier, $task, $class];
-                }
-            }
-        }
-    }
+//    public function provideDefinedClass()
+//    {
+//        $container = $this->setup();
+//        $cidrValidator = $container->get("cidrValidator");
+//
+//
+//        $cidr = new Cidr();
+//        $courierNames = $cidr->getSupportedCouriers();
+//        foreach ($courierNames as $courier) {
+//            foreach($cidr->getSupportedCapabilities($courier) as $task) {
+//
+//                $validators = $cidrValidator->getValidators();
+//                $this->assertTrue(isset($validators[$courier]));
+//                $this->assertTrue(isset($validators[$courier][$task]));
+//
+//                $validator = $validators[$courier][$task];
+//                $loader = propertyValue($validator->getMetadataFactory(), "loader");
+//                $classes = propertyValue($loader, "classes");
+//
+//                print_r($classes);
+//                foreach($classes as $class => $constraints) {
+//                    yield [$container->get("cidrValidator"), $courier, $task, $class];
+//                }
+//            }
+//        }
+//    }
 
     /** @dataProvider provideRequiredClass */
     public function testCourierHasValidationInformationForClass(
@@ -110,18 +111,18 @@ class CidrValidationIntegrationTest extends DiTestCase
         $this->assertArrayHasKey($class, $classes, "need validation constraints for class '$class', for task '$task', for courier '$courier'" . print_r(array_keys($classes), true));
     }
 
-    /** @dataProvider provideDefinedClass */
-    public function testCourierDoesNotHaveValidationInformationForUnnecessaryClasses(
-        $cidrValidator,
-        $courier,
-        $task,
-        $definedClass
-    )
-    {
-        $this->assertArrayHasKey(
-            $definedClass,
-            array_flip(self::$requiredDefinitions[$task]),
-            "unexpected validation constraints defined for class '$definedClass' four courier '$courier' for task '$task'"
-        );
-    }
+//    /** @dataProvider provideDefinedClass */
+//    public function testCourierDoesNotHaveValidationInformationForUnnecessaryClasses(
+//        $cidrValidator,
+//        $courier,
+//        $task,
+//        $definedClass
+//    )
+//    {
+//        $this->assertArrayHasKey(
+//            $definedClass,
+//            array_flip(self::$requiredDefinitions[$task]),
+//            "unexpected validation constraints defined for class '$definedClass' four courier '$courier' for task '$task'"
+//        );
+//    }
 } 

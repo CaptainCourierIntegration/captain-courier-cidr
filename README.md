@@ -26,7 +26,6 @@ Cidr source can be downloaded from github, or can be added as a dependency throu
     }
 
 }
- require
 ````
 
 setup

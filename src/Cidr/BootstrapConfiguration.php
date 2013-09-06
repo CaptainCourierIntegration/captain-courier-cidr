@@ -40,7 +40,8 @@ class BootstrapConfiguration
                 "Cidr\\Courier",
                 "Validation.yml",
                 "Configuration.php",
-                new Reference("courierPluginFactory")
+                new Reference("courierPluginFactory"),
+                false
             ]
         );        
     }

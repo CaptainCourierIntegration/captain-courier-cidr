@@ -46,7 +46,7 @@ class Configuration
                 "%p4dApiUrl%",
                 "%p4dName%"
             ]
-        )->addTag(Tag::CIDR_CAPABILITY);
+        );//->addTag(Tag::CIDR_CAPABILITY);
     }
 
 }

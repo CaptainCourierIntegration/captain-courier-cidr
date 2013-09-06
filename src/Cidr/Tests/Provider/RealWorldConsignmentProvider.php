@@ -1,5 +1,4 @@
 <?php
-
 /*
  * (c) Captain Courier Integration <captain@captaincourier.org>
  *
@@ -7,40 +6,18 @@
  * file that was distributed with this source code.
  */
 
+namespace Cidr\Tests\Provider;
 
-
-namespace Cidr\Tests;
 
 use Cidr\Model\Address;
-use Cidr\Model\Contact;
 use Cidr\Model\Consignment;
+use Cidr\Model\Contact;
 use Cidr\Model\Parcel;
 
-class ConsignmentGeneratorConfiguration
+class RealWorldConsignmentProvider implements DataProvider
 {
 
-    public function __invoke($configurator, $container)
-    {
-
-        $configurator->add(
-            "consignmentGeneratorConfiguration",
-            self::class
-        );
-        $configurator->add(
-            "consignment",
-            Consignment::class
-        )
-            ->setFactoryService("consignmentGeneratorConfiguration")
-            ->setFactoryMethod("createConsignment");
-
-        $configurator->addFactory(
-            "consignmentFactory",
-            "consignment"
-        );
-            
-    }
-
-    public function createConsignment()
+    public function getData()
     {
         $getCollectionDateTime = function () {
             $today = (new \DateTime("today", new \DateTimeZone("Europe/London")))->format("D");
@@ -50,7 +27,7 @@ class ConsignmentGeneratorConfiguration
             return $result;
         };
 
-        $dateInc = function (&$date) { 
+        $dateInc = function (&$date) {
             return $date->add (
                 \DateInterval::createFromDateString("1 day")
             );
@@ -64,7 +41,7 @@ class ConsignmentGeneratorConfiguration
             }
             return $collectionDate;
         };
-        
+
 
         $collectionAddress = new Address([
             "lines" => [
@@ -73,17 +50,17 @@ class ConsignmentGeneratorConfiguration
             ],
             "town" => "London",
             "county" => "Greater London",
-            "countryCode" => "GB", 
+            "countryCode" => "GB",
             "postcode" => "SW1W 9TQ"
         ]);
-        
+
         $collectionContact = new Contact([
             "businessName" => "Google Ltd",
             "name" => "Sergey Brin",
             "email" => "sergey@gmail.com",
             "telephone" => "02070313000"
         ]);
-        
+
         $collectionTime = $getCollectionDateTime();
 
         $deliveryAddress = new Address([
@@ -94,7 +71,7 @@ class ConsignmentGeneratorConfiguration
             ],
             "town" => "Manchester",
             "county" => "Greater Manchester",
-            "countryCode" => "GB", 
+            "countryCode" => "GB",
             "postcode" => "M1 5AN"
         ]);
         $deliveryContact = new Contact([
@@ -110,19 +87,19 @@ class ConsignmentGeneratorConfiguration
         $serviceCode = "1111";
         $parcels = [
             new Parcel([
-                "width" => 10, 
-                "height" => 10, 
-                "length" => 10, 
-                "weight" => 3, 
-                "value" => 12.50, 
+                "width" => 10,
+                "height" => 10,
+                "length" => 10,
+                "weight" => 3,
+                "value" => 12.50,
                 "description" => "movie"
             ]),
             new Parcel([
                 "width" => 15,
-                "height" => 15, 
-                "length" => 15, 
-                "weight" => 4, 
-                "value" => 300, 
+                "height" => 15,
+                "length" => 15,
+                "weight" => 4,
+                "value" => 300,
                 "description" => "PS3"
             ])
         ];
@@ -139,7 +116,8 @@ class ConsignmentGeneratorConfiguration
             "parcels" => $parcels
         ]);
 
-        return $consignment;
+        return [$consignment];
+
     }
 
-}
+} 

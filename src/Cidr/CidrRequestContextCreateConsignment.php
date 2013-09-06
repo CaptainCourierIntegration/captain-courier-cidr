@@ -45,9 +45,5 @@ class CidrRequestContextCreateConsignment implements CidrRequestContext
     // TODO resolve how to handle these 2 properties
     /** CourierQuote */
     //private $courierQuote;
-
-    /** associtive-array credentials to authenticate with courier */
-    //private $courierCredentials;
-    
     
 }

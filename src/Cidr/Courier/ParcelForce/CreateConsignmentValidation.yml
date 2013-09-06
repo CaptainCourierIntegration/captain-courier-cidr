@@ -73,7 +73,7 @@ Cidr\Model\Address:
           type: integer
       - Range:
           min: 0
-          max: 10
+          max: 9999999999
     lines:
       - Count:
           min: 1
@@ -91,7 +91,7 @@ Cidr\Model\Address:
       - Length:
           max: 24
       - Regex:
-          pattern: "/^\w*$/"
+          pattern: "/^[a-zA-Z\-]+$/"
     # optional
     county:
       - NotBlank: ~

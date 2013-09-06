@@ -24,6 +24,7 @@ use Cidr\CidrRequestContextCreateConsignment;
 use Cidr\CourierCredentialsManagerInterface;
 use Cidr\Milk;
 use Cidr\Model\Task;
+use Cidr\Tests\Provider\DataProvider;
 
 /**
  * @depends Cidr\Tests\ConsignmentGeneratorConfiguration
@@ -32,28 +33,39 @@ use Cidr\Model\Task;
  */
 class CidrRequestFactory
 {
-    use Milk {
-        Milk::__construct as __milk__construct;
-    }
+    private $consignmentProvider;
+    private $courierCredentialsManager;
+
+    private $consignments = [];
+
+    protected  static $propertiesNotManagedByMilk = ["consignments"];
 
     public function __construct(
-        Factory $consignmentFactory,
+        DataProvider $consignmentProvider,
         CourierCredentialsManagerInterface $courierCredentialsManager
     )
     {
-        $this->__milk__construct(
-            $consignmentFactory,
-            $courierCredentialsManager
-        );
+        assert(2 === count(func_get_args()));
+        assert(null !== $consignmentProvider);
+        assert(null != $courierCredentialsManager);
+
+        $this->consignmentProvider = $consignmentProvider;
+        $this->courierCredentialsManager = $courierCredentialsManager;
         $courierCredentialsManager->init();
     }
 
-    private $consignmentFactory;
-    private $courierCredentialsManager;
+    private function getConsignment()
+    {
+        if (0 === count($this->consignments)) {
+            $this->consignments = $this->consignmentProvider->getData();
+            shuffle($this->consignments);
+        }
+        return array_shift($this->consignments);
+    }
 
     public function create($courier)
     {
-        $consignment = $this->consignmentFactory->create();
+        $consignment = $this->getConsignment();
         $context = new CidrRequestContextCreateConsignment(
             $consignment->getCollectionAddress(),
             $consignment->getCollectionContact(),

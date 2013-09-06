@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * Class CidrRequestFactoryConfiguration
  * @package Cidr\Tests
  * @depends Cidr\StandaloneConfiguration
+ * @depends Cidr\Tests\Provider\ProviderConfiguration
  */
 class CidrRequestFactoryConfiguration
 {
@@ -26,7 +27,7 @@ class CidrRequestFactoryConfiguration
             "cidrRequestFactory",
             CidrRequestFactory::class,
             [
-                new Reference("consignmentFactory"),
+                new Reference("realWorldConsignmentProvider"),
                 new Reference("courierCredentialsManager")
             ]
         );

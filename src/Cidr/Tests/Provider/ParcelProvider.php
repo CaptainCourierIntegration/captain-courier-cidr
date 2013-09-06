@@ -4,7 +4,7 @@ namespace Cidr\Tests\Provider;
 
 use Cidr\Model\Parcel;
 
-class ParcelProvider
+class ParcelProvider implements DataProvider
 {
 
     /** returns Parcel array */

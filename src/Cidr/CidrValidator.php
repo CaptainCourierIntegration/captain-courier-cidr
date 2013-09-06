@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
  * (c) Captain Courier Integration <captain@captaincourier.org>
@@ -52,14 +52,16 @@ class CidrValidator
 
         assert(!is_null($courier));
         assert(is_string($courier));
-        assert(in_array($courier, array_keys($this->validators)));
 
-        assert(!is_null($task));
-        assert(is_string($task));
-        assert(in_array($task, Task::$Tasks));
-        assert(in_array($task, array_keys($this->validators[$courier])));
+        print "courier is $courier";
+        print_r(array_keys($this->validators));
 
-        assert(!is_null($cidrRequest));
+        assertArgument($courier, in_array($courier, array_keys($this->validators)));
+        assertArgument($task, !is_null($task));
+        assertArgument($task, is_string($task));
+        assertArgument($task, in_array($task, Task::$Tasks));
+        assertArgument($task, in_array($task, array_keys($this->validators[$courier])));
+        assertArgument($cidrRequest, !is_null($cidrRequest));
 
         // checks a validator exists for courier
         if (false === isset($this->validators[$courier])) {

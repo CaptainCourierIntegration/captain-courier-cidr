@@ -4,7 +4,7 @@ namespace Cidr\Tests\Provider;
 
 use Cidr\Model\Contact;
 
-class ContactProvider
+class ContactProvider implements DataProvider
 {
 
     /** returns Contact array */

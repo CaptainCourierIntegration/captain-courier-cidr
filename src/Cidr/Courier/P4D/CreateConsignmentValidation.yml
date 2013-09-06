@@ -65,7 +65,7 @@ Cidr\Model\Address:
           type: integer
       - Range:
           min: 0
-          max: 10
+          max: 9999999999
     lines:
       - Count:
           min: 1

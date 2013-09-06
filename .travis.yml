@@ -1,7 +1,10 @@
 language: php
 php:
 - "5.5"
-
+notifications:
+  email:
+    - joseph@captaincourier.org
+    - peter@captaincourier.org
 env:
     global:
         # parcelForceUsername

@@ -16,7 +16,18 @@ Current features:
 
 install
 =======
-Cidr source can be downloaded from github, or can be added as a dependency through Composer.
+Cidr source can be downloaded from github, or can be added as a dependency through Composer by adding the following your composer.json:
+````
+{
+    ....
+    "require": {
+        ....
+        "captain-courier/cidr": "*"
+    }
+
+}
+ require
+````
 
 setup
 =====

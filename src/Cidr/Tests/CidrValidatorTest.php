@@ -12,6 +12,7 @@
 namespace Cidr\Tests;
 
 use Cidr\CidrFactory;
+use Cidr\Exception\InvalidArgumentException;
 use Cidr\Model\Task;
 use Cidr\Validator;
 use Symfony\Component\DependencyInjection\Reference;
@@ -61,10 +62,10 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @expectedException Exception */
     /** @dataProvider provideConsignment */
     public function testValationAgainstNotExistentCourierThrowsException($cidrValidator, $consignment)
     {
+        $this->setExpectedException(InvalidArgumentException::class);
         $cidrValidator->validate(
             "KingKong",
             Task::CREATE_CONSIGNMENT,
@@ -72,10 +73,10 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @expectedException Exception */
     /** @dataProvider provideConsignment */
     public function testValidationOfNullObjectThrowsException($cidrValidator, $consignment)
     {
+        $this->setExpectedException(InvalidArgumentException::class);
         $cidrValidator->validate(
             "ParcelForce",
             Task::CREATE_CONSIGNMENT,

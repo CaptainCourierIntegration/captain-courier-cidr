@@ -106,6 +106,11 @@ class CidrIntegrationTest extends DiTestCase
         $request = $cidrRequestFactory->create($cidrCapability->getCourier());
 
         $cidrResponse = $cidrCapability->submitCidrRequest($request);
+
+        if($cidrResponse->getResponseContext() instanceof CidrResponseContextValidationFailed) {
+            print_r($cidrResponse->getResponseContext());
+        }
+
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
 
         $this->assertInstanceOf(

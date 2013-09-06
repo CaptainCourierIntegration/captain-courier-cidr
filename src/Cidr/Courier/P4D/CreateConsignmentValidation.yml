@@ -219,7 +219,7 @@ Cidr\Model\Parcel:
       - NotNull: ~
     value:
       - Type:
-          type: integer
+          type: numeric
       - Range:
           min: 0
       - NotNull: ~

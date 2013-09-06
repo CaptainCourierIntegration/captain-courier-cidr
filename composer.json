@@ -23,7 +23,8 @@
         }
     },
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.5.0",
+        "bond/dependency-injection": "0.1.1"
     },
     "minimum-stability": "dev",
     "config": {
@@ -33,7 +34,6 @@
         "symfony/yaml": "*",
         "symfony/config": "*",
         "symfony/validator": "*",
-        "bond/dependency-injection": "*",
         "symfony/dependency-injection": "*",
         "symfony/proxy-manager-bridge": "*",
         "symfony/yaml": "*",

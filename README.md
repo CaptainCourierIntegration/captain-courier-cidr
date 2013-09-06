@@ -13,7 +13,21 @@ Cidr will be able to:
 
 Current features:
  - create shipments with couriers ParcelForce and P4D
- 
+
+install
+=======
+Cidr source can be downloaded from github, or can be added as a dependency through Composer by adding the following your composer.json:
+````
+{
+    ....
+    "require": {
+        ....
+        "captain-courier/cidr": "*"
+    }
+
+}
+````
+
 setup
 =====
 create a file res/credentials.yml in the project directory.
@@ -58,6 +72,7 @@ An example below for creating a shipment with ParcelForce:
 
 ````
 use Cidr\Cidr;
+use Cidr\CidrRequest;
 use Cidr\CidrResponse;
 
 
@@ -66,6 +81,7 @@ use Cidr\CidrResponse;
 // perform 1 task for 1 courier such as creating a consignment for ParcelForce.
 $cidr = new Cidr();
 $capability = $cidr->getCapability("ParcelForce", "CreateConsignment");
+$request = new CidrRequest(...);
 
 // submits the request to the courier[s] and returns a Cidr\CidrResponse object.
 // response has a context properties which is different depending on the status of the response.

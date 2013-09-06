@@ -11,6 +11,8 @@
 
 namespace Cidr;
 
+use Bond\Di\Factory;
+use Cidr\Di\ValidatorFactory;
 use Cidr\Model\Task;
 use Symfony\Component\Validator\Validator;
 use Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
@@ -30,6 +32,11 @@ class CidrValidator
 
     public function init()
     {
+        assert(is_array($this->validationFiles));
+        assert(0 < count($this->validationFiles));
+        assert( $this->cidrValidationViolationFactory instanceof Factory);
+        assert($this->validatorFactory instanceof ValidatorFactory);
+
         foreach ($this->validationFiles as $courier => $taskFiles) {
             $this->validators[$courier] = [];
             foreach ($taskFiles as $task => $fileName ) {

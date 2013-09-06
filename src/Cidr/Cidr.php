@@ -93,7 +93,7 @@ class Cidr
 
     public function getSupportedCapabilities($courier)
     {
-        array_map(
+        return array_map(
             function ($cap) { return $cap->getTask(); },
             array_filter(
                 $this->courierCapabilities,

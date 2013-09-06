@@ -30,44 +30,20 @@ Cidr\CidrRequest:
                                 max: 4
 
 
-Cidr\CidrRequestContextCreateConsignment:
+Cidr\CidrRequestContextPrintLabel:
     getters:
-        collectionAddress:
-          - NotNull: ~
-          - Valid: ~
-        collectionContact:
-          - NotNull: ~
-          - Valid: ~
-        collectionTime:
-          - NotNull: ~
-          - DateTime: ~
-        deliveryAddress:
-          - NotNull: ~
-          - Valid: ~
-        deliveryTime:
-          - NotNull: ~
-          - DateTime: ~
-        parcels:
-          - Valid:
-              traverse: true
-          - Count:
-              max: 999
-        contractNumber:
+        shipmentNumber:
           - NotNull: ~
           - Type:
               type: string
           - Length:
               min: 6
               max: 10
-        serviceCode:
-          - NotBlank: ~
-          - Length:
-              min: 2
-              max: 4
+
 
 
 Cidr\Model\Address:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -111,7 +87,7 @@ Cidr\Model\Address:
 
 
 Cidr\Model\Consignment:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -188,7 +164,7 @@ Cidr\Model\Consignment:
           max: 4
 
 \Cidr\Model\Contact:
-  properties:
+  getters:
     businessName:
       - Length:
           min: 1

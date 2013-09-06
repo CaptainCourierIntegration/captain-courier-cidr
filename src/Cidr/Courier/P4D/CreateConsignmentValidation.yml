@@ -59,7 +59,7 @@ Cidr\CidrRequestContextCreateConsignment:
               max: 4
 
 Cidr\Model\Address:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -102,7 +102,7 @@ Cidr\Model\Address:
 
 
 Cidr\Model\Consignment:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -158,7 +158,7 @@ Cidr\Model\Consignment:
           max: 10
 
 Cidr\Model\Contact:
-  properties:
+  getters:
     businessName:
       - Length:
           min: 1
@@ -184,13 +184,12 @@ Cidr\Model\Contact:
       - Regex:
           pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
 
-
 Cidr\Model\Parcel:
-  Properties:
+  getters:
     id:
       - Type:
           type: integer
-          messsage: The value {{ value }} is not a valid {{ type }}.
+          message: The value {{ value }} is not a valid {{ type }}.
       - Range:
           min: 0
           max: 10

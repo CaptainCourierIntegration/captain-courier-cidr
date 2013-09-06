@@ -63,29 +63,28 @@ class PrintLabel implements CourierCapability
 
     function submitCidrRequest(CidrRequest $request)
     {
-        assert(null != $this->shipServiceFactory);
+        assert(null !== $this->shipServiceFactory);
         assert($this->shipServiceFactory instanceOf Factory);
         assert(null !== $request);
         assert($request->getRequestContext() instanceof CidrRequestContextPrintLabel);
-
-
-        $requestContext = $request->getRequestContext();
-        $printLabelRequest = new PrintLabelRequest();
-        $printLabelRequest->ShipmentNumber = $requestContext->getShipmentNumber();
-        $printLabelRequest->PrintFormat = self::PRINT_FORMAT;
-        $printLabelRequest->BarcodeFormat = self::BARCODE_FORMAT;
-        $printLabelRequest->PrintType = self::PRINT_TYPE;
-
 
         $authentication = new Authentication();
         $authentication->UserName = $request->getCourierCredentials()["username"];
         $authentication->Password = $request->getCourierCredentials()["password"];
 
+        $requestContext = $request->getRequestContext();
+        $printLabelRequest = new PrintLabelRequest();
+        $printLabelRequest->ShipmentNumber = $requestContext->getShipmentNumber();
+        $printLabelRequest->PrintFormat = self::PRINT_FORMAT;
+        //$printLabelRequest->BarcodeFormat = self::BARCODE_FORMAT;
+        $printLabelRequest->PrintType = self::PRINT_TYPE;
+        $printLabelRequest->Authentication = $authentication;
+
         $service = $this->shipServiceFactory->create();
-        $printLabelReply = $service->createShipment($printLabelRequest);
+        $printLabelReply = $service->printLabel($printLabelRequest);
 
         $cidrResponseContext = new CidrResponseContextPrintLabel(
-            $printLabelReply
+            $printLabelReply->Label->Data
         );
 
         $cidrResponse = new CidrResponse(

@@ -106,6 +106,7 @@ class CidrIntegrationTest extends DiTestCase
         );
     }
 
+
     /** @dataProvider printLabelCapabilityProvider */
     public function testPrintLabelRequestOnApiHasSucceeded(
         CidrCapability $cap,
@@ -117,11 +118,19 @@ class CidrIntegrationTest extends DiTestCase
             $context = new CidrRequestContextPrintLabel($consignmentNumber);
             $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
             $response = $cap->submitCidrRequest($request);
-            print_r($response->getResponseContext());
-        }
 
+            $pdf= $response->getResponseContext()->getPdf();
+            $this->assertNotNull($pdf);
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $this->assertEquals(
+                'application/pdf',
+                finfo_buffer($finfo, $pdf)
+            );
+            finfo_close($finfo);
+
+        }
     }
 
-    
-    
+
 }

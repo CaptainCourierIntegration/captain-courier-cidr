@@ -22,41 +22,16 @@ Cidr\CidrRequest:
                             min: 15
                             max: 19
 
-
-Cidr\CidrRequestContextCreateConsignment:
+Cidr\CidrRequestContextPrintLabel:
     getters:
-        collectionAddress:
-          - NotNull: ~
-          - Valid: ~
-        collectionContact:
-          - NotNull: ~
-          - Valid: ~
-        collectionTime:
-          - NotNull: ~
-          - DateTime: ~
-        deliveryAddress:
-          - NotNull: ~
-          - Valid: ~
-        deliveryTime:
-          - NotNull: ~
-          - DateTime: ~
-        parcels:
-          - Valid:
-              traverse: true
-          - Count:
-              max: 999
-        contractNumber:
+        shipmentNumber:
           - NotNull: ~
           - Type:
               type: string
           - Length:
               min: 6
               max: 10
-        serviceCode:
-          - NotBlank: ~
-          - Length:
-              min: 2
-              max: 4
+
 
 Cidr\Model\Address:
   getters:
@@ -184,12 +159,13 @@ Cidr\Model\Contact:
       - Regex:
           pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
 
+
 Cidr\Model\Parcel:
-  getters:
+  Properties:
     id:
       - Type:
           type: integer
-          message: The value {{ value }} is not a valid {{ type }}.
+          messsage: The value {{ value }} is not a valid {{ type }}.
       - Range:
           min: 0
           max: 10
@@ -219,7 +195,7 @@ Cidr\Model\Parcel:
       - NotNull: ~
     value:
       - Type:
-          type: numeric
+          type: integer
       - Range:
           min: 0
       - NotNull: ~

@@ -5,7 +5,7 @@ Cidr\CidrRequest:
             - Valid: ~
         task:
             - Choice:
-                choices: [ CreateConsignment ]
+                choices: [CreateConsignment, PrintLabel]
                 message: choose a valid task.
         courierCredentials:
             - Collection:
@@ -67,7 +67,7 @@ Cidr\CidrRequestContextCreateConsignment:
 
 
 Cidr\Model\Address:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -111,7 +111,7 @@ Cidr\Model\Address:
 
 
 Cidr\Model\Consignment:
-  properties:
+  getters:
     id:
       - Type:
           type: integer
@@ -187,8 +187,8 @@ Cidr\Model\Consignment:
       - Length:
           max: 4
 
-\Cidr\Model\Contact:
-  properties:
+Cidr\Model\Contact:
+  getters:
     businessName:
       - Length:
           min: 1
@@ -214,7 +214,6 @@ Cidr\Model\Consignment:
       - Length:
           max: 15
           min: 1
-          message: telephone be between 1 and 15 characters long
       - Regex:
           pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
           message: telephone must meet the official UK regex
@@ -264,7 +263,7 @@ Cidr\Model\Parcel:
     # optional
     value:
       - Type:
-          type: integer
+          type: numeric
       - Range:
           min: 0
       - NotNull: ~

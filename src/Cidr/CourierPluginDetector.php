@@ -23,6 +23,8 @@ class CourierPluginDetector
     private $configurationFileName;
 
     private $courierMetadataFactory;
+
+    private $requireAllCouriersFeatureComplete;
     
     /**
      * TODO CLEAN UP
@@ -36,10 +38,11 @@ class CourierPluginDetector
             $validationFileNames = [];
             foreach (Task::$Tasks as $task) {
                 $fileName = "{$this->courierFolder}/{$courierName}/{$task}{$this->validationPostfix}";
-                if(!file_exists($fileName)) {
+                if($this->requireAllCouriersFeatureComplete and !file_exists($fileName)) {
                     throw new FileNotFoundException($fileName);
                 }
-                $validationFileNames[$task] = $fileName;
+                $validationFileNames[$task] = file_exists($fileName) ? $fileName : null;
+
             }
 
             $configurationFileName = "{$this->courierFolder}/{$courierName}/{$this->configurationFileName}";

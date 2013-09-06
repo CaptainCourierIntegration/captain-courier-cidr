@@ -32,3 +32,16 @@ function endsWith($haystack, $needle)
 {
     return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
+
+
+
+function propertyValue($object, $property)
+{
+    assert(is_object($object));
+    assert(!is_null($property));
+
+    $refclass = new \ReflectionClass($object);
+    $loaderProp = $refclass->getProperty($property);
+    $loaderProp->setAccessible(true);
+    return $loaderProp->getValue($object);
+}

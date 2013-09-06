@@ -15,7 +15,9 @@ class Document
 {
 	/**
 	 * @access public
-	 * @var base64Binary
+	 * @var string this is the text that needs to be put in a file.
+     * no decoding necessary, just write the contents of this to a file then
+     * open it with a pdf reader.
 	 */
 	public $Data;
 }

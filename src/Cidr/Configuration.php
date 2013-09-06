@@ -50,6 +50,7 @@ class Configuration
 
     private function loadCidrValidator($configurator, $container)
     {
+        $courierValidators = [];
         foreach ($this->courierPlugins as $plugin) {
             $courierValidators[$plugin->getCourierName()] = 
                 $plugin->getValidationFiles();

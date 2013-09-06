@@ -48,7 +48,8 @@ class CourierPluginDetectorTest extends DiTestCase
                 "Cidr/Courier",
                 "Validation.yml",
                 "Configuration.php",
-                new Reference("courierPluginFactory")
+                new Reference("courierPluginFactory"),
+                false
             ]
         );
         

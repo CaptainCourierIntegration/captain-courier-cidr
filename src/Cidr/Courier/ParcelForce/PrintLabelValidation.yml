@@ -29,11 +29,10 @@ Cidr\CidrRequest:
                            - Length:
                                 max: 4
 
-
 Cidr\CidrRequestContextPrintLabel:
     getters:
         shipmentNumber:
-          - NotNull: ~
+          - NotBlank: ~
           - Type:
               type: string
           - Length:

@@ -17,6 +17,7 @@ use Cidr\CidrCapability;
 use Cidr\CidrRequestContextCreateConsignment;
 use Cidr\CidrRequestContextPrintLabel;
 use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextValidationFailed;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Bond\Di\Configurator;

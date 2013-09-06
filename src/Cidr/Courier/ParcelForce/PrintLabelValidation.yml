@@ -29,41 +29,16 @@ Cidr\CidrRequest:
                            - Length:
                                 max: 4
 
-
-Cidr\CidrRequestContextCreateConsignment:
+Cidr\CidrRequestContextPrintLabel:
     getters:
-        collectionAddress:
-          - NotNull: ~
-          - Valid: ~
-        collectionContact:
-          - NotNull: ~
-          - Valid: ~
-        collectionTime:
-          - NotNull: ~
-          - DateTime: ~
-        deliveryAddress:
-          - NotNull: ~
-          - Valid: ~
-        deliveryTime:
-          - NotNull: ~
-          - DateTime: ~
-        parcels:
-          - Valid:
-              traverse: true
-          - Count:
-              max: 999
-        contractNumber:
-          - NotNull: ~
+        shipmentNumber:
+          - NotBlank: ~
           - Type:
               type: string
           - Length:
               min: 6
               max: 10
-        serviceCode:
-          - NotBlank: ~
-          - Length:
-              min: 2
-              max: 4
+
 
 
 Cidr\Model\Address:
@@ -73,7 +48,7 @@ Cidr\Model\Address:
           type: integer
       - Range:
           min: 0
-          max: 9999999999
+          max: 10
     lines:
       - Count:
           min: 1
@@ -91,7 +66,7 @@ Cidr\Model\Address:
       - Length:
           max: 24
       - Regex:
-          pattern: "/^[a-zA-Z\-]+$/"
+          pattern: "/^\w*$/"
     # optional
     county:
       - NotBlank: ~
@@ -187,7 +162,7 @@ Cidr\Model\Consignment:
       - Length:
           max: 4
 
-Cidr\Model\Contact:
+\Cidr\Model\Contact:
   getters:
     businessName:
       - Length:
@@ -214,6 +189,7 @@ Cidr\Model\Contact:
       - Length:
           max: 15
           min: 1
+          message: telephone be between 1 and 15 characters long
       - Regex:
           pattern: "/^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/"
           message: telephone must meet the official UK regex
@@ -263,7 +239,7 @@ Cidr\Model\Parcel:
     # optional
     value:
       - Type:
-          type: numeric
+          type: integer
       - Range:
           min: 0
       - NotNull: ~

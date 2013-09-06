@@ -39,3 +39,14 @@ function assertArgument($argument, $premise, $message="")
         throw new \Cidr\Exception\InvalidArgumentException($argument, $message);
     }
 }
+
+function propertyValue($object, $property)
+{
+    assert(is_object($object));
+    assert(!is_null($property));
+
+    $refclass = new \ReflectionClass($object);
+    $loaderProp = $refclass->getProperty($property);
+    $loaderProp->setAccessible(true);
+    return $loaderProp->getValue($object);
+}

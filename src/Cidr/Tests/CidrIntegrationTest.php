@@ -15,7 +15,9 @@ use Bond\Di\Factory;
 use Cidr\Cidr;
 use Cidr\CidrCapability;
 use Cidr\CidrRequestContextCreateConsignment;
+use Cidr\CidrRequestContextPrintLabel;
 use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextValidationFailed;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Bond\Di\Configurator;
@@ -48,7 +50,7 @@ class CidrIntegrationTest extends DiTestCase
         $configurator->add("cidr", Cidr::class);
     }
 
-    public function provider()
+    public function createConsignmentCapabilityProvider()
     {
         $container = $this->setup();
         $cidr = $container->get("cidr");
@@ -75,7 +77,35 @@ class CidrIntegrationTest extends DiTestCase
         return $testCases;
     }
 
-    /** @dataProvider provider */
+    public function printLabelCapabilityProvider()
+    {
+        $container = $this->setup();
+        $cidr = $container->get("cidr");
+
+        $consignmentNumber = "MK0738330";
+        foreach ($cidr->getSupportedCouriers() as $courier) {
+            if ($courier === "ParcelForce") {
+                $cap = $cidr->getCapability(
+                    $courier,
+                    Task::PRINT_LABEL
+                );
+                $credentialsManager = $container->get("courierCredentialsManager");
+                $credentialsManager->init();
+
+                $testCases[] = [
+                    $cap,
+                    $credentialsManager->getCredentials($cap->getCourier()),
+                    $consignmentNumber
+                ];
+            }
+        }
+
+        return $testCases;
+    }
+
+    /**
+     * @dataProvider createConsignmentCapabilityProvider
+     */
     public function testCreateConsignmentRequestOnApiHasSucceeded(
         CidrCapability $cidrCapability,
         CidrRequestFactory $cidrRequestFactory
@@ -84,6 +114,11 @@ class CidrIntegrationTest extends DiTestCase
         $request = $cidrRequestFactory->create($cidrCapability->getCourier());
 
         $cidrResponse = $cidrCapability->submitCidrRequest($request);
+
+        if($cidrResponse->getResponseContext() instanceof CidrResponseContextValidationFailed) {
+            print_r($cidrResponse->getResponseContext());
+        }
+
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
 
         if (!$cidrResponse->getResponseContext() instanceof CidrResponseContextCreateConsignment) {
@@ -96,6 +131,49 @@ class CidrIntegrationTest extends DiTestCase
         );
     }
 
-    
-    
+
+    /**
+     * @dataProvider printLabelCapabilityProvider
+     */
+    public function testPrintLabelRequestOnApiHasSucceeded(
+        CidrCapability $cap,
+        $credentials,
+        $consignmentNumber
+    )
+    {
+            $context = new CidrRequestContextPrintLabel($consignmentNumber);
+            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+            $response = $cap->submitCidrRequest($request);
+
+            $pdf= $response->getResponseContext()->getPdf();
+            $this->assertNotNull($pdf);
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $this->assertEquals(
+                'application/pdf',
+                finfo_buffer($finfo, $pdf)
+            );
+            finfo_close($finfo);
+
+    }
+
+    /**
+     * @dataProvider printLabelCapabilityProvider
+     */
+    public function testPrintLabelResponseHasValidationFailedContextForInvalidRequest(
+        CidrCapability $cap,
+        $credentials,
+        $consignmentNumber
+    )
+    {
+        $context = new CidrRequestContextPrintLabel("");
+        $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+        $response = $cap->submitCidrRequest($request);
+        $this->assertEquals(CidrResponse::STATUS_FAILED, $response->getStatus());
+        $this->assertInstanceOf(
+            CidrResponseContextValidationFailed::class,
+            $response->getResponseContext()
+        );
+    }
+
 }

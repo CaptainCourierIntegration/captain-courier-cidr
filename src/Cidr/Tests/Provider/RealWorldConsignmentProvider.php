@@ -57,7 +57,7 @@ class RealWorldConsignmentProvider implements DataProvider
         $collectionContact = new Contact([
             "businessName" => "Google Ltd",
             "name" => "Sergey Brin",
-            "email" => "sergey@gmail.com",
+            "email" => "joseph@captaincourier.org", //"email" => "sergey@gmail.com",
             "telephone" => "02070313000"
         ]);
 
@@ -77,7 +77,7 @@ class RealWorldConsignmentProvider implements DataProvider
         $deliveryContact = new Contact([
             "businessName" => "Google Ltd",
             "name" => "Larry Page",
-            "email" => "larry@gmail.com",
+            "email" => "joseph@captaincourier.org", // "email" => "larry@gmail.com",
             "telephone" => "02070313000"
         ]);
 

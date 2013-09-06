@@ -9,13 +9,12 @@
 
 
 
-namespace Cidr\Exception;
+namespace Cidr;
 
-class NotImplementedException extends IllegalStateException
-{
+class CidrResponseContextPrintLabel implements CidrResponseContext
+{ use Milk;
 
-    public function __construct()
-    {
-        parent::__construct("method not implemented");
-    }
+    /** @var string label encoded as base64 */
+    private $pdf;
+
 }

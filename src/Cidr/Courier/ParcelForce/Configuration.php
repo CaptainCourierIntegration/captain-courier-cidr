@@ -32,7 +32,17 @@ class Configuration
         $configurator->add(
             "parcelForceCreateConsignment",
             CreateConsignment::class,
-            [ 
+            [
+                new Reference("parcelForceShipServiceFactory"),
+                "ParcelForce"
+            ]
+        )->addTag(Tag::CIDR_CAPABILITY);
+
+
+        $configurator->add(
+            "parcelForcePrintLabel",
+            PrintLabel::class,
+            [
                 new Reference("parcelForceShipServiceFactory"),
                 "ParcelForce"
             ]

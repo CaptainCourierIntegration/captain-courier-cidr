@@ -11,6 +11,9 @@
 
 namespace Cidr;
 
+use Bond\Di\Factory;
+use Cidr\Di\ValidatorFactory;
+use Cidr\Exception\IllegalStateException;
 use Cidr\Model\Task;
 use Symfony\Component\Validator\Validator;
 use Symfony\Component\Validator\Mapping\Loader\YamlFileLoader;
@@ -30,10 +33,15 @@ class CidrValidator
 
     public function init()
     {
+        assert(is_array($this->validationFiles));
+        assert(0 < count($this->validationFiles));
+        assert( $this->cidrValidationViolationFactory instanceof Factory);
+        assert($this->validatorFactory instanceof ValidatorFactory);
+
         foreach ($this->validationFiles as $courier => $taskFiles) {
             $this->validators[$courier] = [];
             foreach ($taskFiles as $task => $fileName ) {
-                $this->validators[$courier][$task] = $this->validatorFactory->create($fileName);
+                $this->validators[$courier][$task] = is_null($fileName) ? null : $this->validatorFactory->create($fileName);
             }
         }
     }
@@ -73,6 +81,11 @@ class CidrValidator
         }
 
         $validator = $this->validators[$courier][$task];
+
+        if (null === $validator) {
+            throw new IllegalStateException("courier '$courier' doesn't support capability '$task'");
+        }
+
         // checks that the the constraints have been found for cidrRequest
         $metadata = $validator
             ->getMetadataFactory()

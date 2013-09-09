@@ -61,12 +61,7 @@ class CidrIntegrationTest extends DiTestCase
                 Task::CREATE_CONSIGNMENT
             );
 
-            try {
-                $cidrRequestFactory = $container->get("cidrRequestFactory");
-            } catch (\Exception $ex) {
-                print_r($ex);
-                die('no\n');
-            }
+            $cidrRequestFactory = $container->get("cidrRequestFactory");
 
             $testCases[] = [
                     $cap,

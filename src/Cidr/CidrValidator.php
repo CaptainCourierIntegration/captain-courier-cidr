@@ -61,9 +61,6 @@ class CidrValidator
         assert(!is_null($courier));
         assert(is_string($courier));
 
-        print "courier is $courier";
-        print_r(array_keys($this->validators));
-
         assertArgument($courier, in_array($courier, array_keys($this->validators)));
         assertArgument($task, !is_null($task));
         assertArgument($task, is_string($task));

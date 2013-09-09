@@ -65,7 +65,6 @@ class PrintLabel implements CourierCapability
     {
         assert(null !== $this->shipServiceFactory);
         assert($this->shipServiceFactory instanceOf Factory);
-        assert(null !== $request);
         assert($request->getRequestContext() instanceof CidrRequestContextPrintLabel);
 
         $authentication = new Authentication();
@@ -83,18 +82,36 @@ class PrintLabel implements CourierCapability
         $service = $this->shipServiceFactory->create();
         $printLabelReply = $service->printLabel($printLabelRequest);
 
-        $cidrResponseContext = new CidrResponseContextPrintLabel(
-            $printLabelReply->Label->Data
-        );
+        if(
+            isset($printLabelReply->Label->Alerts) and
+            !is_null($printLabelReply->Label->Alerts) and
+            count($printLabelReply->Label->Alerts->Alert) > 0
+        ) {
+            $alerts = $printLabelReply->Alerts->Alert;
+            if(!is_array($alerts)) {
+                $alerts = array($alerts);
+            }
+            $msg = implode (
+                ", ",
+                array_map (
+                    function ($a) { return $a->Message;},
+                    $alerts)
+            );
 
-        $cidrResponse = new CidrResponse(
-            $request,
-            $this,
-            CidrResponse::STATUS_SUCCESS,
-            $cidrResponseContext
-        );
-
-        return $cidrResponse;
+            return new CidrResponse(
+                $request,
+                $this,
+                CidrResponse::STATUS_FAILED,
+                new CidrResponseContextFailed(null, $msg)
+            );
+        } else {
+            return new CidrResponse(
+                $request,
+                $this,
+                CidrResponse::STATUS_SUCCESS,
+                new CidrResponseContextPrintLabel($printLabelReply->Label->Data)
+            );
+        }
 
 //
 //        if(

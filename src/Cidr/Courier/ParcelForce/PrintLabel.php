@@ -112,54 +112,6 @@ class PrintLabel implements CourierCapability
                 new CidrResponseContextPrintLabel($printLabelReply->Label->Data)
             );
         }
-
-//
-//        if(
-//            $createShipmentReply->Alerts == null
-//            or $createShipmentReply->Alerts->Alert == null
-//            or count($createShipmentReply->Alerts->Alert) == 0
-//        ) {
-//            $cidrResponseStatus = CidrResponse::STATUS_FAILED;
-//
-//            $consignmentNumber = $createShipmentReply
-//                ->CompletedShipmentInfo
-//                ->CompletedShipments
-//                ->CompletedShipment
-//                ->ShipmentNumber;
-//
-//            if ($createShipmentReply->CompletedShipmentInfo->Status === "ALLOCATED") {
-//                $responseContext = new CidrResponseContextCreateConsignment(
-//                    $consignmentNumber
-//                );
-//                $cidrResponseStatus = CidrResponse::STATUS_SUCCESS;
-//            } else {
-//                $responseContext = new CidrResponseContextFailed(
-//                    CidrResponseContextFailed::API_REJECTED,
-//                    "hello world, some developer needs to put a useful message here"
-//                );
-//            }
-//        } else {
-//            $alerts = $createShipmentReply->Alerts->Alert;
-//            if(!is_array($alerts)) {
-//                $alerts = array($alerts);
-//            }
-//            $msg = implode (
-//                ", ",
-//                array_map (
-//                    function ($a) { return $a->Message;},
-//                    $alerts)
-//            );
-//            $responseContext = new CidrResponseContextFailed(
-//                null, $msg
-//            );
-//            $cidrResponseStatus = CidrResponse::STATUS_FAILED;
-//        }
-//        return new CidrResponse(
-//            $request,
-//            $this,
-//            $cidrResponseStatus,
-//            $responseContext
-//        );
     }
 
     public function validate(CidrRequest $request)

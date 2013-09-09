@@ -54,13 +54,15 @@ class CidrValidationIntegrationTest extends DiTestCase
 
         $cidr = new Cidr();
         $courierNames = $cidr->getSupportedCouriers();
+        $args = [];
         foreach ($courierNames as $courier) {
             foreach($cidr->getSupportedCapabilities($courier) as $task) {
                 foreach(self::$requiredDefinitions[$task] as $class) {
-                    yield [$container->get("cidrValidator"), $courier, $task, $class];
+                    $args[] = [$container->get("cidrValidator"), $courier, $task, $class];
                 }
             }
         }
+        return $args;
     }
 
 //    public function provideDefinedClass()

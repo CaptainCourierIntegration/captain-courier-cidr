@@ -16,7 +16,7 @@ function apply() {
 
     while (count ($funcs) !== 0) {
         $f = array_pop ($funcs);
-        $input = $f($input);
+        $input = call_user_func($f, $input);
     }
 
     return $input;
@@ -33,8 +33,20 @@ function endsWith($haystack, $needle)
     return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
 
+/**
+ * if no premise is supplied, the not null assertion will be applied
+ * @param $argument
+ * @param $premise
+ * @param string $message
+ * @throws Cidr\Exception\InvalidArgumentException
+ */
 function assertArgument($argument, $premise, $message="")
 {
+    if (count(func_get_args()) === 1) {
+        $premise = !is_null($argument);
+        $message = "argument can't be null";
+    }
+
     if(!$premise) {
         throw new \Cidr\Exception\InvalidArgumentException($argument, $message);
     }

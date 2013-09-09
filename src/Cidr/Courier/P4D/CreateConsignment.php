@@ -168,8 +168,8 @@ class CreateConsignment implements CourierCapability
         $cheapestQuote = null;
         
         foreach($quotes->quotes as $quote) {
-            $dates = map(function($date){ return $date["date"]->format($format); }, $quote->collectionDates);
-            $fSame = function($date){return $date === $expectedCollectionDay;};
+            $dates = map(function($date) use($format) { return $date["date"]->format($format); }, $quote->collectionDates);
+            $fSame = function ($date) use($expectedCollectionDay) { return $date === $expectedCollectionDay; };
             if(!apply(partial(filter, $fSame), isEmpty,  $dates)) {
                 if($cheapestQuote == null || $quote->totalPrice < $cheapestQuote->totalPrice) {
                     $cheapestQuote = $quote;
@@ -178,9 +178,6 @@ class CreateConsignment implements CourierCapability
         }
 
         error("no quote satisfies collection window", $cheapestQuote == null);
-
-        
-        
     }
 
     private function parcelsToString($parcels)

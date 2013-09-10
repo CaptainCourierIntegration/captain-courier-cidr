@@ -11,6 +11,7 @@
 
 namespace Cidr;
 
+use Curl\Curl;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
@@ -26,11 +27,17 @@ class Configuration
     public function __invoke($configurator, $container)
     {
         $configurator->add("stdClass", "stdClass");
+        //loads libs
+        $this->loadCurl($configurator, $container);
         $this->loadCourierPlugins($configurator, $container);
         $this->loadCidrValidator($configurator, $container);
         $this->loadCidrCapability($configurator, $container);
         $this->loadCourierCredentialsManager($configurator, $container);
 
+    }
+
+    private function loadCurl ($configurator, $container) {
+        $configurator->add("curl", Curl::class, [], "prototype", true);
     }
 
 

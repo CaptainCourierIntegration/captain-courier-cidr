@@ -19,7 +19,8 @@
     ],
     "autoload": {
         "psr-0": {
-            "": "src/"
+            "Cidr": "src/",
+            "Curl" : "lib/curl/src/"
         },
         "files": [
             "src/functions.php"

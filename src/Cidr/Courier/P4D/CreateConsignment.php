@@ -31,6 +31,7 @@ class CreateConsignment implements CourierCapability
 
     private $apiUrl;
     private $courierName;
+    private $curl;
 
     public function getTask()
     {

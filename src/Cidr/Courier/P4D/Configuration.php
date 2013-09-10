@@ -15,6 +15,11 @@ use Symfony\Component\DependencyInjection\Reference;
 
 use Cidr\Tag;
 
+/**
+ * Class Configuration
+ * @package Cidr\Courier\P4D
+ * @depends Cidr\Configuration
+ */
 class Configuration
 {
 
@@ -35,7 +40,8 @@ class Configuration
             CreateConsignment::class,
             [
                 "%p4dApiUrl%",
-                "%p4dName%"
+                "%p4dName%",
+                new Reference("curl")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

@@ -20,12 +20,8 @@ function apply() {
     while (count ($funcs) !== 0) {
         $f = array_pop ($funcs);
 
-        if (is_string($f) and class_exists($f)) {
-            $refl = new \ReflectionClass($f);
-            $input = [$refl->newInstanceArgs($input)];
-        } else {
-            $input = [call_user_func_array($f, $input)];
-        }
+        $f = is_string($f) && class_exists($f) ? func($f) : $f;
+        $input = [call_user_func_array($f, $input)];
     }
 
     return $input[0];
@@ -39,7 +35,7 @@ function apply() {
  * @param $method
  * @return callable
  */
-function func($obj, $method) {
+function func($obj, $method = null) {
 
     if(is_string($obj) and class_exists($obj) and is_null($method)) {
         return function() use($obj, $method) {

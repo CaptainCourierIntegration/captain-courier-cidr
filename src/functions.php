@@ -12,14 +12,48 @@
 function apply() {
     $funcs = func_get_args();
     $input = $funcs[count($funcs)-1];
+    if(!is_array($input)) {
+        $input = [$input];
+    }
     array_pop ($funcs); 
 
     while (count ($funcs) !== 0) {
         $f = array_pop ($funcs);
-        $input = call_user_func($f, $input);
+
+        if (is_string($f) and class_exists($f)) {
+            $refl = new \ReflectionClass($f);
+            $input = [$refl->newInstanceArgs($input)];
+        } else {
+            $input = [call_user_func_array($f, $input)];
+        }
     }
 
-    return $input;
+    return $input[0];
+}
+
+
+/**
+ * returns an object's method as a function that works just like the method
+ * this also works, if no method is passed in, and returns a function that makes classes
+ * @param $obj
+ * @param $method
+ * @return callable
+ */
+function func($obj, $method) {
+
+    if(is_string($obj) and class_exists($obj) and is_null($method)) {
+        return function() use($obj, $method) {
+            $refl = new ReflectionClass($obj);
+            return $refl->newInstanceArgs(func_get_args());
+        };
+    } else {
+        assert(is_object($obj));
+        assert(!is_null($method));
+        return function() use($obj, $method) {
+            return call_user_func_array([$obj, $method], func_get_args());
+        };
+
+    }
 }
 
 

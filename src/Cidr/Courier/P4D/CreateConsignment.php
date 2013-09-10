@@ -97,8 +97,9 @@ class CreateConsignment implements CourierCapability
 
         return json_decode($this->curl->post($this->apiUrl, $fields));
     }
-    
+
     /**
+     * @param \Cidr\CidrRequest $request
      * @return P4DQuoteResponse
      */
     private function getQuotes(CidrRequest $request)
@@ -136,23 +137,7 @@ class CreateConsignment implements CourierCapability
             "EstimatedValue" => array_sum(array_map(function($p){return $p->value;}, $requestContext->getParcels()))
         );
 
-        $fields_string = "";
-        foreach($fields as $key => $value) {
-            $fields_string .= "$key=$value&";
-        }
-        rtrim($fields_string, '&');
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->apiUrl);
-        curl_setopt($curl, CURLOPT_POST, count($fields));
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER,1);
-
-        $response = apply ("json_decode", "curl_exec", $curl);
-        $result = new P4DQuoteResponse( $response );
-        curl_close ($curl);
-
-        return $result;
+        return apply(P4DQuoteResponse::class, 'json_decode', func($this->curl, "post"), [$this->apiUrl, $fields]);
     }
 
     /**

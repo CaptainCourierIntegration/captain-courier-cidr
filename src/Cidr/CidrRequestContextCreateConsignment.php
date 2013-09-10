@@ -42,7 +42,7 @@ class CidrRequestContextCreateConsignment implements CidrRequestContext
     /** String */
     private $serviceCode;
 
-    // TODO resolve how to handle these 2 properties
+    // TODO resolve how to handle this property
     /** CourierQuote */
     //private $courierQuote;
     

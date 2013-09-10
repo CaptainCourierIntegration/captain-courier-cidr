@@ -19,7 +19,8 @@
     ],
     "autoload": {
         "psr-0": {
-            "": "src/"
+            "": "src/",
+            "Curl" : "lib/curl/lib"
         }
     },
     "require": {

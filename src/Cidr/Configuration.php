@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Curl\Curl;
@@ -40,7 +38,6 @@ class Configuration
         $configurator->add("curl", Curl::class, [], "prototype", true);
     }
 
-
     private function loadCidrCapability($configurator, $container)
     {
         $configurator->add(
@@ -48,7 +45,7 @@ class Configuration
             CidrCapability::class,
             [ new Inject(), new Reference("cidrValidator") ]
         );
-        
+
         $configurator->addFactory(
             "cidrCapabilityFactory",
             "cidrCapability"
@@ -59,15 +56,15 @@ class Configuration
     {
         $courierValidators = [];
         foreach ($this->courierPlugins as $plugin) {
-            $courierValidators[$plugin->getCourierName()] = 
+            $courierValidators[$plugin->getCourierName()] =
                 $plugin->getValidationFiles();
         }
         $container->setParameter("courierValidators", $courierValidators);
 
         $configurator->add(
-            "cidrValidator", 
+            "cidrValidator",
             CidrValidator::class,
-            [ 
+            [
                 "%courierValidators%",
                 new Reference("cidrValidationViolationFactory"),
                 new Reference("validatorFactory")
@@ -80,7 +77,7 @@ class Configuration
         );
 
         $configurator->add(
-            "cidrValidationViolation", 
+            "cidrValidationViolation",
             CidrValidationViolation::class,
             [new Inject(), new Inject(), new Inject()]
         );
@@ -123,5 +120,5 @@ class Configuration
             Parser::class
         );
     }
- 
+
 }

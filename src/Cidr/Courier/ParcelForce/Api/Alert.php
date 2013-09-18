@@ -7,25 +7,23 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Alert
 {
-	/**
-	 * @access public
-	 * @var integer
-	 */
-	public $Code;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $Message;
-	/**
-	 * @access public
-	 * @var nsAlertType
-	 */
-	public $Type;
+    /**
+     * @access public
+     * @var integer
+     */
+    public $Code;
+    /**
+     * @access public
+     * @var string
+     */
+    public $Message;
+    /**
+     * @access public
+     * @var nsAlertType
+     */
+    public $Type;
 }

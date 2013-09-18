@@ -8,9 +8,8 @@
 
 namespace Cidr\Tests\Provider;
 
-
 interface DataProvider {
 
     public function getData();
 
-} 
+}

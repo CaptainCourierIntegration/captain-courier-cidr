@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CreateManifestReply extends BaseReply
 {
-	/**
-	 * @access public
-	 * @var CompletedManifests
-	 */
-	public $CompletedManifests;
+    /**
+     * @access public
+     * @var CompletedManifests
+     */
+    public $CompletedManifests;
 }

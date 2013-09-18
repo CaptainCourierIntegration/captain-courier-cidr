@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D;
 
 use Cidr\CidrResponse;
@@ -48,11 +46,9 @@ class PrintLabel implements CourierCapability
         return true;
     }
 
-
     function submitCidrRequest (CidrRequest $request)
     {
         throw new NotImplementedException();
     }
-
 
 }

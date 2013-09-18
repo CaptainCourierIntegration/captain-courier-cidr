@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Alerts
 {
-	/**
-	 * @access public
-	 * @var Alert[]
-	 */
-	public $Alert;
+    /**
+     * @access public
+     * @var Alert[]
+     */
+    public $Alert;
 }

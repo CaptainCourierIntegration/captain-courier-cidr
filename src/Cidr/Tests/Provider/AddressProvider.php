@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests\Provider;
 
-
 use Cidr\Model\Address;
 
 class AddressProvider implements DataProvider
@@ -34,4 +33,4 @@ class AddressProvider implements DataProvider
         return $addresses;
     }
 
-} 
+}

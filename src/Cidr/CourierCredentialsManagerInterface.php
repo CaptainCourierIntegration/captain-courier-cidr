@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cidr;
-
 
 use Cidr\Exception\CourierNotFoundException;
 
@@ -43,5 +41,4 @@ interface CourierCredentialsManagerInterface
      */
     public function getCredentials($courier);
 
-
-} 
+}

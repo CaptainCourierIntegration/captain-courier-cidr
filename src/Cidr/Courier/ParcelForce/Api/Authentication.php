@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Authentication
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $UserName;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $Password;
+    /**
+     * @access public
+     * @var string
+     */
+    public $UserName;
+    /**
+     * @access public
+     * @var string
+     */
+    public $Password;
 }

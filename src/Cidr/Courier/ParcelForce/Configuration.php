@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce;
 
 use Cidr\Courier\ParcelForce\Api\ShipService;
@@ -38,7 +36,6 @@ class Configuration
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 
-
         $configurator->add(
             "parcelForcePrintLabel",
             PrintLabel::class,
@@ -47,7 +44,7 @@ class Configuration
                 "ParcelForce"
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
-                     
+
     }
 
 }

@@ -7,14 +7,11 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Model;
 
 use Cidr\Model\Address;
 use Cidr\Model\Contact;
 use Cidr\Model\Parcel;
-
 
 class Consignment
 {   use TwoSugar;

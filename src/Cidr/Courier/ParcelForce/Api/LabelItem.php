@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class LabelItem
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $Name;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $Data;
+    /**
+     * @access public
+     * @var string
+     */
+    public $Name;
+    /**
+     * @access public
+     * @var string
+     */
+    public $Data;
 }

@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce;
 
 use Cidr\CidrRequest;
@@ -38,8 +36,8 @@ use Cidr\Model\Task;
 class CreateConsignment implements CourierCapability
 { use Milk;
 
-    const NOTIFICATION_TYPE = "EMAIL"; // OR SMS 
-    
+    const NOTIFICATION_TYPE = "EMAIL"; // OR SMS
+
     private $shipServiceFactory;
     private $courierName;
 
@@ -81,7 +79,7 @@ class CreateConsignment implements CourierCapability
         $requestedShipment->RecipientAddress = $this->addressToPFAddress (
             $requestContext->getDeliveryAddress()
         );
-        $requestedShipment->TotalNumberOfParcels = 
+        $requestedShipment->TotalNumberOfParcels =
             (string) count( $requestContext->getParcels() );
         $requestedShipment->CollectionInfo = $collectionInfo;
 
@@ -97,8 +95,8 @@ class CreateConsignment implements CourierCapability
         $createShipmentReply = $service->createShipment($createShipmentRequest);
 
         if(
-            $createShipmentReply->Alerts == null 
-            or $createShipmentReply->Alerts->Alert == null 
+            $createShipmentReply->Alerts == null
+            or $createShipmentReply->Alerts->Alert == null
             or count($createShipmentReply->Alerts->Alert) == 0
         ) {
             $cidrResponseStatus = CidrResponse::STATUS_FAILED;
@@ -112,7 +110,7 @@ class CreateConsignment implements CourierCapability
             if ($createShipmentReply->CompletedShipmentInfo->Status === "ALLOCATED") {
                 $responseContext = new CidrResponseContextCreateConsignment(
                     $consignmentNumber
-                ); 
+                );
                 $cidrResponseStatus = CidrResponse::STATUS_SUCCESS;
             } else {
                 $responseContext = new CidrResponseContextFailed(
@@ -126,9 +124,9 @@ class CreateConsignment implements CourierCapability
                 $alerts = array($alerts);
             }
             $msg = implode (
-                ", ", 
+                ", ",
                 array_map (
-                    function ($a) { return $a->Message;}, 
+                    function ($a) { return $a->Message;},
                     $alerts)
             );
             $responseContext = new CidrResponseContextFailed(
@@ -137,9 +135,9 @@ class CreateConsignment implements CourierCapability
             $cidrResponseStatus = CidrResponse::STATUS_FAILED;
         }
         return new CidrResponse(
-            $request, 
-            $this, 
-            $cidrResponseStatus, 
+            $request,
+            $this,
+            $cidrResponseStatus,
             $responseContext
         );
     }
@@ -156,7 +154,7 @@ class CreateConsignment implements CourierCapability
         return $date;
     }
 
-     private function addressToPFAddress(Address $address)    
+     private function addressToPFAddress(Address $address)
      {
          $pfAddress = new PFAddress();
          list(
@@ -174,9 +172,9 @@ class CreateConsignment implements CourierCapability
      private function contactToPFContact(Contact $contact)
      {
          $pfContact = new PFContact();
-         $pfContact->BusinessName = 
+         $pfContact->BusinessName =
              ($contact->businessName==="" or $contact->businessName==null)
-             ? "home" 
+             ? "home"
              : $contact->businessName;
          $pfContact->ContactName = $contact->name;
          $pfContact->EmailAddress = $contact->email;

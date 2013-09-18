@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -16,11 +14,10 @@ use Bond\Di\Configurator;
 use Bond\Di\Factory;
 
 class Cidr
-{ 
+{
 
     private $courierCapabilities;
     private $cidrCapabilityFactory;
-
 
     public function __construct()
     {
@@ -58,7 +55,6 @@ class Cidr
         $this->courierCapabilities = $courierCapabilities;
         $this->cidrCapabilityFactory = $cidrCapabilityFactory;
     }
-
 
     public function getCapability($courier, $task)
     {

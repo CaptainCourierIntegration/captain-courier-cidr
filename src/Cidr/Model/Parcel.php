@@ -7,10 +7,7 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Model;
-
 
 class Parcel
 { use TwoSugar;

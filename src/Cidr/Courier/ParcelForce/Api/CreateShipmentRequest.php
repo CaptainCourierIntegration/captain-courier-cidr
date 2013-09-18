@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CreateShipmentRequest extends BaseRequest
 {
-	/**
-	 * @access public
-	 * @var RequestedShipment
-	 */
-	public $RequestedShipment;
+    /**
+     * @access public
+     * @var RequestedShipment
+     */
+    public $RequestedShipment;
 }

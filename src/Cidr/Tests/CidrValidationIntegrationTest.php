@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests;
 
-
 use Bond\Di\DiTestCase;
 use Cidr\Cidr;
 use Cidr\CidrRequest;
@@ -81,8 +80,8 @@ class CidrValidationIntegrationTest extends DiTestCase
 //                $this->assertTrue(isset($validators[$courier][$task]));
 //
 //                $validator = $validators[$courier][$task];
-//                $loader = propertyValue($validator->getMetadataFactory(), "loader");
-//                $classes = propertyValue($loader, "classes");
+//                $loader = \Cidr\propertyValue($validator->getMetadataFactory(), "loader");
+//                $classes = \Cidr\propertyValue($loader, "classes");
 //
 //                print_r($classes);
 //                foreach($classes as $class => $constraints) {
@@ -107,8 +106,8 @@ class CidrValidationIntegrationTest extends DiTestCase
         $validator = $validators[$courier][$task];
         $metadata = $validator->getMetadataFactory()->getMetadataFor($class);
 
-        $loader = propertyValue($validator->getMetadataFactory(), "loader");
-        $classes = propertyValue($loader, "classes");
+        $loader = \Cidr\propertyValue($validator->getMetadataFactory(), "loader");
+        $classes = \Cidr\propertyValue($loader, "classes");
 
         $this->assertArrayHasKey($class, $classes, "need validation constraints for class '$class', for task '$task', for courier '$courier'" . print_r(array_keys($classes), true));
     }
@@ -127,4 +126,4 @@ class CidrValidationIntegrationTest extends DiTestCase
 //            "unexpected validation constraints defined for class '$definedClass' four courier '$courier' for task '$task'"
 //        );
 //    }
-} 
+}

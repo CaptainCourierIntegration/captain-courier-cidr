@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests\Provider;
 
-
 use Symfony\Component\DependencyInjection\Reference;
 
 class ProviderConfiguration
@@ -31,4 +30,4 @@ class ProviderConfiguration
         $configurator->add("realWorldConsignmentProvider", RealWorldConsignmentProvider::class);
     }
 
-} 
+}

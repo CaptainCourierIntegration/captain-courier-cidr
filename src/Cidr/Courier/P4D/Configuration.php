@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D;
 
 use Symfony\Component\DependencyInjection\Reference;
@@ -23,7 +21,7 @@ use Cidr\Tag;
 class Configuration
 {
 
-    public function __invoke ($configurator, $container) 
+    public function __invoke ($configurator, $container)
     {
         $container->setParameter (
             "p4dApiUrl",

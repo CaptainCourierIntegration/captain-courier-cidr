@@ -53,7 +53,6 @@ class ConsignmentProviderTest extends \PHPUnit_Framework_Testcase
         return $args;
     }
 
-
     public function testGetDataReturnsArray()
     {
         $consignments = $this->consignmentProvider->getData();
@@ -138,4 +137,4 @@ class ConsignmentProviderTest extends \PHPUnit_Framework_Testcase
         $this->assertGreaterThanOrEqual(1, count($consignment->getParcels()));
     }
 
-} 
+}

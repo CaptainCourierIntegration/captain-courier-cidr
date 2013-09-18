@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 /**
  * Created by PhpStorm.
  * User: joseph
@@ -17,7 +15,6 @@
  */
 
 namespace Cidr\Exception;
-
 
 use Exception;
 
@@ -29,5 +26,4 @@ class InvalidFileFormatException extends \Exception
 
     }
 
-
-} 
+}

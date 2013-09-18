@@ -7,30 +7,28 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CompletedManifestInfo
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ManifestNumber;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ManifestType;
-	/**
-	 * @access public
-	 * @var integer
-	 */
-	public $TotalShipmentCount;
-	/**
-	 * @access public
-	 * @var ManifestShipments
-	 */
-	public $ManifestShipments;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ManifestNumber;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ManifestType;
+    /**
+     * @access public
+     * @var integer
+     */
+    public $TotalShipmentCount;
+    /**
+     * @access public
+     * @var ManifestShipments
+     */
+    public $ManifestShipments;
 }

@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class DateTimeRange
 {
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $From;
-	/**
-	 * @access public
-	 * @var dateTime
-	 */
-	public $To;
+    /**
+     * @access public
+     * @var dateTime
+     */
+    public $From;
+    /**
+     * @access public
+     * @var dateTime
+     */
+    public $To;
 }

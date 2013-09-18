@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests;
 
-
 use Bond\Di\Configurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -32,4 +31,4 @@ class CidrRequestFactoryConfiguration
             ]
         );
     }
-} 
+}

@@ -56,12 +56,21 @@ function page3(callback, trackingNumber, parcelNumber) {
 	);
 }
 
+var argv = process.argv;
+
+if(argv.length != 3) {
+	console.log("takes argument trackingNumber");
+	process.exit(1);
+}
 
 track(
 	function (rows) {
-		console.log(rows);
+		console.log("date\t\ttime\t\tlocation\t\tevent");
+		rows.forEach(function(obj) {
+			console.log(obj.date + "\t" + obj.time + "\t\t" + obj.location + "\t\t" + obj.trackingEvent)
+		})
 	},
-	"CN5752885"
+	argv[2]
 );
 
 

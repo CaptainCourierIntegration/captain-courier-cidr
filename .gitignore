@@ -7,3 +7,5 @@ pitch/
 script/
 *.DS_STore
 runtests
+.directory
+src/Node/node_modules/

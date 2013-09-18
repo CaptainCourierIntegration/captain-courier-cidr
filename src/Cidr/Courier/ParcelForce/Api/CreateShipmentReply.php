@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CreateShipmentReply extends BaseReply
 {
-	/**
-	 * @access public
-	 * @var CompletedShipmentInfo
-	 */
-	public $CompletedShipmentInfo;
+    /**
+     * @access public
+     * @var CompletedShipmentInfo
+     */
+    public $CompletedShipmentInfo;
 }

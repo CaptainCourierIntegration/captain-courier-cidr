@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D;
 
 use Cidr\CidrResponse;
@@ -59,7 +57,6 @@ class CreateConsignment implements CourierCapability
     {
         return array();
     }
-
 
     function submitCidrRequest (CidrRequest $request)
     {

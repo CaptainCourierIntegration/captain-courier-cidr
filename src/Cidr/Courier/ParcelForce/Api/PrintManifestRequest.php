@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class PrintManifestRequest extends BaseRequest
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ManifestNumber;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $PrintFormat;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ManifestNumber;
+    /**
+     * @access public
+     * @var string
+     */
+    public $PrintFormat;
 }

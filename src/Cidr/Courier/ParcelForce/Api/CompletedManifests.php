@@ -7,14 +7,12 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CompletedManifests {
-	/**
-	 * @access public
-	 * @var CompletedManifestInfo[]
-	 */
-	public $CompletedManifestInfo;
+    /**
+     * @access public
+     * @var CompletedManifestInfo[]
+     */
+    public $CompletedManifestInfo;
 }

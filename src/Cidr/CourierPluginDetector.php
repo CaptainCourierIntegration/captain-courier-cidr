@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Cidr\Exception\FileNotFoundException;
@@ -25,7 +23,7 @@ class CourierPluginDetector
     private $courierMetadataFactory;
 
     private $requireAllCouriersFeatureComplete;
-    
+
     /**
      * TODO CLEAN UP
      * @return CourierIntegration[] detected
@@ -65,7 +63,7 @@ class CourierPluginDetector
     {
         $handle = opendir ($this->courierFolder);
         while (false !== ($entry = readdir ($handle))) {
-            if ( !\Cidr\startsWith($entry, ".") 
+            if ( !\Cidr\startsWith($entry, ".")
                  and is_dir ($this->courierFolder . "/" . $entry)) {
                 $courierNames[] = $entry;
             }

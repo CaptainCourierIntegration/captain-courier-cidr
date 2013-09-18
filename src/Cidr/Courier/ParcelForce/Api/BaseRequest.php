@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class BaseRequest
 {
-	/**
-	 * @access public
-	 * @var Authentication
-	 */
-	public $Authentication;
+    /**
+     * @access public
+     * @var Authentication
+     */
+    public $Authentication;
 }

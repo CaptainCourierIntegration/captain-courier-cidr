@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce;
 
 use Bond\Di\Factory;
@@ -45,7 +43,7 @@ class PrintLabel implements CourierCapability
     const PRINT_FORMAT = "PDF";
     const BARCODE_FORMAT = "PNG";
     const PRINT_TYPE = "ALL_PARCELS";
-    
+
     private $shipServiceFactory;
     private $courierName;
 
@@ -126,7 +124,7 @@ class PrintLabel implements CourierCapability
         return $date;
     }
 
-     private function addressToPFAddress(Address $address)    
+     private function addressToPFAddress(Address $address)
      {
          $pfAddress = new PFAddress();
          list(
@@ -144,9 +142,9 @@ class PrintLabel implements CourierCapability
      private function contactToPFContact(Contact $contact)
      {
          $pfContact = new PFContact();
-         $pfContact->BusinessName = 
+         $pfContact->BusinessName =
              ($contact->businessName==="" or $contact->businessName==null)
-             ? "home" 
+             ? "home"
              : $contact->businessName;
          $pfContact->ContactName = $contact->name;
          $pfContact->EmailAddress = $contact->email;

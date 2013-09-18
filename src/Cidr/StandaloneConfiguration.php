@@ -7,16 +7,14 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Bond\Di\Configurator;
 
-class StandaloneConfiguration 
+class StandaloneConfiguration
 {
-    
+
     public function __invoke(Configurator $configurator, $container)
     {
         $bootstrapContainer = $this->buildBootstrapContainer();
@@ -28,7 +26,7 @@ class StandaloneConfiguration
         $container->merge($productionContainer);
     }
 
-    private function buildBootstrapContainer() 
+    private function buildBootstrapContainer()
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);

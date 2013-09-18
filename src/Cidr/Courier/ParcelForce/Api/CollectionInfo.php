@@ -7,25 +7,23 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CollectionInfo
 {
-	/**
-	 * @access public
-	 * @var Contact
-	 */
-	public $CollectionContact;
-	/**
-	 * @access public
-	 * @var Address
-	 */
-	public $CollectionAddress;
-	/**
-	 * @access public
-	 * @var DateTimeRange
-	 */
-	public $CollectionTime;
+    /**
+     * @access public
+     * @var Contact
+     */
+    public $CollectionContact;
+    /**
+     * @access public
+     * @var Address
+     */
+    public $CollectionAddress;
+    /**
+     * @access public
+     * @var DateTimeRange
+     */
+    public $CollectionTime;
 }

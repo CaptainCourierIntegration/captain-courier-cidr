@@ -7,14 +7,12 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class BaseReply {
-	/**
-	 * @access public
-	 * @var Alerts
-	 */
-	public $Alerts;
+    /**
+     * @access public
+     * @var Alerts
+     */
+    public $Alerts;
 }

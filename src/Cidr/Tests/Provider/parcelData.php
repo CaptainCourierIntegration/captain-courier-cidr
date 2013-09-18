@@ -6,7 +6,6 @@
  * file that was distributed with this source code.
  */
 
-
 return array(
     array("id"=>1,"width"=>"52","height"=>"98","length"=>"9","weight"=>"69761","value"=>"3450.24","description"=>"sem ut"),
     array("id"=>2,"width"=>"78","height"=>"11","length"=>"48","weight"=>"69489","value"=>"4346.97","description"=>"sodales"),

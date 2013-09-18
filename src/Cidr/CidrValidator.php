@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Bond\Di\Factory;
@@ -28,7 +26,7 @@ class CidrValidator
     private $validatorFactory;
 
     private $validators = [];
-    
+
     protected static $propertiesNotManagedByMilk = ["validators"];
 
     public function init()
@@ -71,7 +69,7 @@ class CidrValidator
         // checks a validator exists for courier
         if (false === isset($this->validators[$courier])) {
             throw new \Exception(
-                "no validator for courier $courier." 
+                "no validator for courier $courier."
                 . " available couriers: "
                 . print_r(array_keys($this->validators), true)
             );
@@ -89,19 +87,18 @@ class CidrValidator
             ->getMetadataFor($cidrRequest);
 
         if (0 ===
-           count($metadata->members) 
-           + count($metadata->properties) 
+           count($metadata->members)
+           + count($metadata->properties)
            + count($metadata->getters)
         ) {
             throw new \InvalidArgumentException(
                 "can't find any metadata/constraints for"
                 . get_class($cidrRequest)
             );
-        } 
-        
+        }
+
         // validates this object
         $result = $validator->validate($cidrRequest);
-
 
         return array_map(
             function ($violation) {

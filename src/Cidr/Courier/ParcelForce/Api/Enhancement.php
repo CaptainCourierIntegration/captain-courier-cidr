@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Enhancement
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $EnhancedCompensation;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $SaturdayDeliveryRequired;
+    /**
+     * @access public
+     * @var string
+     */
+    public $EnhancedCompensation;
+    /**
+     * @access public
+     * @var boolean
+     */
+    public $SaturdayDeliveryRequired;
 }

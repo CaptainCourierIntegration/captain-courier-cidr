@@ -29,7 +29,6 @@ class ParcelProviderTest extends \PHPUnit_Framework_Testcase
         );
     }
 
-
     public function testGetDataReturnsArray()
     {
         $parcels = $this->parcelProvider->getData();
@@ -53,11 +52,6 @@ class ParcelProviderTest extends \PHPUnit_Framework_Testcase
         $this->assertArrayHasKey("value", $parcel->core());
         $this->assertArrayHasKey("description", $parcel->core());
 
-
     }
 
-
-
-
-
-} 
+}

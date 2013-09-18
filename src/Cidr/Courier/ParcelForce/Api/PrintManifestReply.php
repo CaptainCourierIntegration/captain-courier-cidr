@@ -7,14 +7,12 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class PrintManifestReply extends BaseReply {
-	/**
-	 * @access public
-	 * @var Document
-	 */
-	public $Manifest;
+    /**
+     * @access public
+     * @var Document
+     */
+    public $Manifest;
 }

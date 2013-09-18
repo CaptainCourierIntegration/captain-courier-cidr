@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests;
 
-
 use Bond\Di\DiTestCase;
 use Cidr\Cidr;
 use Cidr\CidrRequest;
@@ -127,4 +126,4 @@ class CidrValidationIntegrationTest extends DiTestCase
 //            "unexpected validation constraints defined for class '$definedClass' four courier '$courier' for task '$task'"
 //        );
 //    }
-} 
+}

@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Model\Exception;
 
 class BadPropertyException extends \Exception

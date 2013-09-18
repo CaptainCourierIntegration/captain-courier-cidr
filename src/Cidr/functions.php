@@ -27,7 +27,6 @@ namespace Cidr {
         return $input[0];
     }
 
-
     /**
      * returns an object's method as a function that works just like the method
      * this also works, if no method is passed in, and returns a function that makes classes
@@ -51,8 +50,6 @@ namespace Cidr {
 
         }
     }
-
-
 
     function startsWith($haystack, $needle)
     {

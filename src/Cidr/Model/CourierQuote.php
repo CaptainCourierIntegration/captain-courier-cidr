@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Model;
 
 class CourierQuote
@@ -24,10 +22,5 @@ class CourierQuote
         /** DateTime quote was given */
         "dateCreated"
     ];
-
-
-
-
-
 
 }

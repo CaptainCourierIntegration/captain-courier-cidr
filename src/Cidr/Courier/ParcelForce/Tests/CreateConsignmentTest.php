@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Tests;
 use Bond\Di\DiTestCase;
 use Cidr\Courier\ParcelForce\CreateConsignment;
@@ -24,7 +22,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * @service parcelForceCreateConsignmentTest
  */
 class CreateConsignmentTest extends DiTestCase
-{ 
+{
     public $createConsignment;
 
     public function __invoke($configurator, $container)
@@ -51,11 +49,11 @@ class CreateConsignmentTest extends DiTestCase
             CreateConsignmentTest::class
         )->setProperty ("createConsignment", new Reference ("parcelForceCreateConsignmentMocked"));
     }
-    
+
     public function testGetTaskReturnsCreateConsignment()
     {
-        $this->assertEquals ( 
-            Task::CREATE_CONSIGNMENT, 
+        $this->assertEquals (
+            Task::CREATE_CONSIGNMENT,
             $this->createConsignment->getTask()
         );
     }
@@ -68,12 +66,4 @@ class CreateConsignmentTest extends DiTestCase
         );
     }
 
-
-
-
-
-
-
-
-    
 }

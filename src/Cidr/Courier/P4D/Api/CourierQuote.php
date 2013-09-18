@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D\Api;
 
 class CourierQuote
@@ -28,7 +26,7 @@ class CourierQuote
     public $printerText;
     public $collectionDates;
 
-    function __construct($obj) 
+    function __construct($obj)
     {
         $this->optionId = $obj->OptionID;
         $this->carrier = $obj->Carrier;

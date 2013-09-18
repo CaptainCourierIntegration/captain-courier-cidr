@@ -7,34 +7,32 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class InternationalInfo {
-	/**
-	 * @access public
-	 * @var Parcels
-	 */
-	public $Parcels;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ShipperExporterVatNo;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $RecipientImporterVatNo;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $DocumentsOnly;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $DocumentsDescription;
+    /**
+     * @access public
+     * @var Parcels
+     */
+    public $Parcels;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ShipperExporterVatNo;
+    /**
+     * @access public
+     * @var string
+     */
+    public $RecipientImporterVatNo;
+    /**
+     * @access public
+     * @var boolean
+     */
+    public $DocumentsOnly;
+    /**
+     * @access public
+     * @var string
+     */
+    public $DocumentsDescription;
 }

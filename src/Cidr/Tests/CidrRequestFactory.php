@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 /**
  * Created by PhpStorm.
  * User: joseph
@@ -86,4 +84,4 @@ class CidrRequestFactory
         return $request;
     }
 
-} 
+}

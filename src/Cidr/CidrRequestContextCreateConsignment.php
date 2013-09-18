@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 // TODO once TwoSugar has been re-written to be Milk with custom paramters, refactor this to use TwoSugar over Milk
@@ -23,7 +21,7 @@ class CidrRequestContextCreateConsignment implements CidrRequestContext
 
     /** DateTime */
     private $collectionTime;
-    
+
     /** Address */
     private $deliveryAddress;
 
@@ -45,5 +43,5 @@ class CidrRequestContextCreateConsignment implements CidrRequestContext
     // TODO resolve how to handle this property
     /** CourierQuote */
     //private $courierQuote;
-    
+
 }

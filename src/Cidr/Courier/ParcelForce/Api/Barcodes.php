@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Barcodes
 {
-	/**
-	 * @access public
-	 * @var Barcode[]
-	 */
-	public $Barcode;
+    /**
+     * @access public
+     * @var Barcode[]
+     */
+    public $Barcode;
 }

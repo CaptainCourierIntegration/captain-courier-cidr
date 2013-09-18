@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D\Api;
 
 class P4DQuoteResponse
@@ -35,13 +33,12 @@ class P4DQuoteResponse
         $this->deliveryCountry = $obj->DeliveryCountry;
         $this->quotes = array_map(function($quote){return new CourierQuote($quote);}, $obj->ServiceOptions);
     }
-    
+
     function getCheapestQuote()
     {
         return array_reduce($this->quotes, function($q1, $q2) {
             return $q1->totalPrice>$q2->totalPrice ? $q2 : $q1;
         }, $this->quotes[0]);
     }
-    
 
 }

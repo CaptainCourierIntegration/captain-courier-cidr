@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Exception;
 
 class BadArgumentsException extends \Exception
@@ -27,7 +25,7 @@ class BadArgumentsException extends \Exception
         $this->method = $method;
 
         $reflMethod = new \ReflectionMethod( $method );
-        
+
         $this->message = sprintf(
             "%s->%s(). declared in %s. %s, arguments were:\n%s",
             get_class($obj),

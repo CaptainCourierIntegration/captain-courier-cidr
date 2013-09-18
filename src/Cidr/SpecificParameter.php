@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 class SpecificParameter
@@ -19,7 +17,7 @@ class SpecificParameter
     private $description;
     private $optional;
 
-    function __construct($name, $type="string", $description="", $optional=false) 
+    function __construct($name, $type="string", $description="", $optional=false)
     {
         $this->name = $name;
         $this->type = $type;
@@ -46,5 +44,5 @@ class SpecificParameter
     {
         return $this->opional;
     }
-    
+
 }

@@ -56,8 +56,6 @@ use Cidr\Courier\ParcelForce\Api\Alerts;
 use Cidr\Courier\ParcelForce\Api\Alert;
 use Cidr\Courier\ParcelForce\Api\AlertType;
 
-use Cidr\Courier\ParcelForce\CreateShipmentReply;
-
 /**
  * ShipService
  * @author WSDLInterpreter

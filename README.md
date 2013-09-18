@@ -2,7 +2,6 @@ Cidr: Courier Integration Done Right!
 =====================================
 
 
-
 Cidr's goals are simpe, make working with couriers easy.
 
 Cidr will be able to:

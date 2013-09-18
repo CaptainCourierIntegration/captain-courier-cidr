@@ -61,12 +61,12 @@ class CidrValidator
         assert(!is_null($courier));
         assert(is_string($courier));
 
-        assertArgument($courier, in_array($courier, array_keys($this->validators)));
-        assertArgument($task, !is_null($task));
-        assertArgument($task, is_string($task));
-        assertArgument($task, in_array($task, Task::$Tasks));
-        assertArgument($task, in_array($task, array_keys($this->validators[$courier])));
-        assertArgument($cidrRequest, !is_null($cidrRequest));
+        \Cidr\assertArgument($courier, in_array($courier, array_keys($this->validators)));
+        \Cidr\assertArgument($task, !is_null($task));
+        \Cidr\assertArgument($task, is_string($task));
+        \Cidr\assertArgument($task, in_array($task, Task::$Tasks));
+        \Cidr\assertArgument($task, in_array($task, array_keys($this->validators[$courier])));
+        \Cidr\assertArgument($cidrRequest, !is_null($cidrRequest));
 
         // checks a validator exists for courier
         if (false === isset($this->validators[$courier])) {

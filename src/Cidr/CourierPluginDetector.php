@@ -65,7 +65,7 @@ class CourierPluginDetector
     {
         $handle = opendir ($this->courierFolder);
         while (false !== ($entry = readdir ($handle))) {
-            if ( !startsWith($entry, ".") 
+            if ( !\Cidr\startsWith($entry, ".") 
                  and is_dir ($this->courierFolder . "/" . $entry)) {
                 $courierNames[] = $entry;
             }

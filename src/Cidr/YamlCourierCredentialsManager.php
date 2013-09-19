@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cidr;
 
 use Cidr\Exception\CourierNotFoundException;
@@ -38,7 +37,6 @@ class YamlCourierCredentialsManager implements CourierCredentialsManagerInterfac
         assert(null !== $this->credentialsFile);
         assert(file_exists($this->credentialsFile));
         assert(null !== $this->yamlParser);
-
 
         $credentials = $this->yamlParser->parse(
             file_get_contents($this->credentialsFile)
@@ -95,6 +93,5 @@ class YamlCourierCredentialsManager implements CourierCredentialsManagerInterfac
         }
         return $this->credentials[$courier];
     }
-
 
 }

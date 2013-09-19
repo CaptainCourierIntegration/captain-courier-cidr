@@ -29,7 +29,6 @@ class AddressProviderTest extends \PHPUnit_Framework_Testcase
         );
     }
 
-
     public function testGetDataReturnsArray()
     {
         $addresses = $this->addressProvider->getData();
@@ -61,8 +60,4 @@ class AddressProviderTest extends \PHPUnit_Framework_Testcase
 
     }
 
-
-
-
-
-} 
+}

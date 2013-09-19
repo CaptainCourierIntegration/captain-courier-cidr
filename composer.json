@@ -20,10 +20,10 @@
     "autoload": {
         "psr-0": {
             "Cidr": "src/",
-            "Curl" : "lib/curl/src/"
+            "Curl" : "lib/"
         },
         "files": [
-            "src/functions.php"
+            "src/Cidr/functions.php"
         ]
     },
     "require": {
@@ -41,7 +41,7 @@
         "symfony/proxy-manager-bridge": "*",
         "symfony/yaml": "*",
         "symfony/config": "*",
-        "bond/dependency-injection": "dev-develop"
+        "squareproton/Bond": "*"
     },
     "minimum-stability": "dev",
     "config": {

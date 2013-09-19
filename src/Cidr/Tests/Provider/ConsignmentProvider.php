@@ -1,7 +1,6 @@
 <?php
 namespace Cidr\Tests\Provider;
 
-
 use Cidr\Milk;
 use Cidr\Model\Consignment;
 use Cidr\Tests\Provider\Tests\ContactProviderTest;
@@ -9,16 +8,13 @@ use Cidr\Tests\Provider\Tests\ContactProviderTest;
 class ConsignmentProvider implements DataProvider
 { use Milk;
 
-
     private $addressProvider;
     private $contactProvider;
     private $parcelProvider;
 
     private $nextId = 0;
 
-
     protected static $propertiesNotManagedByMilk = ["nextId"];
-
 
     /** returns Consignment array */
     public function getData($size = 100)
@@ -35,7 +31,6 @@ class ConsignmentProvider implements DataProvider
         $contacts = $this->contactProvider->getData();
         $parcels = $this->parcelProvider->getData();
         $consignments = $this->generateDataSet($size);
-
 
         $modelConsignments = [];
         foreach ($consignments as $consignment) {
@@ -98,7 +93,6 @@ class ConsignmentProvider implements DataProvider
         return rand(0, 50);
     }
 
-
     private function pickAvoid(array $objs, $avoidIndex)
     {
         assert( count($objs) > 1);
@@ -154,4 +148,4 @@ class ConsignmentProvider implements DataProvider
         return $collectionDate;
     }
 
-} 
+}

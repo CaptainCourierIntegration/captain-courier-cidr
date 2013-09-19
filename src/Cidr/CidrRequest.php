@@ -7,13 +7,11 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 class CidrRequest
 { use Milk;
-    
+
     private $requestContext; // sublcass of CidrRequestContext
     private $task; // type of request, ie CreateConsignment, Quote
     private $courierCredentials; // associative array

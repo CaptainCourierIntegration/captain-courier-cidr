@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 use Cidr\Exception\NotImplementedException;
@@ -17,7 +15,7 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
  * basically a wrapper for a cidr interface.
- * provides validation methods that combine 
+ * provides validation methods that combine
  * the yml validation with advanced validation defined on Cidr itnerface.
  * each instance will be specific to that cidr's courier and that task.
  */
@@ -60,7 +58,7 @@ class CidrCapability implements CourierCapability
         } else {
             return new CidrResponse(
                 $request,
-                $this, 
+                $this,
                 CidrResponse::STATUS_FAILED,
                 new CidrResponseContextValidationFailed($violations)
             );
@@ -71,6 +69,5 @@ class CidrCapability implements CourierCapability
     {
         return "CidrCapability{courier={$this->getCourier()}, task={$this->getTask()}}";
     }
-
 
 }

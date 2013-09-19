@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\P4D;
 
 use Cidr\CidrResponse;
@@ -55,14 +53,14 @@ class CreateConsignment implements CourierCapability
         return $this->courierName;
     }
 
-    function validate (CidrRequest $request)
+    public function validate (CidrRequest $request)
     {
         return array();
     }
 
-
-    function submitCidrRequest (CidrRequest $request)
+    public function submitCidrRequest (CidrRequest $request)
     {
+
         $quoteResponse = $this->getQuotes($request);
         $quote = $quoteResponse->getCheapestQuote();
 
@@ -82,7 +80,7 @@ class CreateConsignment implements CourierCapability
         return $cidrResponse;
     }
 
-    private function placeShipment(CidrRequest $request, P4DQuoteResponse $response, CourierQuote $quote) 
+    private function placeShipment(CidrRequest $request, P4DQuoteResponse $response, CourierQuote $quote)
     {
         $requestContext = $request->getRequestContext();
         $fields = array(
@@ -136,8 +134,12 @@ class CreateConsignment implements CourierCapability
             "ParcelContents" => implode(", ", array_map(function($p){return $p->description;}, $requestContext->getParcels())),
             "EstimatedValue" => array_sum(array_map(function($p){return $p->value;}, $requestContext->getParcels()))
         );
-
-        return apply(P4DQuoteResponse::class, 'json_decode', func($this->curl, "post"), [$this->apiUrl, $fields]);
+                
+        $jsonResponse = $this->curl->post($this->apiUrl, $fields);
+        $objResponse = json_decode($jsonResponse);
+        $response = new P4DQuoteResponse($objResponse);
+        return $response;
+        //return \Cidr\apply(P4DQuoteResponse::class, '\json_decode', \Cidr\func( $this->curl, "post"), [$this->apiUrl, $fields]);
     }
 
     /**
@@ -145,16 +147,16 @@ class CreateConsignment implements CourierCapability
        @return CourierQuote
        @throws Exception if no collection dates meet collection window
     */
-    private function pickQuote(CidrRequest $request, P4DQuoteResponse $quotes) 
+    private function pickQuote(CidrRequest $request, P4DQuoteResponse $quotes)
     {
         $format = "Y-m-d";
         $expectedCollectionDay = $request->getRequestContext()->collectionTime->format($format);
         $cheapestQuote = null;
-        
+
         foreach($quotes->quotes as $quote) {
             $dates = map(function($date) use($format) { return $date["date"]->format($format); }, $quote->collectionDates);
             $fSame = function ($date) use($expectedCollectionDay) { return $date === $expectedCollectionDay; };
-            if(!apply(partial(filter, $fSame), isEmpty,  $dates)) {
+            if(!\Cidr\apply(partial(filter, $fSame), isEmpty,  $dates)) {
                 if($cheapestQuote == null || $quote->totalPrice < $cheapestQuote->totalPrice) {
                     $cheapestQuote = $quote;
                 }

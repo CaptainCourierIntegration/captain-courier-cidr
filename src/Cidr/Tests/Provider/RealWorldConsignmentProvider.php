@@ -8,7 +8,6 @@
 
 namespace Cidr\Tests\Provider;
 
-
 use Cidr\Model\Address;
 use Cidr\Model\Consignment;
 use Cidr\Model\Contact;
@@ -41,7 +40,6 @@ class RealWorldConsignmentProvider implements DataProvider
             }
             return $collectionDate;
         };
-
 
         $collectionAddress = new Address([
             "lines" => [
@@ -120,4 +118,4 @@ class RealWorldConsignmentProvider implements DataProvider
 
     }
 
-} 
+}

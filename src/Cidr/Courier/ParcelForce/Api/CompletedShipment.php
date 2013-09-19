@@ -7,20 +7,18 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class CompletedShipment
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ShipmentNumber;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $PartnerNumber;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ShipmentNumber;
+    /**
+     * @access public
+     * @var string
+     */
+    public $PartnerNumber;
 }

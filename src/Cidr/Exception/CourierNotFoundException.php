@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 /**
  * Created by PhpStorm.
  * User: joseph
@@ -17,7 +15,6 @@
  */
 
 namespace Cidr\Exception;
-
 
 use Exception;
 
@@ -28,5 +25,4 @@ class CourierNotFoundException extends \LogicException
         parent::__construct("whilst '$context' the courier '$courier' was not found");
     }
 
-
-} 
+}

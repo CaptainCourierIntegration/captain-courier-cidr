@@ -1,7 +1,6 @@
 <?php
 namespace Cidr\Tests\Provider;
 
-
 use Cidr\Model\Parcel;
 
 class ParcelProvider implements DataProvider
@@ -16,4 +15,4 @@ class ParcelProvider implements DataProvider
         );
     }
 
-} 
+}

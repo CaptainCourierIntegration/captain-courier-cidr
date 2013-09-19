@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Exception;
 
 class UnknownMethodException extends \Exception

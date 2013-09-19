@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 /**
  * Created by PhpStorm.
  * User: joseph
@@ -18,8 +16,7 @@
 
 namespace Cidr\Exception;
 
-
 class IllegalStateException extends \LogicException
 {
 
-} 
+}

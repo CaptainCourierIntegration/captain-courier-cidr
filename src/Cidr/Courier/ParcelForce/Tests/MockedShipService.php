@@ -46,4 +46,4 @@ class MockedShipService extends ShipService
         return $createShipmentReply;
     }
 
-} 
+}

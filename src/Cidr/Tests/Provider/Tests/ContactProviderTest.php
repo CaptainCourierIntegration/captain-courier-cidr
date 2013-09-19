@@ -29,7 +29,6 @@ class ContactProviderTest extends \PHPUnit_Framework_Testcase
         );
     }
 
-
     public function testGetDataReturnsArray()
     {
         $contacts = $this->contactProvider->getData();
@@ -50,11 +49,6 @@ class ContactProviderTest extends \PHPUnit_Framework_Testcase
         $this->assertArrayHasKey("email", $contact->core());
         $this->assertArrayHasKey("telephone", $contact->core());
 
-
     }
 
-
-
-
-
-} 
+}

@@ -7,25 +7,23 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class Returns
 {
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $ReturnsEmail;
-	/**
-	 * @access public
-	 * @var string
-	 */
-	public $EmailMessage;
-	/**
-	 * @access public
-	 * @var boolean
-	 */
-	public $EmailLabel;
+    /**
+     * @access public
+     * @var string
+     */
+    public $ReturnsEmail;
+    /**
+     * @access public
+     * @var string
+     */
+    public $EmailMessage;
+    /**
+     * @access public
+     * @var boolean
+     */
+    public $EmailLabel;
 }

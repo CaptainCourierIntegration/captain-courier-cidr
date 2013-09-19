@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Tests;
 
 use Bond\Di\Factory;
@@ -31,7 +29,6 @@ use Cidr\Model\Address;
 use Cidr\Model\Contact;
 use Cidr\Model\Consignment;
 use Cidr\Model\Parcel;
-
 
 use Bond\Di\DiTestCase;
 
@@ -110,7 +107,7 @@ class CidrIntegrationTest extends DiTestCase
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
 
         $this->assertInstanceOf(
-            CidrResponseContextCreateConsignment::class, 
+            CidrResponseContextCreateConsignment::class,
             $cidrResponse->getResponseContext()
         );
 

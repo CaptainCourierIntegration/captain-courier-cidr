@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Tests;
 
 use Bond\Di\DiTestCase;
@@ -23,18 +21,18 @@ use Cidr\Milk;
  * @service test
  */
 class CourierPluginDetectorTest extends DiTestCase
-{  
+{
 
     public $courierPluginDetector;
 
     public function __invoke ($configurator, $container)
     {
         $configurator->add (
-            "courierPlugin", 
+            "courierPlugin",
             CourierPluginMetadata::class,
             [new Inject(), new Inject(), new Inject()]
         );
-        
+
         $configurator->addFactory(
             "courierPluginFactory",
             "courierPlugin"
@@ -43,7 +41,7 @@ class CourierPluginDetectorTest extends DiTestCase
         $configurator->add (
             "detector",
             CourierPluginDetector::class,
-            [ 
+            [
                 "/home/captain/Cidr/src/Cidr/Courier",
                 "Cidr/Courier",
                 "Validation.yml",
@@ -52,7 +50,7 @@ class CourierPluginDetectorTest extends DiTestCase
                 false
             ]
         );
-        
+
         $configurator->add (
             "test",
             CourierPluginDetectorTest::class
@@ -70,6 +68,5 @@ class CourierPluginDetectorTest extends DiTestCase
             $this->courierPluginDetector
         );
     }
-
 
 }

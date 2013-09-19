@@ -7,15 +7,13 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Courier\ParcelForce\Api;
 
 class ShipmentLabelData
 {
-	/**
-	 * @access public
-	 * @var ParcelLabelData[]
-	 */
-	public $ParcelLabelData;
+    /**
+     * @access public
+     * @var ParcelLabelData[]
+     */
+    public $ParcelLabelData;
 }

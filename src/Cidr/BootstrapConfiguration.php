@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
 namespace Cidr;
 
 use Cidr\CourierPluginMetadata;
@@ -21,11 +20,11 @@ class BootstrapConfiguration
     public function __invoke ($configurator, $container)
     {
         $configurator->add (
-            "courierPlugin", 
+            "courierPlugin",
             CourierPluginMetadata::class,
             [new Inject(), new Inject(), new Inject()]
         );
-        
+
         $configurator->addFactory(
             "courierPluginFactory",
             "courierPlugin"
@@ -43,7 +42,7 @@ class BootstrapConfiguration
                 new Reference("courierPluginFactory"),
                 false
             ]
-        );        
+        );
     }
 
 }

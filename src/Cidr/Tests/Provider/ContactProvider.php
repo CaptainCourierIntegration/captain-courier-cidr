@@ -1,7 +1,6 @@
 <?php
 namespace Cidr\Tests\Provider;
 
-
 use Cidr\Model\Contact;
 
 class ContactProvider implements DataProvider
@@ -16,4 +15,4 @@ class ContactProvider implements DataProvider
         );
     }
 
-} 
+}

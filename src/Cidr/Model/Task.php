@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr\Model;
 
 /**
@@ -25,5 +23,4 @@ class Task
         self::PRINT_LABEL
     );
 }
-
 

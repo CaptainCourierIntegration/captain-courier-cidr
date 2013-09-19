@@ -8,7 +8,6 @@
 
 namespace Cidr\Exception;
 
-
 use Exception;
 
 class InvalidArgumentException extends \LogicException {
@@ -23,5 +22,4 @@ class InvalidArgumentException extends \LogicException {
 
     }
 
-
-} 
+}

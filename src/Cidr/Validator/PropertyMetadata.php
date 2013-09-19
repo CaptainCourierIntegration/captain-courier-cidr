@@ -30,7 +30,6 @@
  * THE SOFTWARE.
  */
 
-
 namespace Cidr\Validator;
 
 use Symfony\Component\Validator\Exception\ValidatorException;

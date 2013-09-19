@@ -30,7 +30,6 @@
  * THE SOFTWARE.
  */
 
-
 namespace Cidr\Validator\Loader;
 
 use Cidr\Validator\ClassMetadata;

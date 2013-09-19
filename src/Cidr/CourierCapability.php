@@ -7,8 +7,6 @@
  * file that was distributed with this source code.
  */
 
-
-
 namespace Cidr;
 
 interface CourierCapability
@@ -26,9 +24,9 @@ interface CourierCapability
     /**
      * @return CidrResponse
      */
-    function submitCidrRequest(CidrRequest $request); 
+    function submitCidrRequest(CidrRequest $request);
 
-    /** 
+    /**
      * @return mixed CidrValidationViolation[] or true/false
      */
     function validate(CidrRequest $request);

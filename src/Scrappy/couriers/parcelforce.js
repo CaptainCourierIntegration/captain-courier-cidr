@@ -1,20 +1,26 @@
 
 var sprintf = require("sprintf");
+var track = require("./parcelforce/track.js");
 
+function makeParcelForce() {
+	return {
 
-console.log(sprintf("hello %s", "world"));
+		gearmanFnsToRegister: ["getTracking"],
 
-module.exports = {
-	credentials: {
-	    username: "testuser",
-	    apiKey: "FI71OLRJB7LYC7BDRR0"		
-	},
-	gearmanFnsToRegister: ["getTracking"],
-	gearmanWorkerPrefix: "ParcelForce",
-	getTracking: function(gearmanPayloadData) {
-		return [
-	        { what: 'collectedFromCustomer', when: 'yesterday' },
-	        { what: 'delivered', when: 'today' }
-		]
-	}
-};
+		gearmanWorkerPrefix: "ParcelForce",
+
+		getTracking: function(gearmanPayloadData) {
+		
+			var shipmentNumber = gearmanPayloadData.shipmentNumber;
+			var trackingLog = track(
+				function () {
+				},
+			shipmentNumber
+			console.log(trackingLog);
+			return trackingLog;
+		}
+
+	};
+}
+
+module.exports = makeParcelForce();

@@ -4,6 +4,7 @@
 var $ = require("jquery");
 var _ = require("underscore");
 
+module.exports = track;
 
 // callback takes an array of objects with properties: date, time, location, trackingEvent.
 function track(callback, trackingNumber) {

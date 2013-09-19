@@ -81,9 +81,9 @@ class PrintLabel implements CourierCapability
         $printLabelReply = $service->printLabel($printLabelRequest);
 
         if(
-            isset($printLabelReply->Label->Alerts) and
-            !is_null($printLabelReply->Label->Alerts) and
-            count($printLabelReply->Label->Alerts->Alert) > 0
+            isset($printLabelReply->Alerts) and
+            !is_null($printLabelReply->Alerts) and
+            count($printLabelReply->Alerts->Alert) > 0
         ) {
             $alerts = $printLabelReply->Alerts->Alert;
             if(!is_array($alerts)) {
@@ -103,12 +103,17 @@ class PrintLabel implements CourierCapability
                 new CidrResponseContextFailed(null, $msg)
             );
         } else {
+            try {
             return new CidrResponse(
                 $request,
                 $this,
                 CidrResponse::STATUS_SUCCESS,
                 new CidrResponseContextPrintLabel($printLabelReply->Label->Data)
             );
+            } catch(\Exception $e) {
+                        print_r($printLabelReply);
+                        die();
+            }
         }
     }
 

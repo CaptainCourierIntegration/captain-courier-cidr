@@ -14,7 +14,8 @@ env:
         # p4dUsername
         - secure: "DSal8M+nJk9ApR/ZRW7/PyYizhqG1zrJUufIOn2WceO0tqrjA7mbKzH/UC8DjB5N62+3BoShxU52K/KaKCRm/oGxRSbdNyoygEacAtGQaN/eGLZxWPJFXHbPCS2aaopDqJYIfrFxfqJTz7jPUQnuH3g/i/t2fXaXzOBP9mZOkl0="
         # p4ApiKey
-        - secure: "Wza6VVQGn3o8MohVANqWmX0klv8/eb+1BULy7CYFE3hgens9hBq/JbnQTWLX29QDbrdNdl3xZzpZ2/kFYZTlDWRQv0dbiD6YzwPmNm7Q/ChICCB5Kjq236ZQSCg8XbPA4ze59YgI++Bs8RgTjU0tmnpP5ZlOPtan6SSavyf1yp4="
+        - secure: "GJ5mh1K3Mm1u7ah6nCCkPOMfpI347xsRM2L8Zz8g9orFPQIH+jOg4cMx6CSs2mjI2YyxlReudALLBTGjtieq7AQOwalJUAD4FS8vPbh7tRB5XGIJK5OTIwNqz4G/F50x8E5qTNPjZTvLxx6bd+diVQ0NqsawKtiIUQiIc+azTo0="
+#        - secure: "Wza6VVQGn3o8MohVANqWmX0klv8/eb+1BULy7CYFE3hgens9hBq/JbnQTWLX29QDbrdNdl3xZzpZ2/kFYZTlDWRQv0dbiD6YzwPmNm7Q/ChICCB5Kjq236ZQSCg8XbPA4ze59YgI++Bs8RgTjU0tmnpP5ZlOPtan6SSavyf1yp4="
         - checksum=ed2c8d12504ab50181a7fd9f18d78ea7
         - credentialsFile=res/credentials.yml
 before_script:

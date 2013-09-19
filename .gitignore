@@ -1,4 +1,6 @@
-*.DS_STore
+**/*.DS_Store
+**/node_modules
+.directory
 .idea/
 composer.lock
 docs/
@@ -7,4 +9,3 @@ res/credentials.yml
 runtests
 script/
 vendor/
-**/node_modules

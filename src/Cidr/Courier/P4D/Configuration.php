@@ -25,7 +25,7 @@ class Configuration
     {
         $container->setParameter (
             "p4dApiUrl",
-            "https://www.p4d.co.uk/p4d/api/phpsystem/v2"
+            "https://www.p4d.co.uk/p4d/api/v2"
         );
 
         $container->setParameter (

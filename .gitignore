@@ -9,3 +9,4 @@ script/
 runtests
 .directory
 src/Node/node_modules/
+**/*.DS_Store

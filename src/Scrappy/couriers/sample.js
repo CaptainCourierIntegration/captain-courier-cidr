@@ -18,17 +18,11 @@ Sample.prototype.gearmanWorkerPrefix = 'Sample';
 
 // function that will be registered with gearman
 // don't forget to add this to .prototype.gearmanFnsToRegister
-Sample.prototype.getTracking = function (gearmanPayloadData) {
+Sample.prototype.getTracking = function (gearmanPayloadData, worker, success) {
 
-    var n = 1000000;
-    while(--n) {
-    }
-
-    // return value will be json encoded and returned
-    return [
-        { what: 'collectedFromCustomer', when: 'yesterday' },
-        { what: 'delivered', when: 'today' }
-    ];
+    setTimeout(function(){
+        success(gearmanPayloadData);
+    }, 200);
 
 };
 

@@ -55,7 +55,7 @@ function registerCourierWithGearman (courier) {
 
             // benchmarking and do work
             var start = process.hrtime();
-            var output = courier[fnName](payload, worker);
+            var output = courier[fnName](data, worker);
 
             // log and return
             var ms = hrdiffAsMilliseconds(process.hrtime(start));

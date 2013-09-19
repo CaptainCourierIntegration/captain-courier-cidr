@@ -1,9 +1,10 @@
-vendor/
-composer.lock
-res/credentials.yml
+*.DS_STore
 .idea/
+composer.lock
 docs/
 pitch/
-script/
-*.DS_STore
+res/credentials.yml
 runtests
+script/
+vendor/
+**/node_modules

@@ -2,10 +2,15 @@
 
 // var Browser = require("zombie");
 var $ = require("jquery");
+var _ = require("underscore");
 
 
 // callback takes an array of objects with properties: date, time, location, trackingEvent.
 function track(callback, trackingNumber) {
+	page1(_.partial(page2, _.partial(page3, callback)), trackingNumber);
+}
+
+function page1(callback, trackingNumber) {
 	$.get(
 		"http://www.parcelforce.com/track-trace",
 		function(data) {
@@ -16,7 +21,8 @@ function track(callback, trackingNumber) {
 			properties["track.x"] = 22;
 			properties["track.y"] = 1;
 			properties["track_id"] = trackingNumber;
-			page2(callback, properties);
+
+			callback(properties);
 		}
 	);
 }
@@ -28,7 +34,8 @@ function page2(callback, properties) {
 		function (html) {
 			var trackingNumber = $(html).find("div#tnt-results > dl.dt-left-align > dd:nth-child(2) a").text();
 			var parcelNumber = $(html).find("div#tnt-results > dl.dt-left-align > dd:nth-child(4) a").text();
-			page3(callback, trackingNumber, parcelNumber);
+
+			callback(trackingNumber, parcelNumber);
 		}
 	);
 }
@@ -56,22 +63,24 @@ function page3(callback, trackingNumber, parcelNumber) {
 	);
 }
 
-var argv = process.argv;
+if(require.main === module) {
+	var argv = process.argv;
 
-if(argv.length != 3) {
-	console.log("takes argument trackingNumber");
-	process.exit(1);
+	if(argv.length != 3) {
+		console.log("takes argument trackingNumber");
+		process.exit(1);
+	}
+
+	track(
+		function (rows) {
+			console.log("date\t\ttime\t\tlocation\t\tevent");
+			rows.forEach(function(obj) {
+				console.log(obj.date + "\t" + obj.time + "\t\t" + obj.location + "\t\t" + obj.trackingEvent)
+			})
+		},
+		argv[2]
+	);
 }
-
-track(
-	function (rows) {
-		console.log("date\t\ttime\t\tlocation\t\tevent");
-		rows.forEach(function(obj) {
-			console.log(obj.date + "\t" + obj.time + "\t\t" + obj.location + "\t\t" + obj.trackingEvent)
-		})
-	},
-	argv[2]
-);
 
 
 // // trackingNumber is string

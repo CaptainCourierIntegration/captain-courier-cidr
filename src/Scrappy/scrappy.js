@@ -3,6 +3,7 @@ var path = require('path');
 var Gearman = require("node-gearman");
 var _ = require("underscore");
 var util = require("util");
+var sprintf = require("sprintf");
 
 var couriers = loadCouriers();
 
@@ -59,7 +60,7 @@ function registerCourierWithGearman (courier) {
 
             // log and return
             var ms = hrdiffAsMilliseconds(process.hrtime(start));
-            console.log( jobName+': took '+ ms + 'ms');
+            console.log(sprintf("%s: took %sms", jobName, ms));
             worker.end( JSON.stringify(output) );
 
         });

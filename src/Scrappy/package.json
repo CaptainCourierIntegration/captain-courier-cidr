@@ -6,6 +6,7 @@
         "node-gearman": "*",
         "underscore": "*",
         "redis": "*",
-        "jquery": "*"
+        "jquery": "*",
+        "sprintf": "*"
     }
 }

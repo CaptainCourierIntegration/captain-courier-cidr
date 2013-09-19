@@ -75,8 +75,13 @@ function hrdiffAsMilliseconds (diff) {
 
 // test a gearman worker
 setTimeout(function(){
-    var payload = ['arg1', 'arg2'];
-    gearman.submitJobJson( 'node.scrappy.Sample.getTracking', payload );
+    var payload = {
+        shipmentNumber: "CN5752885"
+    };
+    var job = gearman.submitJobJson( 'node.scrappy.ParcelForce.getTracking', payload );
+    job.on("end", function () {
+        console.log("Job Completed!");
+    })
 },500);
 
 // get all supported couriers

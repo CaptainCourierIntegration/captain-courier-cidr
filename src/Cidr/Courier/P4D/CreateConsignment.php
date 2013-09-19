@@ -53,13 +53,14 @@ class CreateConsignment implements CourierCapability
         return $this->courierName;
     }
 
-    function validate (CidrRequest $request)
+    public function validate (CidrRequest $request)
     {
         return array();
     }
 
-    function submitCidrRequest (CidrRequest $request)
+    public function submitCidrRequest (CidrRequest $request)
     {
+
         $quoteResponse = $this->getQuotes($request);
         $quote = $quoteResponse->getCheapestQuote();
 
@@ -133,8 +134,12 @@ class CreateConsignment implements CourierCapability
             "ParcelContents" => implode(", ", array_map(function($p){return $p->description;}, $requestContext->getParcels())),
             "EstimatedValue" => array_sum(array_map(function($p){return $p->value;}, $requestContext->getParcels()))
         );
-
-        return \Cidr\apply(P4DQuoteResponse::class, 'json_decode', \Cidr\func( $this->curl, "post"), [$this->apiUrl, $fields]);
+                
+        $jsonResponse = $this->curl->post($this->apiUrl, $fields);
+        $objResponse = json_decode($jsonResponse);
+        $response = new P4DQuoteResponse($objResponse);
+        return $response;
+        //return \Cidr\apply(P4DQuoteResponse::class, '\json_decode', \Cidr\func( $this->curl, "post"), [$this->apiUrl, $fields]);
     }
 
     /**

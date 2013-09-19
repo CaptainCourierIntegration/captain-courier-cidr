@@ -1,0 +1,11 @@
+{
+    "name": "Scrappy",
+    "description": "Courier company website integrations",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-gearman": "*",
+        "underscore": "*",
+        "redis": "*",
+        "jquery": "*"
+    }
+}

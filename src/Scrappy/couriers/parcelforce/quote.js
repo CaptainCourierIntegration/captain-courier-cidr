@@ -2,6 +2,8 @@
 
 var $ = require("jquery");
 
+module.exports = quote;
+
 // callback takes an array of objects with properties: service, delivery, compensation, tracking, price, vatIncluded
 // weight in kg
 function quote(callback, weight, collectionPostcode, deliveryPostcode) {
@@ -39,28 +41,30 @@ function quote(callback, weight, collectionPostcode, deliveryPostcode) {
 	)
 }
 
-var argv = process.argv;
+if(require.main === module) {
+	var argv = process.argv;
 
-if(argv.length != 5) {
-	console.log("takes arguments: weight, collectionAddress, deliveryAddress");
-	process.exit(1);
+	if(argv.length != 5) {
+		console.log("takes arguments: weight, collectionAddress, deliveryAddress");
+		process.exit(1);
+	}
+
+	quote(
+		function (rows) {
+			rows.forEach(function(row) {
+				console.log("");
+				console.log("==============");
+				console.log("service:      " + row.service);
+				console.log("delivery:     " + row.delivery);
+				console.log("compensation: " + row.compensation);
+				console.log("tracking:     " + row.tracking);
+				console.log("price:        " + row.price);
+				console.log("VAT included: " + row.vatIncluded);
+				console.log("==============");
+			})
+		},
+		argv[2],
+		argv[3],
+		argv[4]
+	);
 }
-
-quote(
-	function (rows) {
-		rows.forEach(function(row) {
-			console.log("");
-			console.log("==============");
-			console.log("service:      " + row.service);
-			console.log("delivery:     " + row.delivery);
-			console.log("compensation: " + row.compensation);
-			console.log("tracking:     " + row.tracking);
-			console.log("price:        " + row.price);
-			console.log("VAT included: " + row.vatIncluded);
-			console.log("==============");
-		})
-	},
-	argv[2],
-	argv[3],
-	argv[4]
-);

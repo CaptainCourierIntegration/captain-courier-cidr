@@ -45,6 +45,14 @@ class Configuration
         )->addTag(Tag::CIDR_CAPABILITY);
 
         $configurator->add(
+            "parcelForceGetQuote",
+            GetQuote::class,
+            [
+                "ParcelForce"
+            ]
+        )->addTag(Tag::CIDR_CAPABILITY);
+
+        $configurator->add(
             "parcelForcePrintLabel",
             PrintLabel::class,
             [

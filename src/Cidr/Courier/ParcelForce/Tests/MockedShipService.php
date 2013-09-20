@@ -13,6 +13,9 @@ use Cidr\Courier\ParcelForce\Api\CompletedShipmentInfo;
 use Cidr\Courier\ParcelForce\Api\CompletedShipments;
 use Cidr\Courier\ParcelForce\Api\CreateShipmentReply;
 use Cidr\Courier\ParcelForce\Api\CreateShipmentRequest;
+use Cidr\Courier\ParcelForce\Api\PrintLabelRequest;
+use Cidr\Courier\ParcelForce\Api\PrintLabelReply;
+use Cidr\Courier\ParcelForce\Api\Document;
 use Cidr\Courier\ParcelForce\Api\Exception;
 use Cidr\Courier\ParcelForce\Api\ShipService;
 use Cidr\Milk;
@@ -20,13 +23,11 @@ use Cidr\Milk;
 class MockedShipService extends ShipService
 { use Milk;
 
-    private $shipmentNumber = "MK0730971";
+    private $shipmentNumber;
+    private $pdfFile;
 
     public function createShipment(CreateShipmentRequest $request)
     {
-        print "MOCKED CALLLED\n";
-        die("no");
-
         // CompletedShipments
         $completedShipment = new CompletedShipment();
         $completedShipment->ShipmentNumber = $this->shipmentNumber;
@@ -45,5 +46,14 @@ class MockedShipService extends ShipService
 
         return $createShipmentReply;
     }
+
+    public function printLabel(PrintLabelRequest $request)
+    {
+        $reply = new PrintLabelReply();
+        $reply->Label = new Document();
+        $reply->Label->Data = file_get_contents($this->pdfFile);
+        return $reply;
+    }
+
 
 }

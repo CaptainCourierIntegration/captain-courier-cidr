@@ -1,0 +1,22 @@
+# validates a CidrRequest for CreateShipment request
+Cidr\CidrRequest:
+    getters:
+        requestContext:
+            - Valid: ~
+        task:
+            - Choice:
+                choices: [GetTracking]
+                message: choose a valid task.
+
+
+Cidr\CidrRequestContextGetTracking:
+    getters:
+        shipmentNumber:
+          - NotBlank: ~
+          - Type:
+              type: string
+          - Length:
+              min: 6
+              max: 10
+
+

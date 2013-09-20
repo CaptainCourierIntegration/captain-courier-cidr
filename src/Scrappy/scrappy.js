@@ -3,6 +3,7 @@ var path = require('path');
 var Gearman = require("node-gearman");
 var _ = require("underscore");
 var util = require("util");
+var sprintf = require("sprintf");
 
 var couriers = loadCouriers();
 
@@ -94,19 +95,25 @@ function getWorkerSuccessCallback (worker, jobCount)
 // }
 
 // test a gearman worker
-var c = 0;
-setInterval(function(){
-    var payload = c++;
-    gearman.submitJobJson(
-        'node.scrappy.Sample.getTracking',
-        payload,
-        {
-            timeout: 2000,
-            onSuccess: function (data) {
-            }
-        }
-    );
-},250);
+
+// var c = 0;
+// setTimeout(function(){
+//     var payload = {
+//         weight: 12,
+//         collectionPostcode: "OX17 1RR",
+//         deliveryPostcode: "OX17 1RR"
+//     };
+//     gearman.submitJobJson(
+//         'node.scrappy.ParcelForce.getQuotes',
+//         payload,
+//         {
+//             timeout: 100000,
+//             onSuccess: function (data) {
+//             }
+//         }
+//     );
+// },250);
+
 
 // get all supported couriers
 function loadCouriers () {

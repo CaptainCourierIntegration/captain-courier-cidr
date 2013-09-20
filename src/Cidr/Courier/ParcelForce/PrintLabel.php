@@ -66,8 +66,8 @@ class PrintLabel implements CourierCapability
         assert($request->getRequestContext() instanceof CidrRequestContextPrintLabel);
 
         $authentication = new Authentication();
-        $authentication->UserName = $request->getCourierCredentials()["username"];
-        $authentication->Password = $request->getCourierCredentials()["password"];
+        $authentication->UserName = $request->getCourierCredentials()->username;
+        $authentication->Password = $request->getCourierCredentials()->password;
 
         $requestContext = $request->getRequestContext();
         $printLabelRequest = new PrintLabelRequest();
@@ -103,17 +103,12 @@ class PrintLabel implements CourierCapability
                 new CidrResponseContextFailed(null, $msg)
             );
         } else {
-            try {
             return new CidrResponse(
                 $request,
                 $this,
                 CidrResponse::STATUS_SUCCESS,
                 new CidrResponseContextPrintLabel($printLabelReply->Label->Data)
             );
-            } catch(\Exception $e) {
-                        print_r($printLabelReply);
-                        die();
-            }
         }
     }
 

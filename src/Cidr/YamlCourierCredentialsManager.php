@@ -64,7 +64,12 @@ class YamlCourierCredentialsManager implements CourierCredentialsManagerInterfac
             );
         }
 
-        $this->credentials = $credentials;
+        $credentialsObjs = [];
+        foreach ($credentials as $courierName => $credentialArray) {
+            $credentialsObjs[$courierName] = (object)$credentialArray;
+        }
+
+        $this->credentials = $credentialsObjs;
         $this->init = true;
         return $this;
     }
@@ -73,7 +78,7 @@ class YamlCourierCredentialsManager implements CourierCredentialsManagerInterfac
     public function getCouriers()
     {
         if (!$this->init) {
-            throw new IllegalStateException("init not called");
+            $this->init();
         }
 
         assert(null != $this->credentials);
@@ -85,7 +90,7 @@ class YamlCourierCredentialsManager implements CourierCredentialsManagerInterfac
     public function getCredentials($courier)
     {
         if (!$this->init) {
-           throw new IllegalStateException("init not called");
+           $this->init();
         }
         assert(null !== $this->credentials);
         if (!in_array($courier, $this->getCouriers())) {

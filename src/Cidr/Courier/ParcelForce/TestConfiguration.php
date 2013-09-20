@@ -9,35 +9,39 @@
 
 namespace Cidr\Courier\ParcelForce;
 
-use Cidr\Courier\ParcelForce\Api\ShipService;
+use Cidr\Courier\ParcelForce\Tests\MockedShipService;
 use Symfony\Component\DependencyInjection\Reference;
 
 use Cidr\Tag;
 
-class Configuration
+class TestConfiguration
 {
 
     public function __invoke($configurator, $container)
     {
+
         $configurator->add(
-            "parcelForceShipService",
-            ShipService::class,
-            [],
+            "parcelForceMockedShipService",
+            MockedShipService::class,
+            [
+                "MK0730971",
+                _DIR__ . "/Tests/pdfData.pdf"
+            ],
             "prototype",
             true
         );
 
         $configurator->add(
-            "parcelForceCreateShipment",
+            "parcelForceTestCreateShipment",
             CreateShipment::class,
             [
-                new Reference("parcelForceShipServiceFactory"),
+                new Reference("parcelForceMockedShipServiceFactory"),
                 "ParcelForce"
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 
         $configurator->add(
-            "parcelForceGetTracking",
+            "parcelForceTestGetTracking",
             GetTracking::class,
             [
                 "ParcelForce"
@@ -45,18 +49,10 @@ class Configuration
         )->addTag(Tag::CIDR_CAPABILITY);
 
         $configurator->add(
-            "parcelForceGetQuote",
-            GetQuote::class,
-            [
-                "ParcelForce"
-            ]
-        )->addTag(Tag::CIDR_CAPABILITY);
-
-        $configurator->add(
-            "parcelForcePrintLabel",
+            "parcelForceTestPrintLabel",
             PrintLabel::class,
             [
-                new Reference("parcelForceShipServiceFactory"),
+                new Reference("parcelForceMockedShipServiceFactory"),
                 "ParcelForce"
             ]
         )->addTag(Tag::CIDR_CAPABILITY);

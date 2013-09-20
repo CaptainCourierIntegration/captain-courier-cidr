@@ -8,4 +8,4 @@ pitch/
 res/credentials.yml
 runtests
 script/
-vendor/
+vendor/res/testproperties.yml

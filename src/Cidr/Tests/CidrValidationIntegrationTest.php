@@ -11,11 +11,11 @@ namespace Cidr\Tests;
 use Bond\Di\DiTestCase;
 use Cidr\Cidr;
 use Cidr\CidrRequest;
-use Cidr\CidrRequestContextCreateConsignment;
+use Cidr\CidrRequestContextCreateShipment;
 use Cidr\CidrRequestContextPrintLabel;
 use Cidr\CidrResponse;
 use Cidr\Model\Address;
-use Cidr\Model\Consignment;
+use Cidr\Model\Shipment;
 use Cidr\Model\Contact;
 use Cidr\Model\Parcel;
 use Cidr\Model\Task;
@@ -31,9 +31,9 @@ class CidrValidationIntegrationTest extends DiTestCase
     private static $requiredDefinitions = [
         "ALL" => [CidrRequest::class],
         Task::CREATE_CONSIGNMENT => [
-            CidrRequestContextCreateConsignment::class,
+            CidrRequestContextCreateShipment::class,
             Address::class,
-            Consignment::class,
+            Shipment::class,
             Contact::class,
             Parcel::class
         ],

@@ -13,7 +13,7 @@ class CidrRequest
 { use Milk;
 
     private $requestContext; // sublcass of CidrRequestContext
-    private $task; // type of request, ie CreateConsignment, Quote
-    private $courierCredentials; // associative array
-
+    private $task; // type of request, ie CreateShipment, Quote
+    private $courierCredentials = []; // associative array
+    private $history = []; // CidrResponse[] with head being the most recent response object.
 }

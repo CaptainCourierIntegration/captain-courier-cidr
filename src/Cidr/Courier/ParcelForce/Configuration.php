@@ -28,8 +28,8 @@ class Configuration
         );
 
         $configurator->add(
-            "parcelForceCreateConsignment",
-            CreateConsignment::class,
+            "parcelForceCreateShipment",
+            CreateShipment::class,
             [
                 new Reference("parcelForceShipServiceFactory"),
                 "ParcelForce"

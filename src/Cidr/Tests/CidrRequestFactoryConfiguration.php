@@ -26,7 +26,7 @@ class CidrRequestFactoryConfiguration
             "cidrRequestFactory",
             CidrRequestFactory::class,
             [
-                new Reference("realWorldConsignmentProvider"),
+                new Reference("realWorldShipmentProvider"),
                 new Reference("courierCredentialsManager")
             ]
         );

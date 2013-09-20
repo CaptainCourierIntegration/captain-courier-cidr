@@ -11,13 +11,13 @@ namespace Cidr\Courier\ParcelForce;
 
 use Cidr\CidrRequest;
 use Cidr\CidrResponse;
-use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextCreateShipment;
 use Cidr\CidrResponseContextFailed;
 use Cidr\Status;
 use Cidr\Milk;
 use Cidr\Model\Address;
-use Cidr\Model\Consignment;
-use Cidr\Model\ConsignmentStatus;
+use Cidr\Model\Shipment;
+use Cidr\Model\ShipmentStatus;
 use Cidr\Model\Contact;
 use Cidr\CourierCapability;
 
@@ -33,7 +33,7 @@ use Cidr\Courier\ParcelForce\Api\ShipService;
 
 use Cidr\Model\Task;
 
-class CreateConsignment implements CourierCapability
+class CreateShipment implements CourierCapability
 { use Milk;
 
     const NOTIFICATION_TYPE = "EMAIL"; // OR SMS
@@ -53,7 +53,7 @@ class CreateConsignment implements CourierCapability
 
     function submitCidrRequest(CidrRequest $request)
     {
-        $requestContext = $request->getRequestContext(); // Consignment
+        $requestContext = $request->getRequestContext(); // Shipment
 
         $collectionInfo = new CollectionInfo();
         $collectionInfo->CollectionContact = $this->contactToPFContact(
@@ -101,15 +101,15 @@ class CreateConsignment implements CourierCapability
         ) {
             $cidrResponseStatus = CidrResponse::STATUS_FAILED;
 
-            $consignmentNumber = $createShipmentReply
+            $shipmentNumber = $createShipmentReply
                 ->CompletedShipmentInfo
                 ->CompletedShipments
                 ->CompletedShipment
                 ->ShipmentNumber;
 
             if ($createShipmentReply->CompletedShipmentInfo->Status === "ALLOCATED") {
-                $responseContext = new CidrResponseContextCreateConsignment(
-                    $consignmentNumber
+                $responseContext = new CidrResponseContextCreateShipment(
+                    $shipmentNumber
                 );
                 $cidrResponseStatus = CidrResponse::STATUS_SUCCESS;
             } else {

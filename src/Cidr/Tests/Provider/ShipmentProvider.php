@@ -2,10 +2,10 @@
 namespace Cidr\Tests\Provider;
 
 use Cidr\Milk;
-use Cidr\Model\Consignment;
+use Cidr\Model\Shipment;
 use Cidr\Tests\Provider\Tests\ContactProviderTest;
 
-class ConsignmentProvider implements DataProvider
+class ShipmentProvider implements DataProvider
 { use Milk;
 
     private $addressProvider;
@@ -16,7 +16,7 @@ class ConsignmentProvider implements DataProvider
 
     protected static $propertiesNotManagedByMilk = ["nextId"];
 
-    /** returns Consignment array */
+    /** returns Shipment array */
     public function getData($size = 100)
     {
         assert(null !== $this->addressProvider);
@@ -30,45 +30,45 @@ class ConsignmentProvider implements DataProvider
         $addresses = $this->addressProvider->getData();
         $contacts = $this->contactProvider->getData();
         $parcels = $this->parcelProvider->getData();
-        $consignments = $this->generateDataSet($size);
+        $shipments = $this->generateDataSet($size);
 
-        $modelConsignments = [];
-        foreach ($consignments as $consignment) {
-            $consignmentParcels = array_map(
+        $modelShipments = [];
+        foreach ($shipments as $shipment) {
+            $shipmentParcels = array_map(
                 function()use($parcels) { return clone $this->pick($parcels); },
-                range(1, intval($consignment["numberParcels"]))
+                range(1, intval($shipment["numberParcels"]))
             );
 
             $collectionAddressIndex = $this->picki($addresses);
 
-            unset($consignment["numberParcels"]);
-            $consignment["collectionAddress"] = $addresses[$collectionAddressIndex];
-            $consignment["collectionContact"] = $this->pick($contacts);
-            $consignment["collectionTime"] = $this->getCollectionDateTime();
-            $consignment["deliveryAddress"] = $this->pickAvoid(
+            unset($shipment["numberParcels"]);
+            $shipment["collectionAddress"] = $addresses[$collectionAddressIndex];
+            $shipment["collectionContact"] = $this->pick($contacts);
+            $shipment["collectionTime"] = $this->getCollectionDateTime();
+            $shipment["deliveryAddress"] = $this->pickAvoid(
                 $addresses,
                 $collectionAddressIndex
             );
-            $consignment["deliveryContact"] = $this->pick($contacts);
-            $consignment["deliveryTime"] = $this->getDeliveryDateTime();
-            $consignment["parcels"] = $consignmentParcels;
+            $shipment["deliveryContact"] = $this->pick($contacts);
+            $shipment["deliveryTime"] = $this->getDeliveryDateTime();
+            $shipment["parcels"] = $shipmentParcels;
 
-            $modelConsignments[] = new Consignment($consignment);
+            $modelShipments[] = new Shipment($shipment);
         }
 
-        return $modelConsignments;
+        return $modelShipments;
 
     }
 
     private function generateDataSet($n)
     {
         return array_map(
-            function($_){return $this->generateRawConsignmentArray();},
+            function($_){return $this->generateRawShipmentArray();},
             range(1, $n)
         );
     }
 
-    private function generateRawConsignmentArray()
+    private function generateRawShipmentArray()
     {
         return [
             "id" => $this->nextId++,

@@ -12,9 +12,9 @@ namespace Cidr\Tests;
 use Bond\Di\Factory;
 use Cidr\Cidr;
 use Cidr\CidrCapability;
-use Cidr\CidrRequestContextCreateConsignment;
+use Cidr\CidrRequestContextCreateShipment;
 use Cidr\CidrRequestContextPrintLabel;
-use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextCreateShipment;
 use Cidr\CidrResponseContextValidationFailed;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -27,7 +27,7 @@ use Cidr\CidrResponse;
 
 use Cidr\Model\Address;
 use Cidr\Model\Contact;
-use Cidr\Model\Consignment;
+use Cidr\Model\Shipment;
 use Cidr\Model\Parcel;
 
 use Bond\Di\DiTestCase;
@@ -47,7 +47,7 @@ class CidrIntegrationTest extends DiTestCase
         $configurator->add("cidr", Cidr::class);
     }
 
-    public function createConsignmentCapabilityProvider()
+    public function createShipmentCapabilityProvider()
     {
         $container = $this->setup();
         $cidr = $container->get("cidr");
@@ -93,9 +93,9 @@ class CidrIntegrationTest extends DiTestCase
     }
 
     /**
-     * @dataProvider createConsignmentCapabilityProvider
+     * @dataProvider createShipmentCapabilityProvider
      */
-    public function testCreateConsignmentRequestOnApiHasSucceeded(
+    public function testCreateShipmentRequestOnApiHasSucceeded(
         CidrCapability $cidrCapability,
         CidrRequestFactory $cidrRequestFactory
     )
@@ -107,11 +107,11 @@ class CidrIntegrationTest extends DiTestCase
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
 
         $this->assertInstanceOf(
-            CidrResponseContextCreateConsignment::class,
+            CidrResponseContextCreateShipment::class,
             $cidrResponse->getResponseContext()
         );
 
-        return $cidrResponse->getResponseContext()->getConsignmentNumber();
+        return $cidrResponse->getResponseContext()->getShipmentNumber();
     }
 
     /**
@@ -119,15 +119,15 @@ class CidrIntegrationTest extends DiTestCase
      */
     public function testPrintLabelRequestOnApiHasSucceeded(
         CidrCapability $printLabelCapability,
-        CidrCapability $createConsignmentCapability,
+        CidrCapability $createShipmentCapability,
         CidrRequestFactory $cidrRequestFactory,
         $credentials
     )
     {
-            $consignmentNumber = $this->testCreateConsignmentRequestOnApiHasSucceeded($createConsignmentCapability, $cidrRequestFactory);
+            $shipmentNumber = $this->testCreateShipmentRequestOnApiHasSucceeded($createShipmentCapability, $cidrRequestFactory);
 
-            $context = new CidrRequestContextPrintLabel($consignmentNumber);
-            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+            $context = new CidrRequestContextPrintLabel($shipmentNumber);
+            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials, []);
 
             $response = $printLabelCapability->submitCidrRequest($request);
 
@@ -148,13 +148,13 @@ class CidrIntegrationTest extends DiTestCase
      */
     public function testPrintLabelResponseHasValidationFailedContextForInvalidRequest(
         CidrCapability $printLabelCapability,
-        CidrCapability $createConsignmentCapability,
+        CidrCapability $createShipmentCapability,
         CidrRequestFactory $cidrRequestFactory,
         $credentials
     )
     {
         $context = new CidrRequestContextPrintLabel("");
-        $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+        $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials, []);
         $response = $printLabelCapability->submitCidrRequest($request);
         $this->assertEquals(CidrResponse::STATUS_FAILED, $response->getStatus());
         $this->assertInstanceOf(

@@ -7,22 +7,20 @@ var util = require("util");
 var couriers = loadCouriers();
 
 // is this a unit test
-var isUnitTest = (function(){
-    return _.some(process.argv, function(v){
-        return (v == '--unittest' || v == '-t' );
-    });
-})();
+var isUnitTest = _.some(process.argv, function(v){
+    return (v == '--unittest' || v == '-t' );
+});
 
 // build gearman object and add some features for working
-var gearman = monkeyPatchGearman( new Gearman() );
 var jobPrefix = 'node.scrappy';
-var jobCount = 0;
+
+var gearman = monkeyPatchGearman( new Gearman() );
 
 // register each courier with gearman
-_.each( loadCouriers(), registerCourierWithGearman );
+_.each( loadCouriers(), _.partial( registerCourierWithGearman, gearman ) );
 
 // register a courier with gearna
-function registerCourierWithGearman (courier) {
+function registerCourierWithGearman (gearman, courier) {
 
     // iterate each couriers
     courier.gearmanFnsToRegister.forEach(function(fnName){
@@ -51,16 +49,12 @@ function registerCourierWithGearman (courier) {
                 );
             }
 
-            jobCount++;
-
-            // benchmarking and do work
-            var start = process.hrtime();
-            var output = courier[fnName](data, worker);
-
-            // log and return
-            var ms = hrdiffAsMilliseconds(process.hrtime(start));
-            console.log( jobName+': took '+ ms + 'ms');
-            worker.end( JSON.stringify(output) );
+            // we don't actually give a shit any more about the return value
+            var returnValue = courier[fnName](
+                data,
+                worker,
+                getWorkerSuccessCallback(worker, ++gearman.jobCount)
+            );
 
         });
 
@@ -68,15 +62,51 @@ function registerCourierWithGearman (courier) {
 
 }
 
-function hrdiffAsMilliseconds (diff) {
-    return new Number( (1 * diff[0]) + ( diff[1] / 1000000) );
+function getWorkerSuccessCallback (worker, jobCount)
+{
+    // benchmarking and do work
+    var start = process.hrtime();
+    return function success (output) {
+        worker.end( JSON.stringify(output) );
+        console.log( worker.name + ' ' + jobCount );
+    }
 }
 
+// function formathr(start, end)
+// {
+//     start = start[0] + start[1] / 1000000;
+//     end = end[0] + end[1] / 1000000;
+//     console.log( end- start );
+//     return end - start;
+//     //return (1 * diff[0]) + ( diff[1] / 1000000);
+// }
+//
+// function formathrdiff(start, end)
+// {
+//     console.log( start );
+//     console.log( end );
+//     start = start[0] + (start[1] / 1000000);
+//     end = end[0] + ( end[1] / 1000000 );
+//
+//     console.log( end- start );
+//     return end - start;
+//     //return (1 * diff[0]) + ( diff[1] / 1000000);
+// }
+
 // test a gearman worker
-setTimeout(function(){
-    var payload = ['arg1', 'arg2'];
-    gearman.submitJobJson( 'node.scrappy.Sample.getTracking', payload );
-},500);
+var c = 0;
+setInterval(function(){
+    var payload = c++;
+    gearman.submitJobJson(
+        'node.scrappy.Sample.getTracking',
+        payload,
+        {
+            timeout: 2000,
+            onSuccess: function (data) {
+            }
+        }
+    );
+},250);
 
 // get all supported couriers
 function loadCouriers () {
@@ -144,7 +174,7 @@ function monkeyPatchGearman (gearman) {
             startTime: new Date().getTime() / 1000,
             uptime: process.uptime(),
             dbConnections: 0,
-            jobCount: jobCount,
+            jobCount: gearman.jobCount,
             timeLimit: 0,
             memoryLimit: 0,
             pid: process.pid,
@@ -152,6 +182,8 @@ function monkeyPatchGearman (gearman) {
         }
         worker.end( JSON.stringify(output) );
     });
+
+    gearman.jobCount = 0;
 
     // get this node processes' gearman status
     // gearman.submitJobJson(

@@ -2,10 +2,10 @@
 namespace Cidr\Tests\Provider;
 
 use Cidr\Milk;
-use Cidr\Model\Consignment;
+use Cidr\Model\Shipment;
 use Cidr\Tests\Provider\Tests\ContactProviderTest;
 
-class ConsignmentProvider implements DataProvider
+class ShipmentProvider implements DataProvider
 { use Milk;
 
     private $addressProvider;
@@ -16,7 +16,7 @@ class ConsignmentProvider implements DataProvider
 
     protected static $propertiesNotManagedByMilk = ["nextId"];
 
-    /** returns Consignment array */
+    /** returns Shipment array */
     public function getData($size = 100)
     {
         assert(null !== $this->addressProvider);
@@ -32,7 +32,7 @@ class ConsignmentProvider implements DataProvider
         $parcels = $this->parcelProvider->getData();
         $consignments = $this->generateDataSet($size);
 
-        $modelConsignments = [];
+        $modelShipments = [];
         foreach ($consignments as $consignment) {
             $consignmentParcels = array_map(
                 function()use($parcels) { return clone $this->pick($parcels); },
@@ -53,22 +53,22 @@ class ConsignmentProvider implements DataProvider
             $consignment["deliveryTime"] = $this->getDeliveryDateTime();
             $consignment["parcels"] = $consignmentParcels;
 
-            $modelConsignments[] = new Consignment($consignment);
+            $modelShipments[] = new Shipment($consignment);
         }
 
-        return $modelConsignments;
+        return $modelShipments;
 
     }
 
     private function generateDataSet($n)
     {
         return array_map(
-            function($_){return $this->generateRawConsignmentArray();},
+            function($_){return $this->generateRawShipmentArray();},
             range(1, $n)
         );
     }
 
-    private function generateRawConsignmentArray()
+    private function generateRawShipmentArray()
     {
         return [
             "id" => $this->nextId++,

@@ -18,14 +18,14 @@ namespace Cidr\Tests;
 
 use Bond\Di\Factory;
 use Cidr\CidrRequest;
-use Cidr\CidrRequestContextCreateConsignment;
+use Cidr\CidrRequestContextCreateShipment;
 use Cidr\CourierCredentialsManagerInterface;
 use Cidr\Milk;
 use Cidr\Model\Task;
 use Cidr\Tests\Provider\DataProvider;
 
 /**
- * @depends Cidr\Tests\ConsignmentGeneratorConfiguration
+ * @depends Cidr\Tests\ShipmentGeneratorConfiguration
  * Class CidrRequestGeneratorConfiguration
  * @package Cidr\Tests
  */
@@ -52,7 +52,7 @@ class CidrRequestFactory
         $courierCredentialsManager->init();
     }
 
-    private function getConsignment()
+    private function getShipment()
     {
         if (0 === count($this->consignments)) {
             $this->consignments = $this->consignmentProvider->getData();
@@ -63,8 +63,8 @@ class CidrRequestFactory
 
     public function create($courier)
     {
-        $consignment = $this->getConsignment();
-        $context = new CidrRequestContextCreateConsignment(
+        $consignment = $this->getShipment();
+        $context = new CidrRequestContextCreateShipment(
             $consignment->getCollectionAddress(),
             $consignment->getCollectionContact(),
             $consignment->getCollectionTime(),

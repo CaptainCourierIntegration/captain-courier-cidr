@@ -20,14 +20,14 @@ class ProviderConfiguration
         $configurator->add("parcelProvider", ParcelProvider::class);
         $configurator->add(
             "consignmentProvider",
-            ConsignmentProvider::class,
+            ShipmentProvider::class,
             [
                 new Reference("addressProvider"),
                 new Reference("contactProvider"),
                 new Reference("parcelProvider")
             ]
         );
-        $configurator->add("realWorldConsignmentProvider", RealWorldConsignmentProvider::class);
+        $configurator->add("realWorldShipmentProvider", RealWorldShipmentProvider::class);
     }
 
 }

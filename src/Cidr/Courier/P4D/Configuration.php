@@ -34,8 +34,8 @@ class Configuration
         );
 
         $configurator->add (
-            "p4dCreateConsignment",
-            CreateConsignment::class,
+            "p4dCreateShipment",
+            CreateShipment::class,
             [
                 "%p4dApiUrl%",
                 "%p4dName%",

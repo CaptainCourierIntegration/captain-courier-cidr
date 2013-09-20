@@ -25,14 +25,14 @@ use Bond\Di\DiTestCase;
  */
 class CidrValidatorTest extends DiTestCase
 {
-    public function provideConsignment()
+    public function provideShipment()
     {
         $container = $this->setup();
 
         $args = [];
 
         $cidrValidator = $container->get("cidrValidator");
-        $consignmentProvider = $container->get("realWorldConsignmentProvider");
+        $consignmentProvider = $container->get("realWorldShipmentProvider");
 
         foreach ($consignmentProvider->getData() as $consignment) {
             $args[] = [$cidrValidator, $consignment];
@@ -41,7 +41,7 @@ class CidrValidatorTest extends DiTestCase
         return $args;
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testCidrValidatorIsAnInstanceOfCidrValidator($cidrValidator, $consignment)
     {
         $this->assertInstanceOf(
@@ -50,7 +50,7 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testParcelForceIsARecognisedCourier($cidrValidator, $consignment)
     {
         $result = $cidrValidator->validate (
@@ -60,7 +60,7 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testValationAgainstNotExistentCourierThrowsException($cidrValidator, $consignment)
     {
         $this->setExpectedException(InvalidArgumentException::class);
@@ -71,7 +71,7 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testValidationOfNullObjectThrowsException($cidrValidator, $consignment)
     {
         $this->setExpectedException(InvalidArgumentException::class);
@@ -82,8 +82,8 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @dataProvider provideConsignment */
-    public function testValidationOfConsignmentDoesNotThrowException($cidrValidator, $consignment)
+    /** @dataProvider provideShipment */
+    public function testValidationOfShipmentDoesNotThrowException($cidrValidator, $consignment)
     {
         $cidrValidator->validate(
             "ParcelForce",
@@ -92,7 +92,7 @@ class CidrValidatorTest extends DiTestCase
         );
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testParcelForceValidationHasNoViolationsForAValidAddress($cidrValidator, $consignment)
     {
         $collectionAddress = $consignment->getCollectionAddress();
@@ -105,7 +105,7 @@ class CidrValidatorTest extends DiTestCase
         $this->assertEquals(0, count($violations));
     }
 
-    /** @dataProvider provideConsignment */
+    /** @dataProvider provideShipment */
     public function testValidationFailsOnParcelForceServiceCodeBeingSetToNull($cidrValidator, $consignment)
     {
         $consignment->setServiceCode(null);

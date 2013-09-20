@@ -9,7 +9,7 @@
 
 namespace Cidr;
 
-class CidrResponseContextCreateConsignment implements CidrResponseContext
+class CidrResponseContextCreateShipment implements CidrResponseContext
 { use Milk;
 
     /** string courier generated consignment number */

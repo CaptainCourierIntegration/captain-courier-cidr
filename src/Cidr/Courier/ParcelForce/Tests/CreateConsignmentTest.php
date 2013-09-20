@@ -9,7 +9,7 @@
 
 namespace Cidr\Courier\ParcelForce\Tests;
 use Bond\Di\DiTestCase;
-use Cidr\Courier\ParcelForce\CreateConsignment;
+use Cidr\Courier\ParcelForce\CreateShipment;
 use Cidr\Model\Task;
 use Cidr\Milk;
 use Cidr\Tag;
@@ -19,11 +19,11 @@ use Symfony\Component\DependencyInjection\Reference;
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Tests\Provider\ProviderConfiguration
  * @resource __CLASS__
- * @service parcelForceCreateConsignmentTest
+ * @service parcelForceCreateShipmentTest
  */
-class CreateConsignmentTest extends DiTestCase
+class CreateShipmentTest extends DiTestCase
 {
-    public $createConsignment;
+    public $createShipment;
 
     public function __invoke($configurator, $container)
     {
@@ -36,8 +36,8 @@ class CreateConsignmentTest extends DiTestCase
         );
 
         $configurator->add(
-            "parcelForceCreateConsignmentMocked",
-            CreateConsignment::class,
+            "parcelForceCreateShipmentMocked",
+            CreateShipment::class,
             [
                 new Reference("parcelForceMockedShipServiceFactory"),
                 "ParcelForceTest"
@@ -45,16 +45,16 @@ class CreateConsignmentTest extends DiTestCase
         )->addTag(Tag::CIDR_CAPABILITY);
 
         $configurator->add (
-            "parcelForceCreateConsignmentTest",
-            CreateConsignmentTest::class
-        )->setProperty ("createConsignment", new Reference ("parcelForceCreateConsignmentMocked"));
+            "parcelForceCreateShipmentTest",
+            CreateShipmentTest::class
+        )->setProperty ("createShipment", new Reference ("parcelForceCreateShipmentMocked"));
     }
 
-    public function testGetTaskReturnsCreateConsignment()
+    public function testGetTaskReturnsCreateShipment()
     {
         $this->assertEquals (
             Task::CREATE_CONSIGNMENT,
-            $this->createConsignment->getTask()
+            $this->createShipment->getTask()
         );
     }
 
@@ -62,7 +62,7 @@ class CreateConsignmentTest extends DiTestCase
     {
         $this->assertEquals (
             "ParcelForceTest",
-            $this->createConsignment->getCourier()
+            $this->createShipment->getCourier()
         );
     }
 

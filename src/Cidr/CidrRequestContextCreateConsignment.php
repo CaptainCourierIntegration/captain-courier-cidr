@@ -10,7 +10,7 @@
 namespace Cidr;
 
 // TODO once TwoSugar has been re-written to be Milk with custom paramters, refactor this to use TwoSugar over Milk
-class CidrRequestContextCreateConsignment implements CidrRequestContext
+class CidrRequestContextCreateShipment implements CidrRequestContext
 { use Milk;
 
     /** Address */

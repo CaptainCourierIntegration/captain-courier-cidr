@@ -96,21 +96,21 @@ function getWorkerSuccessCallback (worker, jobCount)
 
 // test a gearman worker
 
-var c = 0;
-setTimeout(function(){
-    var payload = {
-        shipmentNumber: "CN5752885"
-    };
-    gearman.submitJobJson(
-        'node.scrappy.ParcelForce.getTracking',
-        payload,
-        {
-            timeout: 10000,
-            onSuccess: function (data) {
-            }
-        }
-    );
-},250);
+//var c = 0;
+// setTimeout(function(){
+//     var payload = {
+//         shipmentNumber: "xyz"
+//     };
+//     gearman.submitJobJson(
+//         'node.scrappy.ParcelForce.getTracking',
+//         payload,
+//         {
+//             timeout: 10000,
+//             onSuccess: function (data) {
+//             }
+//         }
+//     );
+// },250);
 
 // get all supported couriers
 function loadCouriers () {

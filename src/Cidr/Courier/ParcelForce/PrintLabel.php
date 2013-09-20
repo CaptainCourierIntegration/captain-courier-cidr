@@ -103,17 +103,12 @@ class PrintLabel implements CourierCapability
                 new CidrResponseContextFailed(null, $msg)
             );
         } else {
-            try {
             return new CidrResponse(
                 $request,
                 $this,
                 CidrResponse::STATUS_SUCCESS,
                 new CidrResponseContextPrintLabel($printLabelReply->Label->Data)
             );
-            } catch(\Exception $e) {
-                        print_r($printLabelReply);
-                        die();
-            }
         }
     }
 

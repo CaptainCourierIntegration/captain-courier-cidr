@@ -25,4 +25,8 @@ class Quote
 
 	/** @var bool true if VAT is included in the quote price, false otherwise. */
 	private $includesVat;
+
+	/** @var string human readable price indicating how much compensation can be provided by courier if damaged/lost, etc */
+	private $compensation;
+
 }

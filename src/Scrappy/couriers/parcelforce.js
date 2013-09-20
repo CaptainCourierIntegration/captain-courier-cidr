@@ -12,7 +12,7 @@ function makeParcelForce() {
 
 		getTracking: function(payload, worker, success) {
 			var shipmentNumber = payload.shipmentNumber;
-			var trackingLog = track(
+			track(
 				success,
 				shipmentNumber
 			);

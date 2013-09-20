@@ -13,6 +13,9 @@ use Cidr\CourierCapability;
 use Cidr\Milk;
 use Cidr\Model\Task;
 use Cidr\CidrRequest;
+use Cidr\Model\Quote;
+use Cidr\CidrResponse;
+use Cidr\CidrResponseContextGetQuote;
 
 class GetQuote implements CourierCapability
 { use Milk;
@@ -38,9 +41,37 @@ class GetQuote implements CourierCapability
     /**
      * @return CidrResponse
      */
-    function submitCidrRequest(CidrRequest $request)
+    function submitCidrRequest(CidrRequest $request = null)
     {
-    	die("not implemented SUCKER");
+        $context = $request->getRequestContext();
+        $client = new \GearmanClient();
+        $client->addServer();
+        $output = json_decode($client->doNormal(
+            "node.scrappy.ParcelForce.getQuotes",
+            json_encode([
+                "collectionPostcode" => $context->getCollectionPostcode(),
+                "deliveryPostcode" => $context->getDeliveryPostcode(),
+                "weight" => $context->getWeight()
+            ])
+        ));
+
+        $quotes = [];
+        foreach ($output as $quote) {
+            $quotes[] = new Quote(
+                $quote->service,
+                $quote->delivery,
+                $quote->price,
+                $quote->vatIncluded,
+                $quote->compensation
+            );
+        }
+
+        return new CidrResponse(
+            $request,
+            $this,
+            CidrResponse::STATUS_SUCCESS,
+            new CidrResponseContextGetQuote($quotes)
+        );
     }
 
     /**

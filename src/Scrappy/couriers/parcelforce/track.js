@@ -8,10 +8,16 @@ module.exports = track;
 
 // callback takes an array of objects with properties: date, time, location, trackingEvent.
 function track(callback, trackingNumber) {
-	page1(_.partial(page2, _.partial(page3, callback)), trackingNumber);
+	page1(
+		_.partial(
+			page2, 
+			_.partial(page3, callback)
+		), 
+		trackingNumber
+	);
 }
 
-function page1(callback, trackingNumber) {
+function page1(success, trackingNumber) {
 	$.get(
 		"http://www.parcelforce.com/track-trace",
 		function(data) {
@@ -23,12 +29,12 @@ function page1(callback, trackingNumber) {
 			properties["track.y"] = 1;
 			properties["track_id"] = trackingNumber;
 
-			callback(properties);
+			success(properties);
 		}
 	);
 }
 
-function page2(callback, properties) {
+function page2(success, properties) {
 	$.post(
 		"http://www.parcelforce.com/track-trace",
 		properties,
@@ -36,12 +42,12 @@ function page2(callback, properties) {
 			var trackingNumber = $(html).find("div#tnt-results > dl.dt-left-align > dd:nth-child(2) a").text();
 			var parcelNumber = $(html).find("div#tnt-results > dl.dt-left-align > dd:nth-child(4) a").text();
 
-			callback(trackingNumber, parcelNumber);
+			success(trackingNumber, parcelNumber);
 		}
 	);
 }
 
-function page3(callback, trackingNumber, parcelNumber) {
+function page3(success, trackingNumber, parcelNumber) {
 	$.get(
 		"http://www.parcelforce.com/track-trace",
 		{
@@ -59,7 +65,7 @@ function page3(callback, trackingNumber, parcelNumber) {
 					trackingEvent: $(row).find(":nth-child(4)").text()
 				}
 			}).get();
-			callback(rows);
+			success(rows);
 		}
 	);
 }

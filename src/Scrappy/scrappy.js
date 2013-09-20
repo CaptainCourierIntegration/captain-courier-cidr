@@ -96,16 +96,18 @@ function getWorkerSuccessCallback (worker, jobCount)
 
 // test a gearman worker
 
-//var c = 0;
+// var c = 0;
 // setTimeout(function(){
 //     var payload = {
-//         shipmentNumber: "xyz"
+//         weight: 12,
+//         collectionPostcode: "OX17 1RR",
+//         deliveryPostcode: "OX17 1RR"
 //     };
 //     gearman.submitJobJson(
-//         'node.scrappy.ParcelForce.getTracking',
+//         'node.scrappy.ParcelForce.getQuotes',
 //         payload,
 //         {
-//             timeout: 10000,
+//             timeout: 100000,
 //             onSuccess: function (data) {
 //             }
 //         }

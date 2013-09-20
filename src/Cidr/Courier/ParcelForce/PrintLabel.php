@@ -13,15 +13,15 @@ use Bond\Di\Factory;
 use Cidr\CidrRequest;
 use Cidr\CidrRequestContextPrintLabel;
 use Cidr\CidrResponse;
-use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextCreateShipment;
 use Cidr\CidrResponseContextFailed;
 use Cidr\CidrResponseContextPrintLabel;
 use Cidr\Courier\ParcelForce\Api\PrintLabelRequest;
 use Cidr\Status;
 use Cidr\Milk;
 use Cidr\Model\Address;
-use Cidr\Model\Consignment;
-use Cidr\Model\ConsignmentStatus;
+use Cidr\Model\Shipment;
+use Cidr\Model\ShipmentStatus;
 use Cidr\Model\Contact;
 use Cidr\CourierCapability;
 

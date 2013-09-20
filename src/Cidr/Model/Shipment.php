@@ -13,7 +13,7 @@ use Cidr\Model\Address;
 use Cidr\Model\Contact;
 use Cidr\Model\Parcel;
 
-class Consignment
+class Shipment
 {   use TwoSugar;
 
     private $coreProperties = [

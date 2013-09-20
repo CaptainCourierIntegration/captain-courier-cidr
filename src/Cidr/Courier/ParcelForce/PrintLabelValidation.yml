@@ -1,11 +1,11 @@
-# validates a CidrRequest for CreateConsignment request
+# validates a CidrRequest for CreateShipment request
 Cidr\CidrRequest:
     getters:
         requestContext:
             - Valid: ~
         task:
             - Choice:
-                choices: [CreateConsignment, PrintLabel]
+                choices: [CreateShipment, PrintLabel]
                 message: choose a valid task.
         courierCredentials:
             - Collection:
@@ -85,7 +85,7 @@ Cidr\Model\Address:
           max: 16
 
 
-Cidr\Model\Consignment:
+Cidr\Model\Shipment:
   getters:
     id:
       - Type:

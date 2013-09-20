@@ -15,17 +15,17 @@ use Cidr\CidrResponseContextFailed;
 use Cidr\Milk;
 use Cidr\Status;
 use Cidr\Model\Address;
-use Cidr\Model\Consignment;
-use Cidr\Model\ConsignmentStatus;
+use Cidr\Model\Shipment;
+use Cidr\Model\ShipmentStatus;
 use Cidr\Model\Contact;
 use Cidr\CourierCapability;
 use Cidr\Courier\P4D\Api\P4DQuoteResponse;
 use Cidr\Courier\P4D\Api\CourierQuote;
 use Cidr\Model\Task;
-use Cidr\CidrResponseContextCreateConsignment;
+use Cidr\CidrResponseContextCreateShipment;
 use Curl\Curl;
 
-class CreateConsignment implements CourierCapability
+class CreateShipment implements CourierCapability
 { use Milk;
 
     /**
@@ -67,7 +67,7 @@ class CreateConsignment implements CourierCapability
         $shipmentResponse = $this->placeShipment($request, $quoteResponse, $quote);
 
         if ("Success" === $shipmentResponse->Status) {
-            $responseContext = new CidrResponseContextCreateConsignment (
+            $responseContext = new CidrResponseContextCreateShipment (
                 $shipmentResponse->OrderNumber
             );
             $status = CidrResponse::STATUS_SUCCESS;

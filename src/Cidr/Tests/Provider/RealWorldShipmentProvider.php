@@ -9,11 +9,11 @@
 namespace Cidr\Tests\Provider;
 
 use Cidr\Model\Address;
-use Cidr\Model\Consignment;
+use Cidr\Model\Shipment;
 use Cidr\Model\Contact;
 use Cidr\Model\Parcel;
 
-class RealWorldConsignmentProvider implements DataProvider
+class RealWorldShipmentProvider implements DataProvider
 {
 
     public function getData()
@@ -102,7 +102,7 @@ class RealWorldConsignmentProvider implements DataProvider
             ])
         ];
 
-        $consignment = new Consignment([
+        $shipment = new Shipment([
             "collectionAddress" => $collectionAddress,
             "collectionContact" => $collectionContact,
             "collectionTime" => $collectionTime,
@@ -114,7 +114,7 @@ class RealWorldConsignmentProvider implements DataProvider
             "parcels" => $parcels
         ]);
 
-        return [$consignment];
+        return [$shipment];
 
     }
 

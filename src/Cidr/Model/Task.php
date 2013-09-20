@@ -15,7 +15,7 @@ namespace Cidr\Model;
 class Task
 {
     // TODO capitalise this
-    const CREATE_CONSIGNMENT = "CreateConsignment";
+    const CREATE_CONSIGNMENT = "CreateShipment";
     const PRINT_LABEL = "PrintLabel";
 
     static $Tasks = array(

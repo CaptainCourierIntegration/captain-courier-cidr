@@ -17,11 +17,13 @@ class Task
     // TODO capitalise this
     const CREATE_CONSIGNMENT = "CreateShipment";
     const GET_TRACKING = "GetTracking";
+    const GET_QUOTE = "GetQuote";
     const PRINT_LABEL = "PrintLabel";
 
     static $Tasks = array(
         self::CREATE_CONSIGNMENT,
         self::GET_TRACKING,
+        self::GET_QUOTE,
         self::PRINT_LABEL,
     );
 }

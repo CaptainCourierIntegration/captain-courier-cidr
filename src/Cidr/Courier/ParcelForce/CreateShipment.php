@@ -101,7 +101,7 @@ class CreateShipment implements CourierCapability
         ) {
             $cidrResponseStatus = CidrResponse::STATUS_FAILED;
 
-            $consignmentNumber = $createShipmentReply
+            $shipmentNumber = $createShipmentReply
                 ->CompletedShipmentInfo
                 ->CompletedShipments
                 ->CompletedShipment
@@ -109,7 +109,7 @@ class CreateShipment implements CourierCapability
 
             if ($createShipmentReply->CompletedShipmentInfo->Status === "ALLOCATED") {
                 $responseContext = new CidrResponseContextCreateShipment(
-                    $consignmentNumber
+                    $shipmentNumber
                 );
                 $cidrResponseStatus = CidrResponse::STATUS_SUCCESS;
             } else {

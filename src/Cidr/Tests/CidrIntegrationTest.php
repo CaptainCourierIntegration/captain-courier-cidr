@@ -124,9 +124,9 @@ class CidrIntegrationTest extends DiTestCase
         $credentials
     )
     {
-            $consignmentNumber = $this->testCreateShipmentRequestOnApiHasSucceeded($createShipmentCapability, $cidrRequestFactory);
+            $shipmentNumber = $this->testCreateShipmentRequestOnApiHasSucceeded($createShipmentCapability, $cidrRequestFactory);
 
-            $context = new CidrRequestContextPrintLabel($consignmentNumber);
+            $context = new CidrRequestContextPrintLabel($shipmentNumber);
             $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials, []);
 
             $response = $printLabelCapability->submitCidrRequest($request);

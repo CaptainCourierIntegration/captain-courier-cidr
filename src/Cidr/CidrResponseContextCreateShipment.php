@@ -12,7 +12,7 @@ namespace Cidr;
 class CidrResponseContextCreateShipment implements CidrResponseContext
 { use Milk;
 
-    /** string courier generated consignment number */
-    private $consignmentNumber;
+    /** string courier generated shipment number */
+    private $shipmentNumber;
 
 }

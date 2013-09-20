@@ -30,30 +30,30 @@ class ShipmentProvider implements DataProvider
         $addresses = $this->addressProvider->getData();
         $contacts = $this->contactProvider->getData();
         $parcels = $this->parcelProvider->getData();
-        $consignments = $this->generateDataSet($size);
+        $shipments = $this->generateDataSet($size);
 
         $modelShipments = [];
-        foreach ($consignments as $consignment) {
-            $consignmentParcels = array_map(
+        foreach ($shipments as $shipment) {
+            $shipmentParcels = array_map(
                 function()use($parcels) { return clone $this->pick($parcels); },
-                range(1, intval($consignment["numberParcels"]))
+                range(1, intval($shipment["numberParcels"]))
             );
 
             $collectionAddressIndex = $this->picki($addresses);
 
-            unset($consignment["numberParcels"]);
-            $consignment["collectionAddress"] = $addresses[$collectionAddressIndex];
-            $consignment["collectionContact"] = $this->pick($contacts);
-            $consignment["collectionTime"] = $this->getCollectionDateTime();
-            $consignment["deliveryAddress"] = $this->pickAvoid(
+            unset($shipment["numberParcels"]);
+            $shipment["collectionAddress"] = $addresses[$collectionAddressIndex];
+            $shipment["collectionContact"] = $this->pick($contacts);
+            $shipment["collectionTime"] = $this->getCollectionDateTime();
+            $shipment["deliveryAddress"] = $this->pickAvoid(
                 $addresses,
                 $collectionAddressIndex
             );
-            $consignment["deliveryContact"] = $this->pick($contacts);
-            $consignment["deliveryTime"] = $this->getDeliveryDateTime();
-            $consignment["parcels"] = $consignmentParcels;
+            $shipment["deliveryContact"] = $this->pick($contacts);
+            $shipment["deliveryTime"] = $this->getDeliveryDateTime();
+            $shipment["parcels"] = $shipmentParcels;
 
-            $modelShipments[] = new Shipment($consignment);
+            $modelShipments[] = new Shipment($shipment);
         }
 
         return $modelShipments;

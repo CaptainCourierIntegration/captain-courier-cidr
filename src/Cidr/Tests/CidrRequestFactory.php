@@ -31,49 +31,49 @@ use Cidr\Tests\Provider\DataProvider;
  */
 class CidrRequestFactory
 {
-    private $consignmentProvider;
+    private $shipmentProvider;
     private $courierCredentialsManager;
 
-    private $consignments = [];
+    private $shipments = [];
 
-    protected  static $propertiesNotManagedByMilk = ["consignments"];
+    protected  static $propertiesNotManagedByMilk = ["shipments"];
 
     public function __construct(
-        DataProvider $consignmentProvider,
+        DataProvider $shipmentProvider,
         CourierCredentialsManagerInterface $courierCredentialsManager
     )
     {
         assert(2 === count(func_get_args()));
-        assert(null !== $consignmentProvider);
+        assert(null !== $shipmentProvider);
         assert(null != $courierCredentialsManager);
 
-        $this->consignmentProvider = $consignmentProvider;
+        $this->shipmentProvider = $shipmentProvider;
         $this->courierCredentialsManager = $courierCredentialsManager;
         $courierCredentialsManager->init();
     }
 
     private function getShipment()
     {
-        if (0 === count($this->consignments)) {
-            $this->consignments = $this->consignmentProvider->getData();
-            shuffle($this->consignments);
+        if (0 === count($this->shipments)) {
+            $this->shipments = $this->shipmentProvider->getData();
+            shuffle($this->shipments);
         }
-        return array_shift($this->consignments);
+        return array_shift($this->shipments);
     }
 
     public function create($courier)
     {
-        $consignment = $this->getShipment();
+        $shipment = $this->getShipment();
         $context = new CidrRequestContextCreateShipment(
-            $consignment->getCollectionAddress(),
-            $consignment->getCollectionContact(),
-            $consignment->getCollectionTime(),
-            $consignment->getDeliveryAddress(),
-            $consignment->getDeliveryContact(),
-            $consignment->getDeliveryTime(),
-            $consignment->getParcels(),
-            $consignment->getContractNumber(),
-            $consignment->getServiceCode()
+            $shipment->getCollectionAddress(),
+            $shipment->getCollectionContact(),
+            $shipment->getCollectionTime(),
+            $shipment->getDeliveryAddress(),
+            $shipment->getDeliveryContact(),
+            $shipment->getDeliveryTime(),
+            $shipment->getParcels(),
+            $shipment->getContractNumber(),
+            $shipment->getServiceCode()
         );
         $request = new CidrRequest(
             $context,

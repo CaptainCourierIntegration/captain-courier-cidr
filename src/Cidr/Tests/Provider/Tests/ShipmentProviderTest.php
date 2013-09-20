@@ -19,11 +19,11 @@ use \DateTime;
 
 class ShipmentProviderTest extends \PHPUnit_Framework_Testcase
 {
-    private $consignmentProvider;
+    private $shipmentProvider;
 
     public function setup()
     {
-        $this->consignmentProvider = new ShipmentProvider(
+        $this->shipmentProvider = new ShipmentProvider(
             new AddressProvider(),
             new ContactProvider(),
             new ParcelProvider()
@@ -34,20 +34,20 @@ class ShipmentProviderTest extends \PHPUnit_Framework_Testcase
     {
         $this->setup();
         return array_map(
-            function($consignment){return [$consignment];},
-            $this->consignmentProvider->getData()
+            function($shipment){return [$shipment];},
+            $this->shipmentProvider->getData()
         );
     }
 
     public function provideShipmentAndCoreProperty()
     {
-        $consignments = $this->provideShipment();
+        $shipments = $this->provideShipment();
 
         $args = [];
-        foreach ($consignments as $consignment) {
-            $consignment = $consignment[0];
-            foreach ($consignment->corePropertiesGet() as $property) {
-                $args[] = [$consignment, $property];
+        foreach ($shipments as $shipment) {
+            $shipment = $shipment[0];
+            foreach ($shipment->corePropertiesGet() as $property) {
+                $args[] = [$shipment, $property];
             }
         }
         return $args;
@@ -55,86 +55,86 @@ class ShipmentProviderTest extends \PHPUnit_Framework_Testcase
 
     public function testGetDataReturnsArray()
     {
-        $consignments = $this->consignmentProvider->getData();
-        $this->assertTrue( is_array($consignments));
+        $shipments = $this->shipmentProvider->getData();
+        $this->assertTrue( is_array($shipments));
     }
 
     /** @dataProvider provideShipment */
-    public function testEveryElementOfGetDataIsShipment($consignment)
+    public function testEveryElementOfGetDataIsShipment($shipment)
     {
-        $this->assertInstanceOf(Shipment::class, $consignment);
+        $this->assertInstanceOf(Shipment::class, $shipment);
     }
 
     /** @dataProvider provideShipmentAndCoreProperty */
-    public function testEveryShipmentHasAllRequiredFields($consignment, $property)
+    public function testEveryShipmentHasAllRequiredFields($shipment, $property)
     {
-        $this->assertArrayHasKey($property, $consignment->core());
-        $this->assertNotNull($consignment->$property);
+        $this->assertArrayHasKey($property, $shipment->core());
+        $this->assertNotNull($shipment->$property);
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentHasIdOfCorrectType($consignment)
+    public function testShipmentHasIdOfCorrectType($shipment)
     {
         $this->assertTrue(
-            is_integer($consignment->getId()) or is_int($consignment->getId())
+            is_integer($shipment->getId()) or is_int($shipment->getId())
         );
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentCollectionAddressIsAddress($consignment)
+    public function testShipmentCollectionAddressIsAddress($shipment)
     {
-        $this->assertInstanceOf(Address::class, $consignment->getcollectionAddress());
+        $this->assertInstanceOf(Address::class, $shipment->getcollectionAddress());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentCollectionContactIsContactObject($consignment)
+    public function testShipmentCollectionContactIsContactObject($shipment)
     {
-        $this->assertInstanceOf(Contact::class, $consignment->getCollectionContact());
+        $this->assertInstanceOf(Contact::class, $shipment->getCollectionContact());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentCollectionTimeIsDateTimeObject($consignment)
+    public function testShipmentCollectionTimeIsDateTimeObject($shipment)
     {
-        $this->assertInstanceOf(DateTime::class, $consignment->getCollectionTime());
+        $this->assertInstanceOf(DateTime::class, $shipment->getCollectionTime());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentDeliveryAddressIsAddress($consignment)
+    public function testShipmentDeliveryAddressIsAddress($shipment)
     {
-        $this->assertInstanceOf(Address::class, $consignment->getDeliveryAddress());
+        $this->assertInstanceOf(Address::class, $shipment->getDeliveryAddress());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentDeliveryContactIsContactObject($consignment)
+    public function testShipmentDeliveryContactIsContactObject($shipment)
     {
-        $this->assertInstanceOf(Contact::class, $consignment->getDeliveryContact());
+        $this->assertInstanceOf(Contact::class, $shipment->getDeliveryContact());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentDeliveryTimeIsDateTimeObject($consignment)
+    public function testShipmentDeliveryTimeIsDateTimeObject($shipment)
     {
-        $this->assertInstanceOf(DateTime::class, $consignment->getDeliveryTime());
+        $this->assertInstanceOf(DateTime::class, $shipment->getDeliveryTime());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentContractNumberIsWithinCorrectRange($consignment)
+    public function testShipmentContractNumberIsWithinCorrectRange($shipment)
     {
-        $this->assertTrue( is_string($consignment->getContractNumber()) );
-        $this->assertGreaterThan(5, strlen($consignment->getContractNumber()));
-        $this->assertLessThan(20, strlen($consignment->getContractNumber()));
+        $this->assertTrue( is_string($shipment->getContractNumber()) );
+        $this->assertGreaterThan(5, strlen($shipment->getContractNumber()));
+        $this->assertLessThan(20, strlen($shipment->getContractNumber()));
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentServiceCodeIsWithinValidRange($consignment)
+    public function testShipmentServiceCodeIsWithinValidRange($shipment)
     {
-        $this->assertInternalType('string', $consignment->getServiceCode());
+        $this->assertInternalType('string', $shipment->getServiceCode());
     }
 
     /** @dataProvider provideShipment */
-    public function testShipmentParcels($consignment)
+    public function testShipmentParcels($shipment)
     {
-        $this->assertInternalType('array', $consignment->getParcels());
-        $this->assertGreaterThanOrEqual(1, count($consignment->getParcels()));
+        $this->assertInternalType('array', $shipment->getParcels());
+        $this->assertGreaterThanOrEqual(1, count($shipment->getParcels()));
     }
 
 }

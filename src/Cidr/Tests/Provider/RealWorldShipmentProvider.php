@@ -102,7 +102,7 @@ class RealWorldShipmentProvider implements DataProvider
             ])
         ];
 
-        $consignment = new Shipment([
+        $shipment = new Shipment([
             "collectionAddress" => $collectionAddress,
             "collectionContact" => $collectionContact,
             "collectionTime" => $collectionTime,
@@ -114,7 +114,7 @@ class RealWorldShipmentProvider implements DataProvider
             "parcels" => $parcels
         ]);
 
-        return [$consignment];
+        return [$shipment];
 
     }
 

@@ -13,6 +13,7 @@ use Cidr\Cidr;
 use Cidr\CidrRequest;
 use Cidr\CidrRequestContextCreateShipment;
 use Cidr\CidrRequestContextPrintLabel;
+use Cidr\CidrRequestContextGetTracking;
 use Cidr\CidrResponse;
 use Cidr\Model\Address;
 use Cidr\Model\Shipment;
@@ -37,7 +38,8 @@ class CidrValidationIntegrationTest extends DiTestCase
             Contact::class,
             Parcel::class
         ],
-        Task::PRINT_LABEL => [CidrRequestContextPrintLabel::class]
+        Task::PRINT_LABEL => [CidrRequestContextPrintLabel::class],
+        Task::GET_TRACKING => [ CidrRequestContextGetTracking::class ]
     ];
 
     public function provideRequiredClass()

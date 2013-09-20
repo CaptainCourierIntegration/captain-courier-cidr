@@ -37,6 +37,14 @@ class Configuration
         )->addTag(Tag::CIDR_CAPABILITY);
 
         $configurator->add(
+            "parcelForceGetTracking",
+            GetTracking::class,
+            [
+                "ParcelForce"
+            ]
+        )->addTag(Tag::CIDR_CAPABILITY);
+
+        $configurator->add(
             "parcelForcePrintLabel",
             PrintLabel::class,
             [

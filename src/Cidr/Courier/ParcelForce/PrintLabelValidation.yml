@@ -5,7 +5,7 @@ Cidr\CidrRequest:
             - Valid: ~
         task:
             - Choice:
-                choices: [CreateShipment, PrintLabel]
+                choices: [PrintLabel]
                 message: choose a valid task.
         courierCredentials:
             - Collection:

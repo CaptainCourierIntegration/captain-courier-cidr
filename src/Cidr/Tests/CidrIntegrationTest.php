@@ -127,7 +127,7 @@ class CidrIntegrationTest extends DiTestCase
             $consignmentNumber = $this->testCreateConsignmentRequestOnApiHasSucceeded($createConsignmentCapability, $cidrRequestFactory);
 
             $context = new CidrRequestContextPrintLabel($consignmentNumber);
-            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+            $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials, []);
 
             $response = $printLabelCapability->submitCidrRequest($request);
 
@@ -154,7 +154,7 @@ class CidrIntegrationTest extends DiTestCase
     )
     {
         $context = new CidrRequestContextPrintLabel("");
-        $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials);
+        $request = new CidrRequest($context, Task::PRINT_LABEL, $credentials, []);
         $response = $printLabelCapability->submitCidrRequest($request);
         $this->assertEquals(CidrResponse::STATUS_FAILED, $response->getStatus());
         $this->assertInstanceOf(

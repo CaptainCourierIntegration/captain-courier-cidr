@@ -78,7 +78,8 @@ class CidrRequestFactory
         $request = new CidrRequest(
             $context,
             Task::CREATE_CONSIGNMENT,
-            $this->courierCredentialsManager->getCredentials($courier)
+            $this->courierCredentialsManager->getCredentials($courier),
+            []
         );
 
         return $request;

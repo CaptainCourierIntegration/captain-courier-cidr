@@ -15,11 +15,11 @@ function makeParcelForce() {
 			var trackingLog = track(
 				function () {
 				},
-			shipmentNumber
+				shipmentNumber
+			);
 			console.log(trackingLog);
 			return trackingLog;
 		}
-
 	};
 }
 

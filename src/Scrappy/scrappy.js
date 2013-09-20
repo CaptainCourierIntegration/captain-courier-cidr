@@ -97,13 +97,15 @@ function getWorkerSuccessCallback (worker, jobCount)
 // test a gearman worker
 
 var c = 0;
-setInterval(function(){
-    var payload = c++;
+setTimeout(function(){
+    var payload = {
+        shipmentNumber: "CN5752885"
+    };
     gearman.submitJobJson(
-        'node.scrappy.Sample.getTracking',
+        'node.scrappy.ParcelForce.getTracking',
         payload,
         {
-            timeout: 2000,
+            timeout: 10000,
             onSuccess: function (data) {
             }
         }

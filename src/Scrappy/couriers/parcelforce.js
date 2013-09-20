@@ -9,18 +9,16 @@ function makeParcelForce() {
 
 		gearmanWorkerPrefix: "ParcelForce",
 
-		getTracking: function(gearmanPayloadData) {
-		
+		getTracking: function(gearmanPayloadData, worker, success) {
 			var shipmentNumber = gearmanPayloadData.shipmentNumber;
 			var trackingLog = track(
-				function () {
-				},
+				success,
 				shipmentNumber
 			);
-			console.log(trackingLog);
-			return trackingLog;
 		}
 	};
 }
 
 module.exports = makeParcelForce();
+
+

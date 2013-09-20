@@ -84,8 +84,8 @@ class CreateShipment implements CourierCapability
         $requestedShipment->CollectionInfo = $collectionInfo;
 
         $authentication = new Authentication();
-        $authentication->UserName = $request->getCourierCredentials()["username"];
-        $authentication->Password = $request->getCourierCredentials()["password"];
+        $authentication->UserName = $request->getCourierCredentials()->username;
+        $authentication->Password = $request->getCourierCredentials()->password;
 
         $createShipmentRequest = new CreateShipmentRequest();
         $createShipmentRequest->Authentication = $authentication;

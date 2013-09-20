@@ -66,8 +66,8 @@ class PrintLabel implements CourierCapability
         assert($request->getRequestContext() instanceof CidrRequestContextPrintLabel);
 
         $authentication = new Authentication();
-        $authentication->UserName = $request->getCourierCredentials()["username"];
-        $authentication->Password = $request->getCourierCredentials()["password"];
+        $authentication->UserName = $request->getCourierCredentials()->username;
+        $authentication->Password = $request->getCourierCredentials()->password;
 
         $requestContext = $request->getRequestContext();
         $printLabelRequest = new PrintLabelRequest();

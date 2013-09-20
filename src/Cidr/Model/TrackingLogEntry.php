@@ -8,7 +8,7 @@
  */
 
 
-namespace Cidr\Courier;
+namespace Cidr\Model;
 
 use Cidr\Milk;
 

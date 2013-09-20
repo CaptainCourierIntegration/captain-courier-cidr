@@ -27,16 +27,14 @@ interface CourierCredentialsManagerInterface
     /**
      *
      * @return array of strings for all couriers that have credentials
-     * @throws IllegalStateException if init not called
      */
     public function getCouriers();
 
     /**
      * @param $courier name of courier to get credentials of
-     * @return array of credentials for that courier,
+     * @return stdclass of credentials for that courier,
      * for example ParcelForce would have credentials
      * [username => "user123", password => "password1"]
-     * @throws IllegalStateException if init not called
      * @throws CourierNotFoundException if $courier not in credentials
      */
     public function getCredentials($courier);

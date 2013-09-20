@@ -7,20 +7,6 @@ Cidr\CidrRequest:
             - Choice:
                 choices: [CreateShipment, PrintLabel]
                 message: choose a valid task.
-        courierCredentials:
-            - Collection:
-                fields:
-                    username:
-                        - Type:
-                            type: string
-                        - Length:
-                            min: 1
-                            max: 80
-                    apiKey:
-                        - Type: string
-                        - Length:
-                            min: 15
-                            max: 19
 
 
 Cidr\CidrRequestContextCreateShipment:

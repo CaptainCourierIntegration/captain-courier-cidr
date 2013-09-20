@@ -140,22 +140,11 @@ class YamlCourierCredentialsManagerTest extends DiTestCase
         );
     }
 
-    /** @expectedException Cidr\Exception\IllegalStateException */
-    public function testGetCouriersThrowsExceptionIfInitNotCalled()
-    {
-        $this->credentialsManager->getCouriers();
-    }
 
     public function testGetCouriersDoesNotThrowExceptionIfInitCalled()
     {
         $this->credentialsManager->init();
         $this->credentialsManager->getCouriers();
-    }
-
-    /** @expectedException Cidr\Exception\IllegalStateException */
-    public function testGetCredentialsThrowsExceptionIfInitNotCalled()
-    {
-        $this->credentialsManager->getCredentials("__no_courier__");
     }
 
     /** @dataProvider provideCourierNames */
@@ -191,13 +180,13 @@ class YamlCourierCredentialsManagerTest extends DiTestCase
     {
         $this->credentialsManager->init();
 
-        $this->assertArrayHasKey(
+        $this->objectHasAttribute(
             $credential,
             $this->credentialsManager->getCredentials($courier)
         );
         $this->assertEquals(
             $value,
-            $this->credentialsManager->getCredentials($courier)[$credential]
+            $this->credentialsManager->getCredentials($courier)->$credential
         );
     }
 

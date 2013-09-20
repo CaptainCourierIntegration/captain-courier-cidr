@@ -85,8 +85,8 @@ class CreateShipment implements CourierCapability
         $requestContext = $request->getRequestContext();
         $fields = array(
             "ShipAction" => "PlaceBooking",
-            "Username" => $request->getCourierCredentials()["username"],
-            "APIKey" => $request->getCourierCredentials()["apiKey"],
+            "Username" => $request->getCourierCredentials()->username,
+            "APIKey" => $request->getCourierCredentials()->apiKey,
             "QuoteID" => $response->quoteId,
             "ItemID" => $quote->optionId,
             "CollectionDate" => null,
@@ -108,8 +108,8 @@ class CreateShipment implements CourierCapability
         $deliveryLines = $requestContext->getDeliveryAddress()->getLines();
         $fields = array(
             "ShipAction" => "GetQuote",
-            "Username" => $request->getCourierCredentials()["username"],
-            "APIKey" => $request->getCourierCredentials()["apiKey"],
+            "Username" => $request->getCourierCredentials()->username,
+            "APIKey" => $request->getCourierCredentials()->apiKey,
             "CollectionName" => $requestContext->getCollectionContact()->getName(),
             "CollectionCompany" => $requestContext->getCollectionContact()->getBusinessName(),
             "CollectionAddress1" => $collectionLines[0],

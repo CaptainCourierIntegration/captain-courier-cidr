@@ -13,6 +13,6 @@ class CidrResponseContextGetTracking implements CidrRequestContext
 { use Milk;
 
 	/** @var array of \Cidr\Model\TrackingLogEntry */
-	private $trackingLogEntries;
+	private $trackingLog;
 
 }

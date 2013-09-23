@@ -12,6 +12,7 @@ namespace Cidr\Model;
 class Address
 { use TwoSugar;
 
+	// TODO: delete id
     private $coreProperties = [
         "id",
         "lines",

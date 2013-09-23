@@ -9,7 +9,7 @@ module.exports = quote;
 function quote(callback, weight, collectionPostcode, deliveryPostcode) {
 
 	collectionPostcode = encodeURIComponent(collectionPostcode);
-	deliveryPostcode = encodeURIComponent(deliveryPostcodePostcode);
+	deliveryPostcode = encodeURIComponent(deliveryPostcode);
 
 	$.get(
 		"http://www.parcelforce.com/pricefinder/ajax/UK/0/" + weight + "/0/" + collectionPostcode + "/" + deliveryPostcode + "/0/0/0/0/0/kg/0/1",

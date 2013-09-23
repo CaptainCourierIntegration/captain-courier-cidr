@@ -9,6 +9,7 @@
 namespace Cidr\Tests\Provider\Tests;
 
 use Cidr\Tests\Provider\AddressProvider;
+use Cidr\Tests\Provider\RealWorldAddressProvider;
 use Cidr\Model\Address;
 
 class AddressProviderTest extends \PHPUnit_Framework_Testcase
@@ -17,7 +18,8 @@ class AddressProviderTest extends \PHPUnit_Framework_Testcase
 
     public function setup()
     {
-        $this->addressProvider = new AddressProvider();
+       // $this->addressProvider = new AddressProvider();
+        $this->addressProvider = new RealWorldAddressProvider();
     }
 
     public function provideAddress()
@@ -42,22 +44,28 @@ class AddressProviderTest extends \PHPUnit_Framework_Testcase
     }
 
     /** @dataProvider provideAddress */
-    public function testEveryAddressHasAllRequiredFields($address)
+    public function testEveryAddressHasAtLeastOneLine($address)
     {
-        $rawAddresses = require(__DIR__ . "/../addressData.php");
-        $rawAddress = array_values(array_filter(
-            $rawAddresses,
-            function($a)use($address){return $a["id"] === $address->getId();}
-        ))[0];
+        $this->assertNotNull($address->getLines());
+        $this->assertGreaterThanOrEqual(1, $address->getLines());
+    }
 
-        $this->assertEquals($rawAddress["id"], $address->getId());
-        $this->assertEquals($rawAddress["number"] . " " . $rawAddress["line1"], $address->getLines()[0]);
-        $this->assertEquals(intval($rawAddress["lines"]), count($address->getLines()));
-        $this->assertEquals($rawAddress["town"], $address->getTown());
-        $this->assertEquals($rawAddress["county"], $address->getCounty());
-        $this->assertEquals($rawAddress["countryCode"], $address->getCountryCode());
-        $this->assertEquals($rawAddress["postcode"], $address->getPostcode());
+    /** @dataProvider provideAddress */
+    public function testEveryAddressHasATown($address) 
+    {
+        $this->assertNotNull($address->getTown());
+    }
 
+    /** @dataProvider provideAddress */
+    public function testEveryAddressHasACounty($address)
+    {
+        $this->assertNotNull($address->getCounty());
+    }
+
+    /** @dataProvider provideAddress */
+    public function testAddressHasPostcode($address)
+    {
+        $this->assertNotNull($address->getPostcode());
     }
 
 }

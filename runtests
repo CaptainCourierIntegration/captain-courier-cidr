@@ -1,10 +1,13 @@
 #! /bin/bash
 
 cd src/Scrappy
+echo "starting scrappy"
 node scrappy.js &
 pid=$!
 cd -
 sleep 1
+echo "waiting for scrappy to setup"
+echo "starting tests"
 phpunit --configuration=phpunit.xml src
-echo "killing process '$pid'"
+echo "killing process scrappy process '$pid'"
 kill $pid

@@ -1,0 +1,10 @@
+#! /bin/bash
+
+cd src/Scrappy
+node scrappy.js &
+pid=$!
+cd -
+sleep 1
+phpunit --configuration=phpunit.xml src
+echo "killing process '$pid'"
+kill $pid

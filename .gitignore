@@ -6,7 +6,6 @@ composer.lock
 docs/
 pitch/
 res/credentials.yml
-runtests
 script/
 res/testproperties.yml
 vendor/

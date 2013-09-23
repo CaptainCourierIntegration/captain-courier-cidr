@@ -50,8 +50,8 @@ class GetQuote implements CourierCapability
         $output = json_decode($client->doNormal(
             "node.scrappy.ParcelForce.getQuotes",
             json_encode([
-                "collectionPostcode" => $context->getCollectionPostcode(),
-                "deliveryPostcode" => $context->getDeliveryPostcode(),
+                "collectionPostcode" => $context->getCollectionAddress()->getPostcode(),
+                "deliveryPostcode" => $context->getDeliveryAddress()->getPostcode(),
                 "weight" => $context->getWeight()
             ])
         ));

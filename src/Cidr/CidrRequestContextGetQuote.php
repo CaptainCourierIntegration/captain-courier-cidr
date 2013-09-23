@@ -9,16 +9,18 @@
 
 namespace Cidr;
 
+use Cidr\Model\Address;
+
 class CidrRequestContextGetQuote
 { use Milk;
 
-	/** @var string */
-	private $collectionPostcode;
+	/** @var Address */
+	private $collectionAddress;
 
- 	/** @var string */
-	private $deliveryPostcode;
+ 	/** @var Address */
+	private $deliveryAddress;
 
-	/** @var string */
+	/** @var string in the format /\d+\.\d{2}/ */
 	private $weight;
 
 }

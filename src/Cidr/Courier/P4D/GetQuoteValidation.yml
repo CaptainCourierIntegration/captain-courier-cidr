@@ -11,15 +11,13 @@ Cidr\CidrRequest:
 
 Cidr\CidrRequestContextGetQuote:
     getters:
-        collectionPostcode:
-            - Type: string
+        collectionAddress:
+            - Valid: ~
             - NotNull: ~
-        deliveryPostcode:
-            - Type: string
+        deliveryAddress:
+            - Valid: ~
             - NotNull: ~
         weight:
             - Type: string
             - NotNull: ~
-
-
 

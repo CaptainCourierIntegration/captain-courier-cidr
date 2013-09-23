@@ -18,6 +18,7 @@ use Cidr\CidrRequestContextGetQuote;
 /**
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Courier\ParcelForce\Configuration
+ * @resource Cidr\Tests\Provider\ProviderConfiguration
  * @resource __CLASS__
  * @service getQuoteTest
  */
@@ -25,6 +26,7 @@ class GetQuoteTest extends DiTestCase
 {
 	public $getQuote;
 	public $courierCredentialsManager;
+	public $addressProvider;
 
 	public function __invoke($configurator, $container)
 	{
@@ -32,19 +34,20 @@ class GetQuoteTest extends DiTestCase
 		$configurator->add(
 			"getQuoteTest",
 			self::class
-		)
-			->setProperties([
-				"getQuote" => new Reference("parcelForceGetQuote"),
-				"courierCredentialsManager" => new Reference("courierCredentialsManager")
+		)->setProperties([
+			"getQuote" => new Reference("parcelForceGetQuote"),
+			"courierCredentialsManager" => new Reference("courierCredentialsManager"),
+			"addressProvider" => new Reference("addressProvider")
 		]);
 
 	}
 
 	public function testGetQuoteDoesNotThrowException()
 	{
-		print "testing now\n";
+		$addresses = $this->addressProvider->getData();
+
 		$request = new CidrRequest(
-			new CidrRequestContextGetQuote("OX17 1RR", "OX17 1RR", 12),
+			new CidrRequestContextGetQuote($addresses[0], $addresses[1], 12),
 			Task::GET_QUOTE,
 			$this->courierCredentialsManager->getCredentials("ParcelForce"),
 			[]

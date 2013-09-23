@@ -15,7 +15,7 @@ class ProviderConfiguration
 
     public function __invoke($configurator, $container)
     {
-        $configurator->add("addressProvider", AddressProvider::class);
+        $configurator->add("addressProvider", RealWorldAddressProvider::class);
         $configurator->add("contactProvider", ContactProvider::class);
         $configurator->add("parcelProvider", ParcelProvider::class);
         $configurator->add(

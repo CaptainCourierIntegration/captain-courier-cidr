@@ -19,13 +19,15 @@ use Cidr\CidrRequest;
  * 
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Courier\P4D\Configuration
+ * @resource Cidr\Tests\Provider\ProviderConfiguration
  * @resource __CLASS__
- *
+ * 
  */
  class GetQuoteTest extends DiTestCase
  {
  	public $getQuote;
  	public $courierCredentialsManager;
+ 	public $addressProvider;
 
  	public function __invoke($configurator, $container)
  	{
@@ -34,21 +36,32 @@ use Cidr\CidrRequest;
  			self::class
  		)->setProperties([
  			"getQuote" => new Reference("p4dGetQuote"),
- 			"courierCredentialsManager" => new Reference("courierCredentialsManager")
+ 			"courierCredentialsManager" => new Reference("courierCredentialsManager"),
+ 			"addressProvider" => new Reference("addressprovider")
  		]);
+ 	}
+
+ 	public function requestProvider()
+ 	{
+ 		$this->setup();
+ 		$addresses = $addressprovider->getData();
+ 		$requests = [];
+ 		foreach ($addresses as $address) {
+
+ 		}
  	}
 
  	public function testSubmitRequestThrowsNotImplementedException()
  	{
+ 		$addresses = $this->addressProvider->getData();
 		$request = new CidrRequest(
-			new CidrRequestContextGetQuote("OX17 1RR", "OX17 1RR", 12),
+			new CidrRequestContextGetQuote($addresses[0], $addresses[1], 12),
 			Task::GET_QUOTE,
 			$this->courierCredentialsManager->getCredentials("ParcelForce"),
 			[]
 		);
 
 		$response = $this->getQuote->submitCidrRequest($request);
-		print_r($response);
  	}
 
  }

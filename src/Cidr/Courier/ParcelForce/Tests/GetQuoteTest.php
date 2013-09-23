@@ -19,7 +19,7 @@ use Cidr\CidrRequestContextGetQuote;
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Courier\ParcelForce\Configuration
  * @resource __CLASS__
- *
+ * @service getQuoteTest
  */
 class GetQuoteTest extends DiTestCase
 {
@@ -28,6 +28,7 @@ class GetQuoteTest extends DiTestCase
 
 	public function __invoke($configurator, $container)
 	{
+		print "configurating now\n";
 		$configurator->add(
 			"getQuoteTest",
 			self::class
@@ -41,6 +42,7 @@ class GetQuoteTest extends DiTestCase
 
 	public function testGetQuoteDoesNotThrowException()
 	{
+		print "testing now\n";
 		$request = new CidrRequest(
 			new CidrRequestContextGetQuote("OX17 1RR", "OX17 1RR", 12),
 			Task::GET_QUOTE,

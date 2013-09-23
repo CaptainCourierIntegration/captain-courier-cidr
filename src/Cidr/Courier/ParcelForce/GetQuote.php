@@ -46,6 +46,7 @@ class GetQuote implements CourierCapability
         $context = $request->getRequestContext();
         $client = new \GearmanClient();
         $client->addServer();
+
         $output = json_decode($client->doNormal(
             "node.scrappy.ParcelForce.getQuotes",
             json_encode([

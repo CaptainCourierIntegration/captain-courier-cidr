@@ -7,19 +7,12 @@ notifications:
     - peter@captaincourier.org
 env:
     global:
-        # parcelForceUsername
-        - secure: "MFurPrhsekaZNWK0VyHd9XkZArpXD5rhQUV645xJanO4wUEPaw9+312wIeeDeyOconi4be0VSkF2OX6nnq8d0DxoNAv+R8gj0q4h6ShuzWDM1i0L5pP88n0K/NphCXwLkVquwEjwuaV5x64xpECZ0bJgI84wqjdqI3Pnk9V/gSo="
-        # parcelForcePassword
-        - secure: "XlQ7Irkuv1n5VW5gU+cLuTl2g3MW9BPDaqIvGDa8rx4SxneAY0+ybG9X6kQc172MJ5fMnwQpWwEFLYJrq1UAbkP2hMGhgnqCo7/CzgE020Mir4tx28yhX2jktPNLh+pDTpEFk3eFrdb7fx5Vpfy973iIMVW8GZrJ+mvHC0BZq5M="
-        # p4dUsername
-        - secure: "DSal8M+nJk9ApR/ZRW7/PyYizhqG1zrJUufIOn2WceO0tqrjA7mbKzH/UC8DjB5N62+3BoShxU52K/KaKCRm/oGxRSbdNyoygEacAtGQaN/eGLZxWPJFXHbPCS2aaopDqJYIfrFxfqJTz7jPUQnuH3g/i/t2fXaXzOBP9mZOkl0="
-        # p4ApiKey
-        - secure: "GJ5mh1K3Mm1u7ah6nCCkPOMfpI347xsRM2L8Zz8g9orFPQIH+jOg4cMx6CSs2mjI2YyxlReudALLBTGjtieq7AQOwalJUAD4FS8vPbh7tRB5XGIJK5OTIwNqz4G/F50x8E5qTNPjZTvLxx6bd+diVQ0NqsawKtiIUQiIc+azTo0="
-#        - secure: "Wza6VVQGn3o8MohVANqWmX0klv8/eb+1BULy7CYFE3hgens9hBq/JbnQTWLX29QDbrdNdl3xZzpZ2/kFYZTlDWRQv0dbiD6YzwPmNm7Q/ChICCB5Kjq236ZQSCg8XbPA4ze59YgI++Bs8RgTjU0tmnpP5ZlOPtan6SSavyf1yp4="
-        - checksum=ed2c8d12504ab50181a7fd9f18d78ea7
-        - credentialsFile=res/credentials.yml
-before_script:
-    - ./prepare.bash
+        # key for resources    
+        - secure: "dACOugZycghZficQn/gk4LpFEs6lyvsewgXfHwnISfKrBmqoyE0xY3RX4DvKMiPadntfXMSRRSKoA9Y1cwZnAs41FoLs+2UADjzHp4BwL90tqrlH2N1qysCUVVrxFVUvhlLhmgRDbvBCtbQsq8JoJzme+fyMyXqP+TFrAdW7mIM="
+before_script:  
+    - sudo apt-get install p7zip-full
     - composer install
-script: phpunit --configuration=phpunit.xml src/
+script: 
+    - ./script/decrypt.bash
+    - phpunit --configuration=phpunit.xml src/
 

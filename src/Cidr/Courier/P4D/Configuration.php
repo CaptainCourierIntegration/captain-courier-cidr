@@ -43,6 +43,14 @@ class Configuration
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 
+        $configurator->add(
+            "p4dGetQuote",
+            GetQuote::class,
+            [
+                "%p4dName%"
+            ]
+        )->addTag(Tag::CIDR_CAPABILITY);
+
         $configurator->add (
             "p4dPrintLabel",
             PrintLabel::class,

@@ -1,0 +1,25 @@
+# validates a CidrRequest for CreateShipment request
+Cidr\CidrRequest:
+    getters:
+        requestContext:
+            - Valid: ~
+        task:
+            - Choice:
+                choices: [GetTracking]
+                message: choose a valid task.
+
+
+Cidr\CidrRequestContextGetQuote:
+    getters:
+        collectionPostcode:
+            - Type: string
+            - NotNull: ~
+        deliveryPostcode:
+            - Type: string
+            - NotNull: ~
+        weight:
+            - Type: string
+            - NotNull: ~
+
+
+

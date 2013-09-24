@@ -30,7 +30,21 @@ class UnknownMethodException extends \Exception
             $method,
             // throws exceptions for __construct: explode("::", $method)[1],
             $method,
-            print_r($args, true)
+            print_r( 
+                array_map(
+                    function($arg){ 
+                        if (is_object($arg)) {
+                            return sprintf("<object %s>", get_class($arg));
+                        } else if(is_array($arg)) {
+                            return sprintf("<array length=%s>", count($arg));
+                        } else {
+                            return (string)$arg;
+                        }
+                    },
+                    $args
+                ),
+                true
+            )
         );
     }
 

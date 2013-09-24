@@ -32,7 +32,22 @@ class BadArgumentsException extends \Exception
             explode("::", $method)[1],
             $method,
             $message ? "{$message}" : '',
-            print_r( $args, true )
+            print_r( 
+                array_map(
+                    function($arg){ 
+                        if (is_object($arg)) {
+                            return sprintf("<object %s>", get_class($arg));
+                        } else if(is_array($arg)) {
+                            return sprintf("<array length=%s>", count($arg));
+                        } else {
+                            return (string)$arg;
+                        }
+                    },
+                    $args
+                ),
+                true
+            )
+                        
         );
     }
 

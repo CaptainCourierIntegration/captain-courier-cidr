@@ -17,6 +17,9 @@ use Cidr\Di\ValidatorFactory;
 use Bond\Di\Inject;
 use Symfony\Component\Yaml\Parser;
 
+use Cidr\CidrRequestContextGetQuote;
+use Cidr\CidrRequest;
+
 class Configuration
 { use Milk;
 
@@ -31,6 +34,7 @@ class Configuration
         $this->loadCidrValidator($configurator, $container);
         $this->loadCidrCapability($configurator, $container);
         $this->loadCourierCredentialsManager($configurator, $container);
+        $this->loadModels($configurator, $container);
 
     }
 
@@ -118,6 +122,41 @@ class Configuration
         $configurator->add(
             "yamlParser",
             Parser::class
+        );
+    }
+
+    private function loadModels($configurator, $container)
+    {
+        $configurator->add(
+            "cidrRequestContextGetQuote",
+            CidrRequestContextGetQuote::class,
+            array_fill(0, 5, new Inject()),
+            "prototype",
+            true
+        );
+
+        $configurator->add(
+            "cidrResponseContextGetQuote",
+            CidrResponseContextGetQuote::class,
+            [ new Inject() ],
+            "prototype",
+            true
+        );
+
+        $configurator->add(
+            "cidrRequest",
+            CidrRequest::class,
+            array_fill(0, 4, new Inject()),
+            "prototype",
+            true
+        );
+
+        $configurator->add(
+            "cidrResponse",
+            CidrResponse::class,
+            array_fill(0, 4, new Inject()),
+            "prototype",
+            true
         );
     }
 

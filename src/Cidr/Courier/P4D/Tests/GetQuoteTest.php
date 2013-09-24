@@ -15,65 +15,64 @@ use Cidr\Model\Task;
 use Cidr\CidrRequestContextGetQuote;
 use Cidr\CidrRequest;
 use Cidr\Model\Address;
+use Cidr\Courier\P4D\GetQuote;
 
 /**
  * 
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Courier\P4D\Configuration
  * @resource Cidr\Tests\Provider\ProviderConfiguration
- * @resource __CLASS__
  * 
  */
  class GetQuoteTest extends DiTestCase
  {
- 	public $getQuote;
- 	public $courierCredentialsManager;
- 	public $addressProvider;
-
- 	public function __invoke($configurator, $container)
- 	{
- 		$configurator->add(
- 			"getQuoteTest",
- 			self::class
- 		)->setProperties([
- 			"getQuote" => new Reference("p4dGetQuote"),
- 			"courierCredentialsManager" => new Reference("courierCredentialsManager"),
- 			"addressProvider" => new Reference("addressprovider")
- 		]);
- 	}
 
  	public function requestProvider()
  	{
  		$container = $this->setup();
 
- 		$getQuote = $container->get("getQuote");
  		$courierCredentialsManager = $container->get("courierCredentialsManager");
  		$addressProvider = $container->get("addressProvider");
  		$contactProvider = $container->get("contactProvider");
+ 		$parcelsProvider = $container->get("parcelProvider");
 
- 		$addresses = $addressprovider->getData();
- 		$contacts = $contactProvider->getData();
- 		
- 		$requests = [];
+ 		$addresses = \Cidr\wrapCut($addressProvider->getData(), 10);
+ 		$contacts = \Cidr\wrapCut($contactProvider->getData(), 10);
+ 		$parcels = array_chunk(\Cidr\WrapCut($parcelsProvider->getData(), 30), 3);
 
+ 		$credentialsFactory = $container->get("courierCredentialsManager");
+ 		$contextFactory = $container->get("cidrRequestContextGetQuoteFactory");
+ 		$requestFactory = $container->get("cidrRequestFactory");
+
+
+ 		$dataset = [];
  		$numAddresses = count($addresses);
- 		for ($i = 1; $i < $numAddresses; $i++) {
- 			$requests[] = [$addresses[$i-1], $addresses[$i], rand(1, 15)];
+ 		for ($i = 1, $j = 0; $i < $numAddresses; $i += 2, $j++) {
+ 			$context = $contextFactory->create(
+ 				$addresses[$i-1],
+ 				$contacts[$i-1],
+ 				$addresses[$i],
+ 				$contacts[$i],
+ 				$parcels[$j]
+ 			);
+ 			$request = $requestFactory->create(
+ 				$context,
+ 				Task::GET_QUOTE,
+ 				$credentialsFactory->getCredentials("P4D"),
+ 				[]
+ 			);
+ 			$dataset[] = [$container->get("p4dGetQUote"), $request];
  		}
- 		return $requests;
+ 		return $dataset;
+
  	}
 
  	/** @dataProvider requestProvider */
- 	public function testSubmitRequestThrowsNotImplementedException(Address $collectionAddress, Address $deliveryAddress, $weight)
+ 	public function testSubmitRequestThrowsNotImplementedException(GetQuote $getQuote, CidrRequest $request)
  	{
-		$request = new CidrRequest(
-			new CidrRequestContextGetQuote($collectionAddress, $deliveryAddress, $weight),
-			Task::GET_QUOTE,
-			$this->courierCredentialsManager->getCredentials("ParcelForce"),
-			[]
-		);
-
-		$response = $this->getQuote->submitCidrRequest($request);
+		$response = $getQuote->submitCidrRequest($request);
+		$this->assertNotNull($response);
+		print_r($response->getResponseContext());
  	}
 
  }

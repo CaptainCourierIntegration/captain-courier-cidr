@@ -47,7 +47,11 @@ class Configuration
             "p4dGetQuote",
             GetQuote::class,
             [
-                "%p4dName%"
+                "%p4dName%",
+                "%p4dApiUrl%",
+                new Reference("curl"),
+                new Reference("cidrResponseFactory"),
+                new Reference("cidrResponseContextGetQuoteFactory")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

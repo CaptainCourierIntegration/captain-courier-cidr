@@ -58,13 +58,14 @@ class GetQuote implements CourierCapability
 
         $quotes = [];
         foreach ($output as $quote) {
-            $quotes[] = new Quote(
-                $quote->service,
-                $quote->delivery,
-                $quote->price,
-                $quote->vatIncluded,
-                $quote->compensation
-            );
+            $quotes[] = new Quote([
+                "courierName" => $this->courierName,
+                "serviceName" => $quote->service,
+                "deliveryEstimate" => $quote->delivery,
+                "price" => $quote->price,
+                "includesVat" => $quote->vatIncluded,
+                "compensation" => $quote->compensation
+            ]);
         }
 
         return new CidrResponse(

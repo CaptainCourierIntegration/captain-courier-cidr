@@ -14,6 +14,12 @@ use Cidr\CidrRequest;
 use Cidr\Exception\NotImplementedException;
 use Cidr\CourierCapability;
 use Cidr\Milk;
+use Cidr\Model\Quote;
+use Cidr\Courier\P4D\Api\CourierQuote;
+use Cidr\Courier\P4D\Api\P4DQuoteResponse;
+use Cidr\Courier\P4D\Api\CollectionDate;
+use Bond\Di\Factory;
+use Cidr\CidrResponse;
 
 class GetQuote implements CourierCapability
 { use Milk;
@@ -22,6 +28,23 @@ class GetQuote implements CourierCapability
      * @var string
      */
     private $courierName;
+
+    /**
+     * @var string
+     */
+    private $apiUrl;
+
+    /**
+     * @var Curl\Curl
+     */
+     private $curl;   
+
+     /** @var Factory */
+     private $responseFactory;
+
+     /** @var Factory */
+     private $responseContextFactory;
+
 
     /** @inheritdoc */
     public function getTask()
@@ -41,7 +64,45 @@ class GetQuote implements CourierCapability
 
     public function submitCidrRequest(CidrRequest $request) 
     {
+        $courierQuotesResponse = $this->getQuotes($request);
+        $courierQuotes = $courierQuotesResponse->quotes;
+        $quotes = [];
+        foreach ($courierQuotes as $courierQuote) {
 
+            $collectionDates = [];
+
+            foreach ($courierQuote->collectionDates as $collectionDate) {
+                $collectionDates[] = new CollectionDate(
+                    $collectionDate["date"],
+                    $collectionDate["cutoff"]
+                );
+            }
+
+            $quotes[] = new Quote([
+                "courierName" => $this->courierName,
+                "serviceName" => $courierQuote->serviceName,
+                "deliveryEstimate" => $courierQuote->eta,
+                "price" => $courierQuote->totalPrice,
+                "includesVat" => true,
+
+                // custom
+                "optionId" => $courierQuote->optionId,
+                "serviceId" => $courierQuote->serviceId,
+                "additionalDeliveryEstimate" => $courierQuote->additionalEta,
+                "delegateCourier" => $courierQuote->carrier,
+                "collectionDates" => $collectionDates
+            ]);
+        }
+
+        $context = $this->responseContextFactory->create($quotes);
+        $response = $this->responseFactory->create(
+            $request,
+            $this,
+            CidrResponse::STATUS_SUCCESS,
+            $context
+        );
+
+        return $response;
     }
 
 
@@ -85,6 +146,13 @@ class GetQuote implements CourierCapability
         $response = new P4DQuoteResponse($objResponse);
         return $response;
         //return \Cidr\apply(P4DQuoteResponse::class, '\json_decode', \Cidr\func( $this->curl, "post"), [$this->apiUrl, $fields]);
+    }
+
+    private function parcelsToString($parcels)
+    {
+        return implode("|", array_map(function($parcel) {
+            return "$parcel->weight,$parcel->width,$parcel->height,$parcel->length,$parcel->description";
+        }, $parcels));
     }
 
 }

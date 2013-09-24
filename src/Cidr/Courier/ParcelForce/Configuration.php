@@ -32,7 +32,8 @@ class Configuration
             CreateShipment::class,
             [
                 new Reference("parcelForceShipServiceFactory"),
-                "ParcelForce"
+                "ParcelForce",
+                new Reference("shipmentIdGenerator")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

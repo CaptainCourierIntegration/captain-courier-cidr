@@ -39,7 +39,9 @@ class Configuration
             [
                 "%p4dApiUrl%",
                 "%p4dName%",
-                new Reference("curl")
+                new Reference("curl"),
+                new Reference("p4dGetQuote"),
+                new Reference("shipmentIdGenerator")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

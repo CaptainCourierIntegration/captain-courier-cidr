@@ -41,7 +41,7 @@
         "symfony/proxy-manager-bridge": "*",
         "symfony/yaml": "*",
         "symfony/config": "*",
-        "squareproton/Bond": "*"
+        "squareproton/Bond": "dev-develop"
     },
     "minimum-stability": "dev",
     "config": {

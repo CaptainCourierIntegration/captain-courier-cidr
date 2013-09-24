@@ -35,6 +35,7 @@ class Configuration
         $this->loadCidrCapability($configurator, $container);
         $this->loadCourierCredentialsManager($configurator, $container);
         $this->loadModels($configurator, $container);
+        $this->loadIdGenerators($configurator, $container);
 
     }
 
@@ -157,6 +158,23 @@ class Configuration
             array_fill(0, 4, new Inject()),
             "prototype",
             true
+        );
+    }
+
+    public function loadIdGenerators($configurator, $container)
+    {
+        $configurator->add(
+            "shipmentIdGenerator",
+            IntegerIdGenerator::class,
+            [],
+            "container"
+        );
+
+        $configurator->add(
+            "quoteIdGenerator",
+            IntegerIdGenerator::class,
+            [],
+            "container"
         );
     }
 

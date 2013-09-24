@@ -41,7 +41,7 @@ class GetQuote implements CourierCapability
     /**
      * @return CidrResponse
      */
-    function submitCidrRequest(CidrRequest $request = null)
+    function submitCidrRequest(CidrRequest $request)
     {
         $context = $request->getRequestContext();
         $client = new \GearmanClient();
@@ -52,7 +52,7 @@ class GetQuote implements CourierCapability
             json_encode([
                 "collectionPostcode" => $context->getCollectionAddress()->getPostcode(),
                 "deliveryPostcode" => $context->getDeliveryAddress()->getPostcode(),
-                "weight" => $context->getWeight()
+                "weight" => array_sum(array_map(function($p){return $p->getWeight();}, $context->getParcels()))
             ])
         ));
 

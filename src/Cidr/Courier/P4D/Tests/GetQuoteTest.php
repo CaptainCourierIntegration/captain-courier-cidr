@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use Cidr\Model\Task;
 use Cidr\CidrRequestContextGetQuote;
 use Cidr\CidrRequest;
+use Cidr\Model\Address;
 
 /**
  * 
@@ -43,19 +44,30 @@ use Cidr\CidrRequest;
 
  	public function requestProvider()
  	{
- 		$this->setup();
- 		$addresses = $addressprovider->getData();
- 		$requests = [];
- 		foreach ($addresses as $address) {
+ 		$container = $this->setup();
 
+ 		$getQuote = $container->get("getQuote");
+ 		$courierCredentialsManager = $container->get("courierCredentialsManager");
+ 		$addressProvider = $container->get("addressProvider");
+ 		$contactProvider = $container->get("contactProvider");
+
+ 		$addresses = $addressprovider->getData();
+ 		$contacts = $contactProvider->getData();
+ 		
+ 		$requests = [];
+
+ 		$numAddresses = count($addresses);
+ 		for ($i = 1; $i < $numAddresses; $i++) {
+ 			$requests[] = [$addresses[$i-1], $addresses[$i], rand(1, 15)];
  		}
+ 		return $requests;
  	}
 
- 	public function testSubmitRequestThrowsNotImplementedException()
+ 	/** @dataProvider requestProvider */
+ 	public function testSubmitRequestThrowsNotImplementedException(Address $collectionAddress, Address $deliveryAddress, $weight)
  	{
- 		$addresses = $this->addressProvider->getData();
 		$request = new CidrRequest(
-			new CidrRequestContextGetQuote($addresses[0], $addresses[1], 12),
+			new CidrRequestContextGetQuote($collectionAddress, $deliveryAddress, $weight),
 			Task::GET_QUOTE,
 			$this->courierCredentialsManager->getCredentials("ParcelForce"),
 			[]

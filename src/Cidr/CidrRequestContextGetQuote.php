@@ -10,6 +10,7 @@
 namespace Cidr;
 
 use Cidr\Model\Address;
+use Cidr\Model\Contact;
 
 class CidrRequestContextGetQuote
 { use Milk;
@@ -17,10 +18,16 @@ class CidrRequestContextGetQuote
 	/** @var Address */
 	private $collectionAddress;
 
+	/** @var Contact */
+	private $collectionContact;
+
  	/** @var Address */
 	private $deliveryAddress;
 
-	/** @var string in the format /\d+\.\d{2}/ */
-	private $weight;
+	/** @var Contact */
+	private $deliveryContact;
+
+    /** Parcel[] */
+    private $parcels;
 
 }

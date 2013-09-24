@@ -14,6 +14,11 @@ class Quote
 { use TwoSugar;
 
 	private $coreProperties = [
+		/** @var integer identifier of quote exposed to customer */
+		"id",
+
+		/** @var integer identifier of shipment this quote is tied to */
+		"shipmentId",
 
 		/** @var string name of courier */
 		"courierName",

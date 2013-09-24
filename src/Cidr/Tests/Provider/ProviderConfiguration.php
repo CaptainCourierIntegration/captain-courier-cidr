@@ -9,6 +9,7 @@
 namespace Cidr\Tests\Provider;
 
 use Symfony\Component\DependencyInjection\Reference;
+use Bond\Di\Inject;
 
 class ProviderConfiguration
 {
@@ -28,6 +29,22 @@ class ProviderConfiguration
             ]
         );
         $configurator->add("realWorldShipmentProvider", RealWorldShipmentProvider::class);
+
+        $configurator->add(
+            "getQuoteRequestProvider",
+            GetQuoteRequestProvider::class,
+            [
+                new Reference("courierCredentialsManager"),
+                new Reference("addressProvider"),
+                new Reference("contactProvider"),
+                new Reference("parcelProvider"),
+                new Reference("cidrRequestContextGetQuoteFactory"),
+                new Reference("cidrRequestFactory"),
+                new Inject()
+            ],
+            "prototype",
+            true
+        );
     }
 
 }

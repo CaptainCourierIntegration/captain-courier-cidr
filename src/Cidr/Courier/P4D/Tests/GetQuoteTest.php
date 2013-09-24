@@ -16,55 +16,42 @@ use Cidr\CidrRequestContextGetQuote;
 use Cidr\CidrRequest;
 use Cidr\Model\Address;
 use Cidr\Courier\P4D\GetQuote;
+use Cidr\Tests\Provider\GetQuoteRequestProvider;
 
 /**
  * 
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Courier\P4D\Configuration
  * @resource Cidr\Tests\Provider\ProviderConfiguration
- * 
+ * @resource __CLASS__
  */
  class GetQuoteTest extends DiTestCase
  {
+
+ 	public function __invoke($configurator, $container)
+ 	{
+ 		$configurator->add(
+ 			"getQuoteRequestProviderP4D",
+ 			GetQuoteRequestProvider::class,
+ 			["P4D"]
+ 		)
+ 			->setFactoryService("getQuoteRequestProviderFactory")
+ 			->setFactoryMethod("create");
+ 	}
 
  	public function requestProvider()
  	{
  		$container = $this->setup();
 
- 		$courierCredentialsManager = $container->get("courierCredentialsManager");
- 		$addressProvider = $container->get("addressProvider");
- 		$contactProvider = $container->get("contactProvider");
- 		$parcelsProvider = $container->get("parcelProvider");
+ 		$getQuoteProvider = $container->get("getQuoteRequestProviderP4D");
+		$requests = array_slice($getQuoteProvider->getData(), 0, 3);
 
- 		$addresses = \Cidr\wrapCut($addressProvider->getData(), 10);
- 		$contacts = \Cidr\wrapCut($contactProvider->getData(), 10);
- 		$parcels = array_chunk(\Cidr\WrapCut($parcelsProvider->getData(), 30), 3);
+		$dataset = [];
+		foreach ($requests as $request) {
+			$dataset[] = [$container->get("p4dGetQuote"), $request];
+		}
 
- 		$credentialsFactory = $container->get("courierCredentialsManager");
- 		$contextFactory = $container->get("cidrRequestContextGetQuoteFactory");
- 		$requestFactory = $container->get("cidrRequestFactory");
-
-
- 		$dataset = [];
- 		$numAddresses = count($addresses);
- 		for ($i = 1, $j = 0; $i < $numAddresses; $i += 2, $j++) {
- 			$context = $contextFactory->create(
- 				$addresses[$i-1],
- 				$contacts[$i-1],
- 				$addresses[$i],
- 				$contacts[$i],
- 				$parcels[$j]
- 			);
- 			$request = $requestFactory->create(
- 				$context,
- 				Task::GET_QUOTE,
- 				$credentialsFactory->getCredentials("P4D"),
- 				[]
- 			);
- 			$dataset[] = [$container->get("p4dGetQUote"), $request];
- 		}
- 		return $dataset;
-
+		return $dataset;
  	}
 
  	/** @dataProvider requestProvider */
@@ -72,7 +59,6 @@ use Cidr\Courier\P4D\GetQuote;
  	{
 		$response = $getQuote->submitCidrRequest($request);
 		$this->assertNotNull($response);
-		print_r($response->getResponseContext());
  	}
 
  }

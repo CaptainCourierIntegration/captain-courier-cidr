@@ -1,0 +1,72 @@
+parameters: 
+    credentialsFile: res/credentials.yml
+services:
+    # helpful
+    inject: { class: Bond\Di\Inject }
+    stdClass: { class: stdClass }
+
+    # curl
+    curl:
+        class: Curl\Curl
+        scope: prototype
+
+    # cidrCapability
+    cidrCapability:
+        class: Cidr\CidrCapability
+        scope: prototype
+        arguments:
+            - "@inject"
+            - "@cidrValidator"
+
+    # validator
+    cidrValidator:
+        class: Cidr\CidrValidator
+        scope: prototype
+        arguments:
+            - "%courierValidators%"
+            - "@cidrValidationViolationFactory"
+            - "@validatorFactory"
+        calls:
+            - [init, []]
+
+
+    validatorFactory:
+        class: Cidr\Di\ValidatorFactory
+        scope: prototype
+
+    cidrValidationViolation:
+        class: Cidr\CidrValidationViolation
+        scope: prototype
+        arguments:
+            - "@inject"
+            - "@inject"
+            - "@inject"
+
+    # courier credentials manager
+    yamlCourierCredentialsManager:
+        class: Cidr\YamlCourierCredentialsManager
+        scope: prototype
+        arguments:
+            - "%credentialsFile%"
+            - "@yamlParser"
+    courierCredentialsManager:
+        alias: yamlCourierCredentialsManager
+
+    yamlParser:
+        class: Symfony\Component\Yaml\Parser
+        scope: prototype
+
+
+factorybuilder:
+    - factory: curlFactory
+      definition: curl
+      scope: prototype
+
+    - factory: cidrCapabilityFactory
+      definition: cidrCapability
+      scope: prototype
+
+    - factory: cidrValidationViolationFactory
+      definition: cidrValidationViolation
+      scope: prototype
+

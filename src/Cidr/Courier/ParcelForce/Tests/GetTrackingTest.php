@@ -21,7 +21,7 @@ use Cidr\Exception\InvalidArgumentException;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Courier\ParcelForce\Configuration
+ * @resource ../Configuration.yml
  * @resource __CLASS__
  * @service getTrackingTest
  *

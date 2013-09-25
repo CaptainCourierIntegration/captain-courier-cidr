@@ -11,6 +11,8 @@ namespace Cidr;
 
 use Cidr\Exception\FileNotFoundException;
 use Cidr\Model\Task;
+use Cidr\CourierPluginMetadata;
+use Cidr\Exception\IllegalStateException;
 
 class CourierPluginDetector
 { use Milk;
@@ -18,7 +20,9 @@ class CourierPluginDetector
     private $courierFolder;
     private $namespace;
     private $validationPostfix;
-    private $configurationFileName;
+
+    /** @var list of configuration files to look for */
+    private $configurationFileNames;
 
     private $courierMetadataFactory;
 
@@ -43,14 +47,33 @@ class CourierPluginDetector
 
             }
 
-            $configurationFileName = "{$this->courierFolder}/{$courierName}/{$this->configurationFileName}";
-            if (!file_exists($configurationFileName)) {
-                throw new FileNotFoundException($configurationFileName);
+            $configurationResources = [];
+            foreach($this->configurationFileNames as $canonicalConfigurationFileName) {
+                $configurationFileName = "{$this->courierFolder}/{$courierName}/{$canonicalConfigurationFileName}";
+
+                if(!file_exists($configurationFileName)) {
+                    continue;
+                }
+
+                if (\Cidr\endsWith($configurationFileName, ".php")) {
+                    $resourceName = "{$this->namespace}\\{$courierName}\\" . explode (".", $canonicalConfigurationFileName)[0];
+                    $resourceType = CourierPluginMetadata::RESOURCE_CLASS;
+                } else if(\cidr\endsWith($configurationFileName, ".yml")) {
+                    $resourceName = realpath($configurationFileName);
+                    $resourceType = CourierPluginMetadata::RESOURCE_YAML;
+                } else {
+                    throw new IllegalStateException(sprintf("unable to handle configuration file '%s', can handle the following file types: php, yml"));
+                }
+                $configurationResources[$resourceName] = $resourceType;
             }
 
-            $couriers[] = $this->courierMetadataFactory->create (
+            if(count($configurationResources) == 0 ) {
+                throw new IllegalStateException(sprintf("courier plugin for courier '%s' requires at least one configuration file", $courierName));
+            }
+
+            $couriers[] = $this->courierMetadataFactory->create(
                 $courierName,
-                "{$this->namespace}\\{$courierName}\\" . explode (".", $this->configurationFileName)[0],
+                $configurationResources,                    
                 $validationFileNames
             );
         }

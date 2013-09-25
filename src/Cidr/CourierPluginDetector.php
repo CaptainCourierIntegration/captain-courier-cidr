@@ -49,7 +49,6 @@ class CourierPluginDetector
 
             $configurationResources = [];
             foreach($this->configurationFileNames as $canonicalConfigurationFileName) {
-                d($canonicalConfigurationFileName);
                 $configurationFileName = "{$this->courierFolder}/{$courierName}/{$canonicalConfigurationFileName}";
 
                 if(!file_exists($configurationFileName)) {
@@ -67,8 +66,6 @@ class CourierPluginDetector
                 }
                 $configurationResources[$resourceName] = $resourceType;
             }
-
-            d($configurationResources);
 
             $couriers[] = $this->courierMetadataFactory->create(
                 $courierName,

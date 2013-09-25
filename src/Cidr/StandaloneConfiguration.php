@@ -30,7 +30,7 @@ class StandaloneConfiguration
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
-        $configurator->load(BootstrapConfiguration::class);
+        $configurator->load(__DIR__ . "/BootstrapConfiguration.yml");
         return $container;
     }
 
@@ -38,9 +38,19 @@ class StandaloneConfiguration
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
-        $configurator->load(new Configuration($courierPlugins));
+        $configurator->load(__DIR__ . "/Configuration.yml");
+
+        $courierValidators = [];
+        foreach ($courierPlugins as $plugin) {
+            $courierValidators[$plugin->getCourierName()] =
+                $plugin->getValidationFiles();
+        }
+        $container->setParameter("courierValidators", $courierValidators);
+
         foreach($courierPlugins as $plugin) {
-            $configurator->load($plugin->getConfigurationClass());
+            foreach ($plugin->getConfigurationResources() as $resource => $type) {
+                $configurator->load($resource);
+            }
         }
         return $container;
     }

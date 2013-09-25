@@ -1,0 +1,46 @@
+parameters:
+    parcelForce.name: ParcelForce
+services:
+    parcelForceShipService:
+        class: Cidr\Courier\ParcelForce\Api\ShipService
+        scope: prototype
+
+    parcelForceCreateShipment:
+        class: Cidr\Courier\ParcelForce\CreateShipment
+        scope: prototype
+        arguments:
+            - "@parcelForceShipServiceFactory"
+            - "%parcelForce.name%"
+            - "@shipmentIdGenerator"
+        tags:
+            - { name: cidr_capability }
+
+    parcelForceGetTracking:
+        class: Cidr\Courier\ParcelForce\GetTracking
+        scope: prototype
+        arguments: [ "%parcelForce.name%" ]
+        tags:
+            - { name: cidr_capability }
+
+    parcelForceGetQuote:
+        class: Cidr\Courier\ParcelForce\GetQuote
+        scope: prototype
+        arguments: [ "%parcelForce.name%" ]
+        tags:
+            - { name: cidr_capability }
+
+    parcelForcePrintLabel:
+        class: Cidr\Courier\ParcelForce\PrintLabel
+        scope: prototype
+        arguments: 
+            - "@parcelForceShipServiceFactory"
+            - "%parcelForce.name%"
+        tags:
+            - { name: cidr_capability }
+
+
+factorybuilder:
+    - factory: parcelForceShipServiceFactory
+      definition: parcelForceShipService
+      scope: prototype
+

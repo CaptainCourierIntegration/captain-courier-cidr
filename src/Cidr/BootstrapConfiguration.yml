@@ -1,0 +1,26 @@
+parameters: ~
+services:
+    inject: { class: Bond\Di\Inject }
+
+    courierPlugin:
+        class: Cidr\CourierPluginMetadata
+        scope: prototype        
+        arguments: [ "@inject", "@inject", "@inject" ]
+
+    courierPluginDetector:
+        class: Cidr\CourierPluginDetector
+        scope: prototype        
+        arguments:
+            - src/Cidr/Courier
+            - Cidr\\Courier
+            - Validation.yml
+            - [ "Configuration.php", "Configuration.yml" ]
+            - "@courierPluginFactory"
+            - false
+
+factorybuilder:
+    - factory: courierPluginFactory
+      definition: courierPlugin
+      scope: prototype
+
+

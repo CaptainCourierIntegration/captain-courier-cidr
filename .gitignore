@@ -9,3 +9,4 @@ res/credentials.yml
 script/
 res/testproperties.yml
 vendor/
+res/testconfiguration.yml

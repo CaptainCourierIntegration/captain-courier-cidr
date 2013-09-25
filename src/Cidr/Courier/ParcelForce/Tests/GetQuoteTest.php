@@ -18,8 +18,8 @@ use Cidr\CidrResponse;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Courier\ParcelForce\Configuration
  * @resource Cidr\Tests\Provider\ProviderConfiguration
+ * @resource ../Configuration.yml
  * @resource __CLASS__
  */
 class GetQuoteTest extends DiTestCase

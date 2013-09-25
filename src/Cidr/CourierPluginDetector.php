@@ -59,7 +59,7 @@ class CourierPluginDetector
                     $resourceName = "{$this->namespace}\\{$courierName}\\" . explode (".", $canonicalConfigurationFileName)[0];
                     $resourceType = CourierPluginMetadata::RESOURCE_CLASS;
                 } else if(\cidr\endsWith($configurationFileName, ".yml")) {
-                    $resourceName = $configurationFileName;
+                    $resourceName = realpath($configurationFileName);
                     $resourceType = CourierPluginMetadata::RESOURCE_YAML;
                 } else {
                     throw new IllegalStateException(sprintf("unable to handle configuration file '%s', can handle the following file types: php, yml"));

@@ -46,7 +46,7 @@ class GetTrackingTest extends DiTestCase
 			"requestContext",
 			CidrRequestContextGetTracking::class,
 			[
-				"CN5752885"//"MK0730971"
+				"MK0730971"
 			]
 		);
 

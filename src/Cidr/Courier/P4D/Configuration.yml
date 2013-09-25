@@ -1,0 +1,22 @@
+parameters:
+    p4dApiUrl: https://www.p4d.co.uk/p4d/api/v2
+    p4dName: P4D
+services:
+    p4dCreateShipment:
+        class: Cidr\Courier\P4D\CreateShipment
+        arguments:
+            - '%p4dApiUrl%'
+            - '%p4dname%'
+            - '@curl'
+        scope: prototype
+        tags:
+            - { name: cidr_capability }
+
+    p4dPrintLabel:
+        class: Cidr\Courier\P4D\PrintLabel
+        arguments:
+            - "%p4dApiUrl%"
+            - "%p4dName%"
+        scope: prototype
+        tags:
+            - { name: cidr_capability }

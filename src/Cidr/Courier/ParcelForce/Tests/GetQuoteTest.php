@@ -17,7 +17,7 @@ use Cidr\CidrRequestContextGetQuote;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Courier\ParcelForce\Configuration
+ * @resource ../Configuration.yml
  * @resource __CLASS__
  * @service getQuoteTest
  */

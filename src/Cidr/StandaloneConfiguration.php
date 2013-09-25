@@ -38,7 +38,15 @@ class StandaloneConfiguration
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
-        $configurator->load(new Configuration($courierPlugins));
+        $configurator->load(__DIR__ . "/Configuration.yml");
+
+        $courierValidators = [];
+        foreach ($courierPlugins as $plugin) {
+            $courierValidators[$plugin->getCourierName()] =
+                $plugin->getValidationFiles();
+        }
+        $container->setParameter("courierValidators", $courierValidators);
+
         foreach($courierPlugins as $plugin) {
             foreach ($plugin->getConfigurationResources() as $resource => $type) {
                 $configurator->load($resource);

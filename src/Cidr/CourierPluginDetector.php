@@ -67,6 +67,10 @@ class CourierPluginDetector
                 $configurationResources[$resourceName] = $resourceType;
             }
 
+            if(count($configurationResources) == 0 ) {
+                throw new IllegalStateException(sprintf("courier plugin for courier '%s' requires at least one configuration file", $courierName));
+            }
+
             $couriers[] = $this->courierMetadataFactory->create(
                 $courierName,
                 $configurationResources,                    

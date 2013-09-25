@@ -20,6 +20,7 @@ use Cidr\CidrResponseContextGetTracking;
 use Cidr\Exception\InvalidArgumentException;
 
 /**
+ * @resource ../../../../../res/testconfiguration.yml
  * @resource Cidr\StandaloneConfiguration
  * @resource ../Configuration.yml
  * @resource __CLASS__
@@ -46,7 +47,7 @@ class GetTrackingTest extends DiTestCase
 			"requestContext",
 			CidrRequestContextGetTracking::class,
 			[
-				"MK0730971"
+				"%shipmentNumber%"
 			]
 		);
 

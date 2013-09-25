@@ -38,7 +38,7 @@ class BootstrapConfiguration
                 __DIR__ . "/Courier",
                 "Cidr\\Courier",
                 "Validation.yml",
-                "Configuration.php",
+                ["Configuration.php", "Configuration.yml"],
                 new Reference("courierPluginFactory"),
                 false
             ]

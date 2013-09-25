@@ -40,7 +40,9 @@ class StandaloneConfiguration
         $configurator = new Configurator($container);
         $configurator->load(new Configuration($courierPlugins));
         foreach($courierPlugins as $plugin) {
-            $configurator->load($plugin->getConfigurationClass());
+            foreach ($plugin->getConfigurationResources() as $resource => $type) {
+                $configurator->load($resource);
+            }
         }
         return $container;
     }

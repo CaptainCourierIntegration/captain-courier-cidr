@@ -12,8 +12,14 @@ namespace Cidr;
 class CourierPluginMetadata
 { use Milk;
 
+	const RESOURCE_CLASS = "class";
+	const RESOURCE_YAML = "yaml";
+
+	/** @var string name of courier */
     private $courierName;
-    private $configurationClass;
+
+    /** @var array associative array from fileName/resource to its type which is one of: RESOURCE_CLASS, RESOURCE_YAML */
+    private $configurationResources;
 
     /** associative array from task to file */
     private $validationFiles;

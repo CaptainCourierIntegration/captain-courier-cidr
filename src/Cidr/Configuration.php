@@ -90,7 +90,9 @@ class Configuration
     private function loadCourierPlugins($configurator, $container)
     {
         foreach ($this->courierPlugins as $plugin) {
-            $configurator->load($plugin->getConfigurationClass());
+            foreach ($plugin->getConfigurationResources() as $resource => $type) {
+                $configurator->load($resource);
+            }
         }
     }
 

@@ -30,7 +30,7 @@ class StandaloneConfiguration
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
-        $configurator->load(BootstrapConfiguration::class);
+        $configurator->load(__DIR__ . "/BootstrapConfiguration.yml");
         return $container;
     }
 

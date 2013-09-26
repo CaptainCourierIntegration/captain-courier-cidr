@@ -40,7 +40,8 @@ class CreateShipmentTest extends DiTestCase
             CreateShipment::class,
             [
                 new Reference("parcelForceMockedShipServiceFactory"),
-                "ParcelForceTest"
+                "ParcelForceTest",
+                new Reference("shipmentIdGenerator")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

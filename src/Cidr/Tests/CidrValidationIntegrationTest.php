@@ -26,6 +26,8 @@ use Cidr\Model\Task;
  * Class CidrValidationIntegrationTest
  * @package Cidr\Tests
  *
+ * @group integration 
+ *
  * @resource Cidr\StandaloneConfiguration
  */
 class CidrValidationIntegrationTest extends DiTestCase

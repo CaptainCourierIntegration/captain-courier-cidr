@@ -7,4 +7,17 @@
     <php>
         <ini name="memory_limit" value="2047M" />
     </php>
+
+    <testsuites>
+        <testsuite name="integration">
+            <directory suffix="Test.php">src/</directory>
+        </testsuite>
+    </testsuites>
+
+    <groups>
+        <include>
+            <group>integration</group>
+        </include>
+    </groups>
+
 </phpunit>

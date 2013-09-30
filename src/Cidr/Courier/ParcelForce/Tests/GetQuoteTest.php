@@ -16,6 +16,8 @@ use Cidr\Model\Task;
 use Cidr\CidrRequestContextGetQuote;
 
 /**
+ * @group integration
+ * 
  * @resource Cidr\StandaloneConfiguration
  * @resource ../Configuration.yml
  * @resource __CLASS__

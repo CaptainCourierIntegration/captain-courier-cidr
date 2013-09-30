@@ -8,7 +8,6 @@ cd -
 sleep 1
 echo "waiting for scrappy to setup"
 echo "starting tests"
-# phpunit --configuration=phpunit.xml src/Cidr/Courier/P4D/Tests
-phpunit --configuration=phpunit.xml src/Cidr/Courier/ParcelForce/Tests
+phpunit --configuration=unittest.xml
 echo "killing process scrappy process '$pid'"
 kill $pid

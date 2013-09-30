@@ -31,8 +31,9 @@ use Cidr\Model\Shipment;
 use Cidr\Model\Parcel;
 
 use Bond\Di\DiTestCase;
-
 /**
+ * @group integration
+ *
  * @service stdClass
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Tests\CidrRequestFactoryConfiguration
@@ -105,7 +106,8 @@ class CidrIntegrationTest extends DiTestCase
         $cidrResponse = $cidrCapability->submitCidrRequest($request);
 
         $this->assertInstanceOf(CidrResponse::class, $cidrResponse);
-
+        d('hello world');
+        d($cidrResponse->getResponseContext());
         $this->assertInstanceOf(
             CidrResponseContextCreateShipment::class,
             $cidrResponse->getResponseContext()

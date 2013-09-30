@@ -17,6 +17,8 @@ use Cidr\CidrRequestContextGetQuote;
 use Cidr\CidrResponse;
 
 /**
+ * @group integration
+ * 
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Tests\Provider\ProviderConfiguration
  * @resource ../Configuration.yml

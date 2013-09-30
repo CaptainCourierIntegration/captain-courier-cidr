@@ -2,7 +2,6 @@ parameters:
     p4dApiUrl: https://www.p4d.co.uk/p4d/api/v2
     p4dName: P4D
 services:
-
     p4dCreateShipment:
         class: Cidr\Courier\P4D\CreateShipment
         scope: prototype        
@@ -33,6 +32,5 @@ services:
         arguments:
             - "%p4dApiUrl%"
             - "%p4dName%"
-
         tags:
             - { name: cidr_capability }

@@ -1,0 +1,23 @@
+<phpunit bootstrap="vendor/autoload.php"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         colors="false"
+         stopOnFailure="false">
+    <php>
+        <ini name="memory_limit" value="2047M" />
+    </php>
+
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">src/</directory>
+        </testsuite>
+    </testsuites>
+
+    <groups>
+        <exclude>
+            <group>integration</group>
+        </exclude>
+    </groups>
+
+</phpunit>

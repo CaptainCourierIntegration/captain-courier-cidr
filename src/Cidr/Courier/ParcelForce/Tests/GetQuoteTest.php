@@ -20,7 +20,7 @@ use Cidr\CidrResponse;
  * @group integration
  * 
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Tests\Provider\ProviderConfiguration
+ * @resource ./../../../Tests/Provider/ProviderConfiguration.yml
  * @resource ../Configuration.yml
  * @resource __CLASS__
  */

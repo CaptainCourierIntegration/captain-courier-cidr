@@ -117,8 +117,8 @@ class CreateShipment implements CourierCapability
             ),
             Task::GET_QUOTE,
             $request->getCourierCredentials()
-
-        )
+        );
+        throw new \Exception("not implemented");
     }
 
 
@@ -136,7 +136,7 @@ class CreateShipment implements CourierCapability
             $sortedQuotes[$quote->totalPrice] = $quote;
         }
         ksort($sortedQuotes);
-        return array_shift(array_values($sortedQuotes);
+        return array_shift(array_values($sortedQuotes));
     }
 
 

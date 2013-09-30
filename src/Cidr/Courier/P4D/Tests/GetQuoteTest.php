@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Cidr\Courier\P4D;
+namespace Cidr\Courier\P4D\Tests;
 
 use Bond\Di\DiTestCase;
 use Symfony\Component\DependencyInjection\Reference;
@@ -19,10 +19,11 @@ use Cidr\Courier\P4D\GetQuote;
 use Cidr\Tests\Provider\GetQuoteRequestProvider;
 
 /**
- * 
+ * @group integration
+ * @group p4d
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Courier\P4D\Configuration
- * @resource Cidr\Tests\Provider\ProviderConfiguration
+ * @resource ./../Configuration.yml
+ * @resource ./../../../Tests/Provider/ProviderConfiguration.yml
  * @resource __CLASS__
  */
  class GetQuoteTest extends DiTestCase

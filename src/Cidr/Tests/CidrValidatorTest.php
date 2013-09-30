@@ -20,8 +20,7 @@ use Bond\Di\DiTestCase;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Tests\Provider\ProviderConfiguration
- * @service stdClass
+ * @resource ./Provider/ProviderConfiguration.yml
  */
 class CidrValidatorTest extends DiTestCase
 {

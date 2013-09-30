@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource ./../../../Tests/Provider/ProviderConfiguration
+ * @resource ./../../../Tests/Provider/ProviderConfiguration.yml
  * @resource __CLASS__
  * @service parcelForceCreateShipmentTest
  */

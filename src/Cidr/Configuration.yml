@@ -63,7 +63,7 @@ services:
         arguments: ["@inject", "@inject", "@inject", "@inject", "@inject"]
 
     cidrResponseContextGetQuote:
-        class: Cidr\cidrResponseContextGetQuote
+        class: Cidr\CidrResponseContextGetQuote
         scope: prototype
         arguments: ["@inject"]
 

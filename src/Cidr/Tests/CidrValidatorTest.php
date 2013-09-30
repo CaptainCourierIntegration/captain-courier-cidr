@@ -41,7 +41,9 @@ class CidrValidatorTest extends DiTestCase
         return $args;
     }
 
-    /** @dataProvider provideShipment */
+    /** 
+     * @dataProvider provideShipment 
+     */
     public function testCidrValidatorIsAnInstanceOfCidrValidator($cidrValidator, $shipment)
     {
         $this->assertInstanceOf(

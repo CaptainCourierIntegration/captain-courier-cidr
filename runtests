@@ -8,6 +8,6 @@ cd -
 sleep 1
 echo "waiting for scrappy to setup"
 echo "starting tests"
-phpunit --configuration=phpunit.xml src
+phpunit --configuration=unittest.xml
 echo "killing process scrappy process '$pid'"
 kill $pid

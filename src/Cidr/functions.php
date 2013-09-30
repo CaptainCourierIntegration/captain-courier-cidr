@@ -61,6 +61,18 @@ namespace Cidr {
     }
 
     /**
+     *
+     * if length of array greater than n then cuts off elements, if length less than n then wrap array to length n
+     */
+    function wrapCut(array $array, $n) {
+        $newArray = [];
+        while (count($newArray) < $n) {
+            $newArray = array_merge($newArray, $array);
+        }
+        return array_slice($newArray, 0, $n);
+    }
+
+    /**
      * if no premise is supplied, the not null assertion will be applied
      * @param $argument
      * @param $premise

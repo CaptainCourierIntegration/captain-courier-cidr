@@ -9,24 +9,31 @@
 
 namespace Cidr\Model;
 
-use Cidr\Milk;
 
 class Quote
-{ use Milk;
+{ use TwoSugar;
 
-	/** @var string name of service human readable */
-	private $serviceName;
+	private $coreProperties = [
+		/** @var integer identifier of quote exposed to customer */
+		"id",
 
-	/** @var string human readable message describing how long it takes to be delivered */
-	private $deliveryEstimate;
+		/** @var integer identifier of shipment this quote is tied to */
+		"shipmentId",
 
-	/** @var string price of quote, in format ##.## where # is a digit in the range 0-9. can have an arbitrary number of significant digits. */
-	private $price;
+		/** @var string name of courier */
+		"courierName",
 
-	/** @var bool true if VAT is included in the quote price, false otherwise. */
-	private $includesVat;
+		/** @var string name of service human readable */
+		"serviceName",
 
-	/** @var string human readable price indicating how much compensation can be provided by courier if damaged/lost, etc */
-	private $compensation;
+		/** @var string human readable message describing how long it takes to be delivered */
+		"deliveryEstimate",
+
+		/** @var string price of quote, in format ##.## where # is a digit in the range 0-9. can have an arbitrary number of significant digits. */
+		"price",
+
+		/** @var bool true if VAT is included in the quote price, false otherwise. */
+		"includesVat"
+	];
 
 }

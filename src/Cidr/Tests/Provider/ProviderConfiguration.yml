@@ -1,0 +1,44 @@
+
+services:
+    inject:
+        class: Bond\Di\Inject
+        scope: prototype
+
+    addressProvider:
+        class: Cidr\Tests\Provider\RealWorldAddressProvider
+        scope: prototype
+
+    contactProvider:
+        class: Cidr\Tests\Provider\ContactProvider
+        scope: prototype
+
+    parcelProvider:
+        class: Cidr\Tests\Provider\ParcelProvider
+        scope: prototype
+
+    shipmentProvider:
+        class: Cidr\Tests\Provider\shipmentProvider
+        scope: prototype
+        arguments:
+            - "@addressProvider"
+            - "@contactProvider"
+            - "@parcelProvider"
+
+    realWorldShipmentProvider:
+        class: Cidr\Tests\Provider\RealWorldShipmentProvider
+        scope: prototype
+
+    getQuoteRequestProvider:
+        class: Cidr\Tests\Provider\GetQuoteRequestProvider
+        scope: prototype
+        arguments:
+            - "@courierCredentialsManager"
+            - "@addressProvider"
+            - "@contactProvider"
+            - "@parcelProvider"
+            - "@cidrRequestContextGetQuoteFactory"
+            - "@cidrRequestFactory"
+            - "@inject"
+
+factorybuilder:
+    getQuoteRequestProviderFactory: getQuoteRequestProvider

@@ -40,6 +40,7 @@ class CreateShipment implements CourierCapability
 
     private $shipServiceFactory;
     private $courierName;
+    private $idGenerator;
 
     function getTask()
     {
@@ -109,6 +110,7 @@ class CreateShipment implements CourierCapability
 
             if ($createShipmentReply->CompletedShipmentInfo->Status === "ALLOCATED") {
                 $responseContext = new CidrResponseContextCreateShipment(
+                    $this->idGenerator->nextId(),
                     $shipmentNumber
                 );
                 $cidrResponseStatus = CidrResponse::STATUS_SUCCESS;

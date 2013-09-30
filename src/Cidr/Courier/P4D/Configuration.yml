@@ -4,19 +4,33 @@ parameters:
 services:
     p4dCreateShipment:
         class: Cidr\Courier\P4D\CreateShipment
+        scope: prototype        
         arguments:
             - '%p4dApiUrl%'
             - '%p4dname%'
             - '@curl'
+            - '@p4dGetQuote'
+            - '@shipmentIdGenerator'
+        tags:
+            - { name: cidr_capability }
+
+    p4dGetQuote:
+        class: Cidr\Courier\P4D\GetQuote
         scope: prototype
+        arguments:
+            - "%p4dName%"
+            - "%p4dApiUrl%"
+            - "@curl"
+            - "@cidrResponseFactory"
+            - "@cidrResponseContextGetQuoteFactory"
         tags:
             - { name: cidr_capability }
 
     p4dPrintLabel:
         class: Cidr\Courier\P4D\PrintLabel
+        scope: prototype
         arguments:
             - "%p4dApiUrl%"
             - "%p4dName%"
-        scope: prototype
         tags:
             - { name: cidr_capability }

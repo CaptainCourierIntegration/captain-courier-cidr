@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @resource Cidr\StandaloneConfiguration
- * @resource Cidr\Tests\Provider\ProviderConfiguration
+ * @resource ./../../../Tests/Provider/ProviderConfiguration.yml
  * @resource __CLASS__
  * @service parcelForceCreateShipmentTest
  */
@@ -40,7 +40,8 @@ class CreateShipmentTest extends DiTestCase
             CreateShipment::class,
             [
                 new Reference("parcelForceMockedShipServiceFactory"),
-                "ParcelForceTest"
+                "ParcelForceTest",
+                new Reference("shipmentIdGenerator")
             ]
         )->addTag(Tag::CIDR_CAPABILITY);
 

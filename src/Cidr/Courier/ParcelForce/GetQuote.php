@@ -16,6 +16,7 @@ use Cidr\CidrRequest;
 use Cidr\Model\Quote;
 use Cidr\CidrResponse;
 use Cidr\CidrResponseContextGetQuote;
+use Bond\Gearman\ServerStatus;
 
 class GetQuote implements CourierCapability
 { use Milk;
@@ -41,30 +42,38 @@ class GetQuote implements CourierCapability
     /**
      * @return CidrResponse
      */
-    function submitCidrRequest(CidrRequest $request = null)
+    function submitCidrRequest(CidrRequest $request)
     {
         $context = $request->getRequestContext();
+
+        $serverStatus = new ServerStatus();
+        d($serverStatus->getStatus());
+        if (!$serverStatus->isAlive()) {
+            throw new \Exception("NO GEARMAN SERVER!!!");
+        }
+
         $client = new \GearmanClient();
         $client->addServer();
 
         $output = json_decode($client->doNormal(
             "node.scrappy.ParcelForce.getQuotes",
             json_encode([
-                "collectionPostcode" => $context->getCollectionPostcode(),
-                "deliveryPostcode" => $context->getDeliveryPostcode(),
-                "weight" => $context->getWeight()
+                "collectionPostcode" => $context->getCollectionAddress()->getPostcode(),
+                "deliveryPostcode" => $context->getDeliveryAddress()->getPostcode(),
+                "weight" => array_sum(array_map(function($p){return $p->getWeight();}, $context->getParcels()))
             ])
         ));
 
         $quotes = [];
         foreach ($output as $quote) {
-            $quotes[] = new Quote(
-                $quote->service,
-                $quote->delivery,
-                $quote->price,
-                $quote->vatIncluded,
-                $quote->compensation
-            );
+            $quotes[] = new Quote([
+                "courierName" => $this->courierName,
+                "serviceName" => $quote->service,
+                "deliveryEstimate" => $quote->delivery,
+                "price" => $quote->price,
+                "includesVat" => $quote->vatIncluded,
+                "compensation" => $quote->compensation
+            ]);
         }
 
         return new CidrResponse(

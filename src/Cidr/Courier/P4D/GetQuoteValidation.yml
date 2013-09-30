@@ -21,5 +21,3 @@ Cidr\CidrRequestContextGetQuote:
             - Type: string
             - NotNull: ~
 
-
-

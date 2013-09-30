@@ -7,32 +7,34 @@
  * file that was distributed with this source code.
  */
 
-namespace Cidr\Courier\ParcelForce\Tests;
+namespace Cidr\Courier\P4D\Tests;
 
 use Bond\Di\DiTestCase;
 use Symfony\Component\DependencyInjection\Reference;
-use Cidr\CidrRequest;
 use Cidr\Model\Task;
 use Cidr\CidrRequestContextGetQuote;
-use Cidr\CidrResponse;
+use Cidr\CidrRequest;
+use Cidr\Model\Address;
+use Cidr\Courier\P4D\GetQuote;
+use Cidr\Tests\Provider\GetQuoteRequestProvider;
 
 /**
  * @group integration
- * 
+ * @group p4d
  * @resource Cidr\StandaloneConfiguration
+ * @resource ./../Configuration.yml
  * @resource ./../../../Tests/Provider/ProviderConfiguration.yml
- * @resource ../Configuration.yml
  * @resource __CLASS__
  */
-class GetQuoteTest extends DiTestCase
-{
+ class GetQuoteTest extends DiTestCase
+ {
 
  	public function __invoke($configurator, $container)
  	{
  		$configurator->add(
- 			"getQuoteRequestProviderParcelForce",
+ 			"getQuoteRequestProviderP4D",
  			GetQuoteRequestProvider::class,
- 			["ParcelForce"]
+ 			["P4D"]
  		)
  			->setFactoryService("getQuoteRequestProviderFactory")
  			->setFactoryMethod("create");
@@ -42,36 +44,22 @@ class GetQuoteTest extends DiTestCase
  	{
  		$container = $this->setup();
 
- 		$getQuoteProvider = $container->get("getQuoteRequestProviderParcelForce");
+ 		$getQuoteProvider = $container->get("getQuoteRequestProviderP4D");
 		$requests = array_slice($getQuoteProvider->getData(), 0, 3);
 
 		$dataset = [];
 		foreach ($requests as $request) {
-			$dataset[] = [$container->get("parcelForceGetQuote"), $request];
+			$dataset[] = [$container->get("p4dGetQuote"), $request];
 		}
 
 		return $dataset;
  	}
 
  	/** @dataProvider requestProvider */
-	public function testGetQuoteDoesNotThrowException($getQuote, $request)
-	{
+ 	public function testSubmitRequestThrowsNotImplementedException(GetQuote $getQuote, CidrRequest $request)
+ 	{
 		$response = $getQuote->submitCidrRequest($request);
-	}
+		$this->assertNotNull($response);
+ 	}
 
- 	/** @dataProvider requestProvider */
-	public function testGetQuoteDoesNotReturnNull($getQuote, $request)
-	{
-		$response = $getQuote->submitCidrRequest($request);		
-		$this->assertNotNull( $response );
-	}
-
- 	/** @dataProvider requestProvider */
-	public function testGetQuoteReturnsInstanceOfCidrResponse($getQuote, $request)
-	{
-		$response = $getQuote->submitCidrRequest($request);		
-		$this->assertInstanceOf(CidrResponse::class, $response);
-	}
-	
-
-}
+ }

@@ -12,8 +12,19 @@ namespace Cidr\Exception;
 class NotImplementedException extends IllegalStateException
 {
 
+	/**
+ 	 *
+	 * takes either no args or 2 args which are: class, method
+	 */
     public function __construct()
     {
-        parent::__construct("method not implemented");
+        $args = func_get_args();
+        $msg = "";
+        if(1 === count($args)) {
+            $msg = $args[0];
+        } elseif(2 == count($args)) {
+            $msg = $args[0] . "::" . $args[1];
+		} 
+        parent::__construct("method not implemented" . ($msg ? ": {$msg}" : ""));
     }
 }

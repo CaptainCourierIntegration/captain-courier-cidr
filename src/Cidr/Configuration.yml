@@ -56,17 +56,41 @@ services:
         class: Symfony\Component\Yaml\Parser
         scope: prototype
 
+    # models
+    cidrRequestContextGetQuote:
+        class: Cidr\CidrRequestContextGetQuote
+        scope: prototype
+        arguments: ["@inject", "@inject", "@inject", "@inject", "@inject"]
+
+    cidrResponseContextGetQuote:
+        class: Cidr\CidrResponseContextGetQuote
+        scope: prototype
+        arguments: ["@inject"]
+
+    cidrRequest:
+        class: Cidr\CidrRequest
+        scope: prototype
+        arguments: ["@inject", "@inject", "@inject", "@inject"]
+
+    cidrResponse:
+        class: Cidr\cidrResponse
+        scope: prototype
+        arguments: ["@inject", "@inject", "@inject", "@inject"]
+
+    # idGenerators
+    shipmentIdGenerator:
+        class: Cidr\IntegerIdGenerator
+        scope: container
+
+    quoteIdGenerator:
+        class: Cidr\IntegerIdGenerator
+        scope: container
 
 factorybuilder:
-    - factory: curlFactory
-      definition: curl
-      scope: prototype
-
-    - factory: cidrCapabilityFactory
-      definition: cidrCapability
-      scope: prototype
-
-    - factory: cidrValidationViolationFactory
-      definition: cidrValidationViolation
-      scope: prototype
-
+    curlFactory: curl
+    cidrCapabilityFactory: cidrCapability
+    cidrValidationViolationFactory: cidrValidationViolation
+    cidrRequestContextGetQuoteFactory: cidrRequestContextGetQuote
+    cidrResponseContextGetQuoteFactory: cidrResponseContextGetQuote
+    cidrRequestFactory: cidrRequest
+    cidrResponseFactory: cidrResponse

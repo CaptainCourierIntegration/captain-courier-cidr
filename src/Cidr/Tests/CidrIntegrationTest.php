@@ -37,7 +37,7 @@ use Bond\Di\DiTestCase;
  * @service stdClass
  * @resource Cidr\StandaloneConfiguration
  * @resource Cidr\Tests\CidrRequestFactoryConfiguration
- * @resource Cidr\Tests\Provider\ProviderConfiguration
+ * @resource ./Provider/ProviderConfiguration.yml
  * @resource __CLASS__
  */
 class CidrIntegrationTest extends DiTestCase

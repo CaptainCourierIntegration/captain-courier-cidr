@@ -11,6 +11,7 @@ services:
         arguments:
             - "@parcelForceShipServiceFactory"
             - "%parcelForce.name%"
+            - "@shipmentIdGenerator"
         tags:
             - { name: cidr_capability }
 

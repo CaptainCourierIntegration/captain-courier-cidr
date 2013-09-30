@@ -16,6 +16,7 @@ use Cidr\CidrRequest;
 use Cidr\Model\Quote;
 use Cidr\CidrResponse;
 use Cidr\CidrResponseContextGetQuote;
+use Bond\Gearman\ServerStatus;
 
 class GetQuote implements CourierCapability
 { use Milk;
@@ -44,6 +45,13 @@ class GetQuote implements CourierCapability
     function submitCidrRequest(CidrRequest $request)
     {
         $context = $request->getRequestContext();
+
+        $serverStatus = new ServerStatus();
+        d($serverStatus->getStatus());
+        if (!$serverStatus->isAlive()) {
+            throw new \Exception("NO GEARMAN SERVER!!!");
+        }
+
         $client = new \GearmanClient();
         $client->addServer();
 

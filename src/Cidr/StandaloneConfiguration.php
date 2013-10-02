@@ -26,10 +26,16 @@ class StandaloneConfiguration
         $container->merge($productionContainer);
     }
 
+    private function setProperties($container)
+    {
+        $container->setParameter("projectRoot", realpath(__DIR__ . "/../../"));
+    }
+
     private function buildBootstrapContainer()
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
+        $this->setProperties($container);
         $configurator->load(__DIR__ . "/BootstrapConfiguration.yml");
         return $container;
     }
@@ -38,6 +44,7 @@ class StandaloneConfiguration
     {
         $container = new ContainerBuilder();
         $configurator = new Configurator($container);
+        $this->setProperties($container);        
         $configurator->load(__DIR__ . "/Configuration.yml");
 
         $courierValidators = [];

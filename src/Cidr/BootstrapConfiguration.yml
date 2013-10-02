@@ -11,7 +11,7 @@ services:
         class: Cidr\CourierPluginDetector
         scope: prototype        
         arguments:
-            - src/Cidr/Courier
+            - "%projectRoot%/src/Cidr/Courier"
             - Cidr\\Courier
             - Validation.yml
             - [ "Configuration.php", "Configuration.yml" ]

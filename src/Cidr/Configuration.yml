@@ -1,5 +1,5 @@
 parameters: 
-    credentialsFile: res/credentials.yml
+    credentialsFile: "%projectRoot%/res/credentials.yml"
 services:
     # helpful
     inject: { class: Bond\Di\Inject }
